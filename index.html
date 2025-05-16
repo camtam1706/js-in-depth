@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Foundations</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach((card, i) => {
+        setTimeout(() => {
+          card.classList.remove('opacity-0', 'translate-y-10');
+        }, 100 * i);
+      });
+    });
+  </script>
+</head>
+
+<body class="bg-gray-100 min-h-screen font-sans">
+  <header class="bg-blue-600 text-white text-center py-8 shadow-md">
+    <h1 class="text-4xl font-bold animate-pulse">JavaScript Foundations</h1>
+    <p class="text-lg mt-2">Explore the core concepts of JavaScript in a modern, elegant way</p>
+  </header>
+
+  <main class="py-12 px-6 max-w-7xl mx-auto grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <!-- Card Enabled -->
+    <div class="card bg-white transform transition duration-300 ease-out shadow-lg rounded-2xl p-6 opacity-0 translate-y-10 hover:scale-105 hover:shadow-xl cursor-pointer">
+      <h2 class="text-xl font-semibold text-blue-700 mb-2">Introduction to JavaScript</h2>
+      <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
+        <li><strong>What is JavaScript?</strong></li>
+        <li><strong>How Compilation Works</strong></li>
+        <li><strong>JavaScript Engines</strong></li>
+      </ul>
+    </div>
+  
+    <!-- Card Disabled -->
+    <script>
+      const topics = [
+        "Values, Variables and Operators",
+        "JavaScript Types",
+        "JavaScript Conditionals",
+        "JavaScript Arrays",
+        "JavaScript Loops",
+        "JavaScript Functions",
+        "JavaScript Scope",
+        "JavaScript Regular Expression",
+        "JavaScript OOP",
+        "JavaScript Functional Programming Primer",
+        "JavaScript Web Development",
+        "JavaScript Asynchronous Programming",
+        "JavaScript Modern Workflow",
+        "JavaScript Future Awaits"
+      ];
+  
+      document.write(
+        topics.map((title) => `
+          <div class="card bg-gray-200 text-gray-500 rounded-2xl p-6 opacity-0 translate-y-10 shadow-inner cursor-not-allowed">
+            <h2 class="text-xl font-semibold mb-2">${title}</h2>
+            <p class="text-sm mt-2">Learn the essentials and nuances of <strong>${title.split(" ")[1] || 'JavaScript'}</strong>.</p>
+          </div>
+        `).join('')
+      );
+    </script>
+  </main>
+  
+
+  <footer class="text-center text-sm text-gray-500 py-6">
+    &copy; Made by CAMNV 2025.
+  </footer>
+</body>
+
+</html>
