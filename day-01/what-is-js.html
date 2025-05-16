@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is JavaScript? - Deep Dive for Senior/Tech Lead</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    code {
+      background-color: #eaeaea;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>What is JavaScript?</h1>
+  <p>This document summarizes the core knowledge every Senior or Tech Lead JavaScript developer must deeply understand, based on the "JavaScript in Detail" course.</p>
+
+  <section>
+    <h2>1. JavaScript Runtime Characteristics</h2>
+    <ul>
+      <li><strong>Interpreted:</strong> JS code is parsed and executed at runtime without pre-compilation.</li>
+      <li><strong>Single-threaded:</strong> All code runs on a single call stack, requiring careful async design.</li>
+      <li><strong>Non-blocking:</strong> Uses <code>event loop</code> and <code>callback/microtask queues</code> to handle async I/O.</li>
+    </ul>
+    <p><strong>Key for Tech Leads:</strong> Must be able to explain <code>event loop</code>, <code>task vs. microtask queue</code>, and how blocking code affects performance.</p>
+  </section>
+
+  <section>
+    <h2>2. JavaScript Engine</h2>
+    <p>Runs inside browsers (e.g., Chrome's V8) or servers (Node.js). Main components:</p>
+    <ul>
+      <li><strong>Call Stack:</strong> Tracks function execution context.</li>
+      <li><strong>Memory Heap:</strong> Stores variables, objects, closures.</li>
+    </ul>
+    <p>V8 optimizes execution with JIT compilers (Ignition + TurboFan).</p>
+  </section>
+
+  <section>
+    <h2>3. Typing System</h2>
+    <ul>
+      <li><strong>Dynamic Typing:</strong> Variables can change type at runtime.</li>
+      <li><strong>Weak Typing:</strong> Allows implicit type coercion.</li>
+    </ul>
+    <p><strong>Implication:</strong> In production, prefer <code>TypeScript</code> or schema validation (e.g., <code>zod</code>, <code>yup</code>) to enforce safety.</p>
+  </section>
+
+  <section>
+    <h2>4. Execution Environment</h2>
+    <p>JS runs in different environments:</p>
+    <ul>
+      <li><strong>Browser:</strong> Has access to <code>window</code>, <code>DOM</code>, <code>localStorage</code>, etc.</li>
+      <li><strong>Node.js:</strong> Has access to <code>fs</code>, <code>process</code>, <code>http</code>, etc.</li>
+    </ul>
+    <p><strong>Lead-level expectation:</strong> Deep understanding of environment-specific globals and I/O behavior.</p>
+  </section>
+
+  <section>
+    <h2>5. Object Model & Inheritance</h2>
+    <ul>
+      <li><strong>Prototype-based:</strong> JS uses prototypes instead of class-based inheritance.</li>
+      <li><strong>ES6 Classes:</strong> Are syntactic sugar over the prototype model.</li>
+    </ul>
+    <p><strong>Must understand:</strong> <code>prototype chain</code>, <code>__proto__</code>, <code>Object.create</code>, and performance cost of inheritance.</p>
+  </section>
+
+  <section>
+    <h2>6. Standardization & Compatibility</h2>
+    <p>JavaScript is defined by ECMAScript specification (ECMA-262).</p>
+    <ul>
+      <li>Use transpilers (e.g., Babel) or compilers (e.g., TypeScript) for backward compatibility.</li>
+    </ul>
+  </section>
+
+</body>
+
+</html>
