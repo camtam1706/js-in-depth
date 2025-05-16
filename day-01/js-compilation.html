@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Compilation Flow</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body class="bg-gradient-to-br from-sky-100 to-indigo-200 min-h-screen text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="text-center py-12 bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-xl">
+    <h1 class="text-4xl font-extrabold tracking-tight mb-2">JavaScript Compilation & Execution Flow</h1>
+    <p class="text-lg opacity-90">A beautiful journey from code to performance</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex flex-col items-center px-4 py-12 space-y-12 max-w-4xl mx-auto">
+
+    <!-- STEP -->
+    <div class="flex flex-col items-center text-center">
+      <div class="bg-white rounded-3xl shadow-xl p-6 w-full md:w-[450px] border-t-8 border-blue-400 transition transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <i class="ph ph-code text-blue-500 text-4xl"></i>
+        </div>
+        <h2 class="text-xl font-bold mb-2">1. Source Code</h2>
+        <p class="text-gray-600">Plain JavaScript text you write. Nothing is executed yet.</p>
+      </div>
+      <div class="text-3xl my-4 animate-bounce">⬇️</div>
+    </div>
+
+    <!-- STEP -->
+    <div class="flex flex-col items-center text-center">
+      <div class="bg-white rounded-3xl shadow-xl p-6 w-full md:w-[450px] border-t-8 border-green-400 transition transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <i class="ph ph-tree-structure text-green-500 text-4xl"></i>
+        </div>
+        <h2 class="text-xl font-bold mb-2">2. Parsing (AST)</h2>
+        <p class="text-gray-600">Parser creates an Abstract Syntax Tree to structure your code.</p>
+      </div>
+      <div class="text-3xl my-4 animate-bounce">⬇️</div>
+    </div>
+
+    <!-- STEP -->
+    <div class="flex flex-col items-center text-center">
+      <div class="bg-white rounded-3xl shadow-xl p-6 w-full md:w-[450px] border-t-8 border-yellow-400 transition transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <i class="ph ph-lightning text-yellow-500 text-4xl"></i>
+        </div>
+        <h2 class="text-xl font-bold mb-2">3. Compilation (Bytecode)</h2>
+        <p class="text-gray-600">Interpreter compiles AST into bytecode for the virtual machine.</p>
+      </div>
+      <div class="text-3xl my-4 animate-bounce">⬇️</div>
+    </div>
+
+    <!-- STEP -->
+    <div class="flex flex-col items-center text-center">
+      <div class="bg-white rounded-3xl shadow-xl p-6 w-full md:w-[450px] border-t-8 border-purple-400 transition transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <i class="ph ph-cpu text-purple-500 text-4xl"></i>
+        </div>
+        <h2 class="text-xl font-bold mb-2">4. Execution</h2>
+        <p class="text-gray-600">The bytecode is executed by the VM (Virtual Machine).</p>
+      </div>
+      <div class="text-3xl my-4 animate-bounce">⬇️</div>
+    </div>
+
+    <!-- STEP -->
+    <div class="flex flex-col items-center text-center">
+      <div class="bg-white rounded-3xl shadow-xl p-6 w-full md:w-[450px] border-t-8 border-pink-400 transition transform hover:-translate-y-1 hover:shadow-2xl">
+        <div class="flex justify-center mb-4">
+          <i class="ph ph-rocket-launch text-pink-500 text-4xl"></i>
+        </div>
+        <h2 class="text-xl font-bold mb-2">5. JIT Optimization</h2>
+        <p class="text-gray-600">Frequently-used code is compiled into fast machine code by the JIT Compiler.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-500 text-sm">
+    &copy; 2025 Learn JavaScript Visually ✨ | Made by CAMNV ❤️
+  </footer>
+
+</body>
+
+</html>
