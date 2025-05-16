@@ -10,11 +10,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v3
       with:
-        persist-credentials: false
+        persist-credentials: true
+        fetch-depth: 0
       
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -30,8 +33,9 @@ jobs:
       
     - name: Deploy to GitHub Pages
       if: github.ref == 'refs/heads/main'
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
-        folder: .
+        folder: ${{ github.workspace }}
         branch: gh-pages
-        token: ${{ secrets.GITHUB_TOKEN }} 
+        clean: true
+        single-commit: true 
