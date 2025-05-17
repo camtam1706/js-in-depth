@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Types Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function evaluateCode(id) {
+      const input = document.getElementById(`input-${id}`).value;
+      const output = document.getElementById(`output-${id}`);
+      try {
+        output.textContent = eval(input);
+      } catch (e) {
+        output.textContent = e.message;
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">Types in JavaScript</h1>
+  </header>
+  <div class="container mx-auto p-8 pb-0">
+
+    <!-- Playground -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Interactive Playground</h2>
+      <div class="space-y-6">
+        <div class="bg-white p-4 rounded shadow">
+          <label class="block font-semibold mb-2" for="input-1">Try typeof something:</label>
+          <input id="input-1" type="text" placeholder="typeof 123" class="w-full p-2 border rounded mb-2"/>
+          <button onclick="evaluateCode(1)" class="bg-blue-600 text-white px-4 py-1 rounded">Run</button>
+          <p class="mt-2"><strong>Result:</strong> <span id="output-1" class="text-blue-700"></span></p>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <label class="block font-semibold mb-2" for="input-2">Test coercion or expression:</label>
+          <input id="input-2" type="text" placeholder="'' == 0" class="w-full p-2 border rounded mb-2"/>
+          <button onclick="evaluateCode(2)" class="bg-green-600 text-white px-4 py-1 rounded">Run</button>
+          <p class="mt-2"><strong>Result:</strong> <span id="output-2" class="text-green-700"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Keep rest of original content unchanged -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Primitive Types</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Boolean</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let isDone = false;
+console.log(typeof isDone); // "boolean"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Number</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let count = 42;
+console.log(typeof count); // "number"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">String</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let name = 'Alice';
+console.log(typeof name); // "string"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Null</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let empty = null;
+console.log(typeof empty); // "object" (quirk)</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Undefined</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let notAssigned;
+console.log(typeof notAssigned); // "undefined"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Symbol</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let sym = Symbol('id');
+console.log(typeof sym); // "symbol"</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Objects & Functions</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Object</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let obj = { key: 'value' };
+console.log(typeof obj); // "object"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Array</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let arr = [1, 2, 3];
+console.log(typeof arr); // "object" (Array.isArray to detect)</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Function</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>function greet() {}
+console.log(typeof greet); // "function"</code></pre>
+        </div>
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="font-semibold text-xl mb-2">Other Built-ins</h3>
+          <pre class="bg-gray-100 p-2 rounded"><code>let date = new Date();
+let regex = /\w+/;
+console.log(typeof date, typeof regex); // "object object"</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Insights</h2>
+      <div class="space-y-6">
+
+        <!-- Engine Internals -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🔍 Engine Internals</h3>
+          <p>Modern JS engines optimize runtime via:</p>
+          <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
+            <li><strong>Hidden classes:</strong> Like dynamic blueprints for objects</li>
+            <li><strong>Inline caching:</strong> Caches locations of properties to speed up repeated access</li>
+            <li><strong>Type feedback:</strong> Optimizes based on actual types used at runtime</li>
+          </ul>
+        </div>
+
+        <!-- Coercion Pitfalls -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">⚠️ Coercion Pitfalls</h3>
+          <table class="w-full text-sm text-left border">
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border px-2 py-1">Expression</th>
+                <th class="border px-2 py-1">Result</th>
+                <th class="border px-2 py-1">Why?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border px-2 py-1">'' == 0</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">'' → 0 → true</td></tr>
+              <tr><td class="border px-2 py-1">null == undefined</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">Special loose rule</td></tr>
+              <tr><td class="border px-2 py-1">[] == false</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">[] → '' → 0 → false</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Memory Considerations -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧠 Memory Considerations</h3>
+          <p>JS distinguishes between:</p>
+          <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
+            <li><strong>Primitive types:</strong> copied by value</li>
+            <li><strong>Reference types:</strong> copied by reference (objects, arrays)</li>
+          </ul>
+          <p class="text-sm mt-2">Changes to a reference affect all variables pointing to it!</p>
+        </div>
+
+        <!-- Prototype & Inheritance -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧬 Prototype & Inheritance</h3>
+          <p>Prototypal chain example:</p>
+          <pre class="bg-gray-100 p-2 rounded text-sm">
+const mammal = { eats: true };
+const dog = Object.create(mammal);
+console.log(dog.eats); // true
+          </pre>
+          <p class="text-sm">Objects inherit from other objects via prototype chain.</p>
+        </div>
+
+        <!-- Advanced Primitives -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧪 Advanced Primitives</h3>
+          <p>Use <code>Symbol.toPrimitive</code> to customize object conversion:</p>
+          <pre class="bg-gray-100 p-2 rounded text-sm">
+const obj = {
+  [Symbol.toPrimitive](hint) {
+    return hint === 'string' ? 'custom' : 42;
+  }
+};
+console.log(`${obj}`); // "custom"
+console.log(+obj);     // 42
+          </pre>
+        </div>
+
+        <!-- Type Safety Strategies -->
+        <div class="bg-white p-4 rounded shadow">
+          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🛡 Type Safety Strategies</h3>
+          <ul class="list-disc list-inside text-sm text-gray-700">
+            <li><strong>TypeScript:</strong> compile-time checks, IDE support</li>
+            <li><strong>Zod / Joi:</strong> runtime validation of objects</li>
+            <li><strong>Custom Guards:</strong> ensure types with manual checks</li>
+          </ul>
+          <pre class="bg-gray-100 p-2 rounded text-sm">
+function isUser(obj) {
+  return obj && typeof obj.name === 'string';
+}
+          </pre>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+        <!-- Footer -->
+        <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+          &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+        </footer>
+</body>
+</html>
