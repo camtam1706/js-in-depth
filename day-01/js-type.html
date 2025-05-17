@@ -19,7 +19,7 @@
 </head>
 <body class="bg-gray-100 text-gray-900">
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
-    <h1 class="text-3xl font-bold animate-pulse mb-2">Types in JavaScript</h1>
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 Types in JavaScript</h1>
   </header>
   <div class="container mx-auto p-8 pb-0">
 
@@ -42,164 +42,79 @@
       </div>
     </section>
 
-    <!-- Keep rest of original content unchanged -->
+    <!-- Object vs Array -->
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-4">Primitive Types</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Boolean</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let isDone = false;
-console.log(typeof isDone); // "boolean"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Number</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let count = 42;
-console.log(typeof count); // "number"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">String</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let name = 'Alice';
-console.log(typeof name); // "string"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Null</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let empty = null;
-console.log(typeof empty); // "object" (quirk)</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Undefined</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let notAssigned;
-console.log(typeof notAssigned); // "undefined"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Symbol</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let sym = Symbol('id');
-console.log(typeof sym); // "symbol"</code></pre>
-        </div>
+      <h2 class="text-2xl font-semibold mb-4">🧩 Object vs Array</h2>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-gray-700 text-sm mb-4">
+          In JavaScript, both Arrays and Objects are of type <code>object</code>. However, they are used differently and can be distinguished using specific methods.
+        </p>
+        <table class="w-full text-sm border">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border px-2 py-1">Aspect</th>
+              <th class="border px-2 py-1">Object</th>
+              <th class="border px-2 py-1">Array</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border px-2 py-1">Usage</td><td class="border px-2 py-1">Key-value pairs</td><td class="border px-2 py-1">Ordered collection</td></tr>
+            <tr><td class="border px-2 py-1">Detection</td><td class="border px-2 py-1">typeof obj === 'object'</td><td class="border px-2 py-1">Array.isArray(arr)</td></tr>
+            <tr><td class="border px-2 py-1">Iteration</td><td class="border px-2 py-1">for...in</td><td class="border px-2 py-1">for, forEach, map</td></tr>
+          </tbody>
+        </table>
+        <pre class="bg-gray-100 p-2 mt-4 rounded text-sm">
+const arr = [1, 2, 3];
+const obj = { a: 1, b: 2 };
+console.log(typeof arr); // 'object'
+console.log(Array.isArray(arr)); // true
+        </pre>
       </div>
     </section>
 
+    <!-- Function vs Method -->
     <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-4">Objects & Functions</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Object</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let obj = { key: 'value' };
-console.log(typeof obj); // "object"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Array</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let arr = [1, 2, 3];
-console.log(typeof arr); // "object" (Array.isArray to detect)</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Function</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>function greet() {}
-console.log(typeof greet); // "function"</code></pre>
-        </div>
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-semibold text-xl mb-2">Other Built-ins</h3>
-          <pre class="bg-gray-100 p-2 rounded"><code>let date = new Date();
-let regex = /\w+/;
-console.log(typeof date, typeof regex); // "object object"</code></pre>
-        </div>
-      </div>
-    </section>
+      <h2 class="text-2xl font-semibold mb-4">🧠 Function vs Method</h2>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-gray-700 text-sm mb-4">
+          Technically, all methods are functions. The difference is <strong>how they're called</strong> and whether they have an associated context (<code>this</code>).
+        </p>
+        <table class="w-full text-sm border">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border px-2 py-1">Aspect</th>
+              <th class="border px-2 py-1">Function</th>
+              <th class="border px-2 py-1">Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="border px-2 py-1">Context</td><td class="border px-2 py-1">Global or undefined</td><td class="border px-2 py-1">Bound to object</td></tr>
+            <tr><td class="border px-2 py-1">Syntax</td><td class="border px-2 py-1">functionName()</td><td class="border px-2 py-1">obj.methodName()</td></tr>
+            <tr><td class="border px-2 py-1">Access to <code>this</code></td><td class="border px-2 py-1">No</td><td class="border px-2 py-1">Yes</td></tr>
+          </tbody>
+        </table>
+        <pre class="bg-gray-100 p-2 mt-4 rounded text-sm">
+function sayHi() {
+  console.log('Hi');
+}
 
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-4">🧭 Insights</h2>
-      <div class="space-y-6">
-
-        <!-- Engine Internals -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🔍 Engine Internals</h3>
-          <p>Modern JS engines optimize runtime via:</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
-            <li><strong>Hidden classes:</strong> Like dynamic blueprints for objects</li>
-            <li><strong>Inline caching:</strong> Caches locations of properties to speed up repeated access</li>
-            <li><strong>Type feedback:</strong> Optimizes based on actual types used at runtime</li>
-          </ul>
-        </div>
-
-        <!-- Coercion Pitfalls -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">⚠️ Coercion Pitfalls</h3>
-          <table class="w-full text-sm text-left border">
-            <thead>
-              <tr class="bg-gray-100">
-                <th class="border px-2 py-1">Expression</th>
-                <th class="border px-2 py-1">Result</th>
-                <th class="border px-2 py-1">Why?</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="border px-2 py-1">'' == 0</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">'' → 0 → true</td></tr>
-              <tr><td class="border px-2 py-1">null == undefined</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">Special loose rule</td></tr>
-              <tr><td class="border px-2 py-1">[] == false</td><td class="border px-2 py-1">true</td><td class="border px-2 py-1">[] → '' → 0 → false</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Memory Considerations -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧠 Memory Considerations</h3>
-          <p>JS distinguishes between:</p>
-          <ul class="list-disc list-inside text-sm text-gray-700 mt-2">
-            <li><strong>Primitive types:</strong> copied by value</li>
-            <li><strong>Reference types:</strong> copied by reference (objects, arrays)</li>
-          </ul>
-          <p class="text-sm mt-2">Changes to a reference affect all variables pointing to it!</p>
-        </div>
-
-        <!-- Prototype & Inheritance -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧬 Prototype & Inheritance</h3>
-          <p>Prototypal chain example:</p>
-          <pre class="bg-gray-100 p-2 rounded text-sm">
-const mammal = { eats: true };
-const dog = Object.create(mammal);
-console.log(dog.eats); // true
-          </pre>
-          <p class="text-sm">Objects inherit from other objects via prototype chain.</p>
-        </div>
-
-        <!-- Advanced Primitives -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🧪 Advanced Primitives</h3>
-          <p>Use <code>Symbol.toPrimitive</code> to customize object conversion:</p>
-          <pre class="bg-gray-100 p-2 rounded text-sm">
-const obj = {
-  [Symbol.toPrimitive](hint) {
-    return hint === 'string' ? 'custom' : 42;
+const person = {
+  name: 'Alice',
+  greet() {
+    console.log('Hello, ' + this.name);
   }
 };
-console.log(`${obj}`); // "custom"
-console.log(+obj);     // 42
-          </pre>
-        </div>
 
-        <!-- Type Safety Strategies -->
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="text-lg font-semibold text-indigo-600 mb-2">🛡 Type Safety Strategies</h3>
-          <ul class="list-disc list-inside text-sm text-gray-700">
-            <li><strong>TypeScript:</strong> compile-time checks, IDE support</li>
-            <li><strong>Zod / Joi:</strong> runtime validation of objects</li>
-            <li><strong>Custom Guards:</strong> ensure types with manual checks</li>
-          </ul>
-          <pre class="bg-gray-100 p-2 rounded text-sm">
-function isUser(obj) {
-  return obj && typeof obj.name === 'string';
-}
-          </pre>
-        </div>
-
+sayHi();         // Function
+person.greet();  // Method
+        </pre>
       </div>
     </section>
-
   </div>
-        <!-- Footer -->
-        <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-          &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-        </footer>
+
+      <!-- Footer -->
+      <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+      </footer>
 </body>
 </html>
