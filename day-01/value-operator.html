@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JavaScript Operators Summary</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <style>
-    .box { min-width: 100px; min-height: 50px; transition: all 0.3s; }
-    .highlight { outline: 3px solid #f59e0b; }
-    select:focus, button:focus {
+    .box {
+      min-width: 100px;
+      min-height: 50px;
+      transition: all 0.3s;
+    }
+
+    .highlight {
+      outline: 3px solid #f59e0b;
+    }
+
+    select:focus,
+    button:focus {
       outline: none;
       box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
     }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
 
   <!-- Header -->
@@ -26,19 +37,24 @@
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">🧮 Basic Operators</h2>
       <ul class="list-disc ml-6 space-y-2 text-base">
-        <li><strong>Arithmetic:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>**</code></li>
-        <li><strong>Assignment:</strong> <code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></li>
-        <li><strong>Comparison:</strong> <code>==</code>, <code>===</code>, <code>!=</code>, <code>!==</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
+        <li><strong>Arithmetic:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>,
+          <code>**</code></li>
+        <li><strong>Assignment:</strong> <code>=</code>, <code>+=</code>, <code>-=</code>, <code>*=</code>,
+          <code>/=</code>, <code>%=</code></li>
+        <li><strong>Comparison:</strong> <code>==</code>, <code>===</code>, <code>!=</code>, <code>!==</code>,
+          <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></li>
         <li><strong>Logical:</strong> <code>&&</code>, <code>||</code>, <code>!</code></li>
         <li><strong>String concatenation:</strong> <code>+</code> (when used with strings)</li>
-        <li><strong>Unary operators:</strong> <code>typeof</code>, <code>delete</code>, <code>+</code> (convert to number), <code>-</code></li>
+        <li><strong>Unary operators:</strong> <code>typeof</code>, <code>delete</code>, <code>+</code> (convert to
+          number), <code>-</code></li>
         <li><strong>Increment / Decrement:</strong> <code>++</code>, <code>--</code></li>
       </ul>
     </section>
-  
+
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">📊 Operator Precedence</h2>
-      <p class="mb-4 text-gray-700">Operators with higher precedence are evaluated first. Associativity determines the direction of evaluation.</p>
+      <p class="mb-4 text-gray-700">Operators with higher precedence are evaluated first. Associativity determines the
+        direction of evaluation.</p>
       <div class="overflow-auto">
         <table class="min-w-full bg-white border border-gray-300 text-sm text-left">
           <thead class="bg-gray-100">
@@ -114,53 +130,63 @@
         </table>
       </div>
     </section>
-  
+
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">⚙️ Precedence Simulation: <code>a + b * c</code></h2>
-      <p class="text-gray-700 mb-6">Expression evaluated based on precedence: <strong><code>b * c</code></strong> first, then <strong><code>a + (b * c)</code></strong></p>
-    
+      <p class="text-gray-700 mb-6">Expression evaluated based on precedence: <strong><code>b * c</code></strong> first,
+        then <strong><code>a + (b * c)</code></strong></p>
+
       <div class="relative overflow-hidden h-40">
         <!-- Step 1: a -->
-        <div id="token-a" class="absolute top-0 left-0 px-4 py-2 bg-blue-100 text-blue-800 font-semibold rounded shadow transform transition-transform duration-700 translate-x-0">
+        <div id="token-a"
+          class="absolute top-0 left-0 px-4 py-2 bg-blue-100 text-blue-800 font-semibold rounded shadow transform transition-transform duration-700 translate-x-0">
           a
         </div>
-    
+
         <!-- Step 2: + -->
-        <div id="token-plus" class="absolute top-16 left-0 px-4 py-2 bg-yellow-100 text-yellow-800 font-semibold rounded shadow transform transition-transform duration-700 delay-300 translate-x-0">
+        <div id="token-plus"
+          class="absolute top-16 left-0 px-4 py-2 bg-yellow-100 text-yellow-800 font-semibold rounded shadow transform transition-transform duration-700 delay-300 translate-x-0">
           +
         </div>
-    
+
         <!-- Step 3: b -->
-        <div id="token-b" class="absolute top-0 left-0 px-4 py-2 bg-green-100 text-green-800 font-semibold rounded shadow transform transition-transform duration-700 delay-600 translate-x-0">
+        <div id="token-b"
+          class="absolute top-0 left-0 px-4 py-2 bg-green-100 text-green-800 font-semibold rounded shadow transform transition-transform duration-700 delay-600 translate-x-0">
           b
         </div>
-    
+
         <!-- Step 4: * -->
-        <div id="token-mul" class="absolute top-16 left-0 px-4 py-2 bg-purple-100 text-purple-800 font-semibold rounded shadow transform transition-transform duration-700 delay-900 translate-x-0">
+        <div id="token-mul"
+          class="absolute top-16 left-0 px-4 py-2 bg-purple-100 text-purple-800 font-semibold rounded shadow transform transition-transform duration-700 delay-900 translate-x-0">
           *
         </div>
-    
+
         <!-- Step 5: c -->
-        <div id="token-c" class="absolute top-0 left-0 px-4 py-2 bg-red-100 text-red-800 font-semibold rounded shadow transform transition-transform duration-700 delay-1200 translate-x-0">
+        <div id="token-c"
+          class="absolute top-0 left-0 px-4 py-2 bg-red-100 text-red-800 font-semibold rounded shadow transform transition-transform duration-700 delay-1200 translate-x-0">
           c
         </div>
       </div>
-    
-      <button onclick="startAnimation()" class="mt-6 px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
+
+      <button onclick="startAnimation()"
+        class="mt-6 px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
         ▶️ Start Animation
       </button>
     </section>
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold text-blue-500 mb-4">🤔 Logical OR <code>||</code> vs Nullish Coalescing <code>??</code></h2>
+      <h2 class="text-2xl font-semibold text-blue-500 mb-4">🤔 Logical OR <code>||</code> vs Nullish Coalescing
+        <code>??</code></h2>
       <p class="text-gray-700 mb-4">
-        Try changing the <code>userInput</code> value to <strong><code>''</code>, <code>0</code>, <code>false</code>, <code>null</code>, or <code>undefined</code></strong> to see the difference!
+        Try changing the <code>userInput</code> value to <strong><code>''</code>, <code>0</code>, <code>false</code>,
+          <code>null</code>, or <code>undefined</code></strong> to see the difference!
       </p>
-    
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Input -->
         <div class="space-y-4">
           <label class="block font-medium text-gray-700">Simulated user input:</label>
-          <select id="inputValue" onchange="updateFallbackDemo()" class="w-full p-2 border rounded text-gray-800 bg-gray-50">
+          <select id="inputValue" onchange="updateFallbackDemo()"
+            class="w-full p-2 border rounded text-gray-800 bg-gray-50">
             <option value="">'' (empty string)</option>
             <option value="0">0 (zero)</option>
             <option value="false">false (boolean)</option>
@@ -169,14 +195,14 @@
             <option value="Hello">"Hello" (truthy)</option>
           </select>
         </div>
-    
+
         <!-- Results -->
         <div class="space-y-2">
           <div class="bg-blue-50 p-4 rounded">
             <p class="font-mono text-sm text-gray-700">userInput || 'Default'</p>
             <p class="mt-1 text-lg font-bold text-blue-800" id="orResult">...</p>
           </div>
-    
+
           <div class="bg-green-50 p-4 rounded">
             <p class="font-mono text-sm text-gray-700">userInput ?? 'Default'</p>
             <p class="mt-1 text-lg font-bold text-green-800" id="nullishResult">...</p>
@@ -185,8 +211,9 @@
       </div>
     </section>
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold text-blue-500 mb-4">🧪 Nullish Assignment <code>??=</code> vs Logical OR Assignment <code>||=</code></h2>
-    
+      <h2 class="text-2xl font-semibold text-blue-500 mb-4">🧪 Nullish Assignment <code>??=</code> vs Logical OR
+        Assignment <code>||=</code></h2>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-mono bg-gray-50 p-4 rounded">
         <div>
           <p><strong>let a = null;</strong></p>
@@ -210,10 +237,10 @@
         </div>
       </div>
     </section>
-    
+
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">🔎 Optional Chaining <code>?.</code></h2>
-    
+
       <div class="bg-yellow-50 p-4 rounded text-sm font-mono">
         <p><strong>const user = { name: 'Bob' };</strong></p>
         <p>user.profile?.email → <span class="text-green-700">// undefined ✅ không lỗi</span></p>
@@ -222,12 +249,13 @@
     </section>
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">🧪 Playground: <code>||=</code> vs <code>??=</code></h2>
-    
+
       <div class="grid md:grid-cols-2 gap-6 mb-6">
         <!-- Select value -->
         <div>
           <label class="block font-medium mb-2">Initial value:</label>
-          <select id="assignValue" onchange="updateAssignment()" class="w-full p-2 border rounded text-gray-800 bg-gray-50">
+          <select id="assignValue" onchange="updateAssignment()"
+            class="w-full p-2 border rounded text-gray-800 bg-gray-50">
             <option value="">'' (empty string)</option>
             <option value="0">0 (zero)</option>
             <option value="false">false (boolean)</option>
@@ -236,14 +264,14 @@
             <option value="Hi">"Hi" (truthy)</option>
           </select>
         </div>
-    
+
         <!-- Results -->
         <div class="space-y-4">
           <div class="bg-blue-50 p-3 rounded shadow">
             <p class="text-sm font-mono">x ||= 'fallback'</p>
             <p class="text-lg font-bold text-blue-800" id="resultOrAssign">...</p>
           </div>
-    
+
           <div class="bg-green-50 p-3 rounded shadow">
             <p class="text-sm font-mono">y ??= 'fallback'</p>
             <p class="text-lg font-bold text-green-800" id="resultNullishAssign">...</p>
@@ -251,40 +279,44 @@
         </div>
       </div>
     </section>
-    
+
     <section class="mx-auto bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-blue-500 mb-4">🔎 Optional Chaining Playground: <code>?.</code></h2>
       <p class="text-gray-700 mb-4">
-        Optional chaining allows safe access to deeply nested properties. It short-circuits and returns <code>undefined</code> instead of throwing an error.
+        Optional chaining allows safe access to deeply nested properties. It short-circuits and returns
+        <code>undefined</code> instead of throwing an error.
       </p>
-    
+
       <!-- Select Case -->
       <div class="mb-6">
         <label class="block font-medium mb-2">Choose a user object:</label>
-        <select id="profileMode" onchange="updateOptionalChaining()" class="w-full p-2 border rounded text-gray-800 bg-gray-50 max-w-xl">
+        <select id="profileMode" onchange="updateOptionalChaining()"
+          class="w-full p-2 border rounded text-gray-800 bg-gray-50 max-w-xl">
           <option value="missing">❌ user = { name: 'Alice' } (no profile)</option>
           <option value="null">⚠️ user = { profile: null }</option>
           <option value="valid">✅ user = { profile: { email: 'alice@example.com' } }</option>
         </select>
       </div>
-    
+
       <!-- Code Display -->
       <div class="bg-gray-50 p-4 rounded border">
         <p class="text-sm font-mono text-gray-800 mb-2"><strong>Expression:</strong></p>
         <p class="text-lg font-mono text-purple-700 mb-4">
           const email = <span class="bg-yellow-100 px-1 rounded">user?.profile?.email</span>
         </p>
-    
+
         <p class="text-sm font-mono text-gray-800 mb-2"><strong>Result:</strong></p>
         <p class="text-xl font-bold text-green-600" id="optionalResult">...</p>
       </div>
-    
+
       <!-- Explanation Box -->
       <div class="mt-6 bg-blue-50 p-4 rounded border text-sm text-blue-800 leading-relaxed">
         <p><strong>What happens?</strong></p>
         <ul class="list-disc pl-5 mt-2 space-y-1">
-          <li><strong>If <code>user.profile</code> doesn't exist</strong>: the expression returns <code>undefined</code>, no error.</li>
-          <li><strong>If <code>user.profile</code> is <code>null</code></strong>: still safe, returns <code>undefined</code>.</li>
+          <li><strong>If <code>user.profile</code> doesn't exist</strong>: the expression returns
+            <code>undefined</code>, no error.</li>
+          <li><strong>If <code>user.profile</code> is <code>null</code></strong>: still safe, returns
+            <code>undefined</code>.</li>
           <li><strong>If profile exists and has email</strong>: it returns the email normally.</li>
         </ul>
       </div>
@@ -362,4 +394,5 @@
     }
   </script>
 </body>
+
 </html>
