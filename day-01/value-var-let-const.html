@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hoisting & TDZ Visualizer</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    .box { min-width: 100px; min-height: 50px; transition: all 0.3s; }
-    .highlight { outline: 3px solid #f59e0b; }
+    .box {
+      min-width: 100px;
+      min-height: 50px;
+      transition: all 0.3s;
+    }
+
+    .highlight {
+      outline: 3px solid #f59e0b;
+    }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
-      <!-- Header -->
+  <!-- Header -->
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
     <h1 class="text-3xl font-bold animate-pulse mb-2">🔍 Hoisting & TDZ Interactive</h1>
   </header>
 
-    <!-- Main content -->
-    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
-          <!-- Hoisting Diagram -->
-  <section class="bg-white p-6 rounded shadow ">
-    <h2 class="text-xl font-semibold text-purple-600 mb-4">📊 Hoisting Diagram</h2>
-    <div class="grid grid-cols-3 gap-6 text-center">
-      <div class="bg-gray-50 p-4 rounded box">
-        <h3 class="font-bold text-yellow-600">var</h3>
-        <p>➡ Hoisted & initialized as <code>undefined</code></p>
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Hoisting Diagram -->
+    <section class="bg-white p-6 rounded shadow ">
+      <h2 class="text-xl font-semibold text-purple-600 mb-4">📊 Hoisting Diagram</h2>
+      <div class="grid grid-cols-3 gap-6 text-center">
+        <div class="bg-gray-50 p-4 rounded box">
+          <h3 class="font-bold text-yellow-600">var</h3>
+          <p>➡ Hoisted & initialized as <code>undefined</code></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded box">
+          <h3 class="font-bold text-green-600">let</h3>
+          <p>⬆ Hoisted but in TDZ (Temporal Dead Zone)</p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded box">
+          <h3 class="font-bold text-blue-600">const</h3>
+          <p>⬆ Hoisted but in TDZ (Temporal Dead Zone)</p>
+        </div>
       </div>
-      <div class="bg-gray-50 p-4 rounded box">
-        <h3 class="font-bold text-green-600">let</h3>
-        <p>⬆ Hoisted but in TDZ (Temporal Dead Zone)</p>
-      </div>
-      <div class="bg-gray-50 p-4 rounded box">
-        <h3 class="font-bold text-blue-600">const</h3>
-        <p>⬆ Hoisted but in TDZ (Temporal Dead Zone)</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TDZ Timeline -->
-  <section class="bg-white p-6 rounded shadow ">
-    <h2 class="text-xl font-semibold text-red-500 mb-4">⏳ TDZ Timeline</h2>
-    <div class="grid grid-cols-3 gap-6 text-sm">
-      <div class="bg-red-100 p-4 rounded">
-        <h3 class="font-bold text-red-600">let a</h3>
-        <p>TDZ: from hoisting until first assignment</p>
-        <p>⛔ Accessing during TDZ throws ReferenceError</p>
+    <!-- TDZ Timeline -->
+    <section class="bg-white p-6 rounded shadow ">
+      <h2 class="text-xl font-semibold text-red-500 mb-4">⏳ TDZ Timeline</h2>
+      <div class="grid grid-cols-3 gap-6 text-sm">
+        <div class="bg-red-100 p-4 rounded">
+          <h3 class="font-bold text-red-600">let a</h3>
+          <p>TDZ: from hoisting until first assignment</p>
+          <p>⛔ Accessing during TDZ throws ReferenceError</p>
+        </div>
+        <div class="bg-red-100 p-4 rounded">
+          <h3 class="font-bold text-red-600">const b</h3>
+          <p>TDZ: same as <code>let</code> but must be initialized immediately</p>
+          <p>⚠ Cannot declare without assignment</p>
+        </div>
+        <div class="bg-green-100 p-4 rounded">
+          <h3 class="font-bold text-green-600">var c</h3>
+          <p>🚫 No TDZ, can access before assignment</p>
+          <p>➡ But value is <code>undefined</code></p>
+        </div>
       </div>
-      <div class="bg-red-100 p-4 rounded">
-        <h3 class="font-bold text-red-600">const b</h3>
-        <p>TDZ: same as <code>let</code> but must be initialized immediately</p>
-        <p>⚠ Cannot declare without assignment</p>
+    </section>
+
+    <!-- Interactive Debug Mode -->
+    <section class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold text-indigo-500 mb-4">🧪 Interactive Debug Mode</h2>
+      <p class="mb-4">Click <strong>Next Step</strong> to walk through how JS executes line by line (hoisting, TDZ,
+        assignments).</p>
+
+      <div id="debug-console" class="bg-black text-green-400 p-4 font-mono h-60 overflow-auto rounded mb-4">
+        <!-- Logs will appear here -->
       </div>
-      <div class="bg-green-100 p-4 rounded">
-        <h3 class="font-bold text-green-600">var c</h3>
-        <p>🚫 No TDZ, can access before assignment</p>
-        <p>➡ But value is <code>undefined</code></p>
-      </div>
-    </div>
-  </section>
 
-  <!-- Interactive Debug Mode -->
-  <section class="bg-white p-6 rounded shadow">
-    <h2 class="text-xl font-semibold text-indigo-500 mb-4">🧪 Interactive Debug Mode</h2>
-    <p class="mb-4">Click <strong>Next Step</strong> to walk through how JS executes line by line (hoisting, TDZ, assignments).</p>
-
-    <div id="debug-console" class="bg-black text-green-400 p-4 font-mono h-60 overflow-auto rounded mb-4">
-      <!-- Logs will appear here -->
-    </div>
-
-    <button onclick="nextStep()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
-      ▶ Next Step
-    </button>
-  </section>
-    </main>
-    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-    </footer>
+      <button onclick="nextStep()" class="bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded">
+        ▶ Next Step
+      </button>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
   <script>
     const steps = [
       () => log("Step 1: Hoisting Phase"),
@@ -139,4 +149,5 @@
   </script>
 
 </body>
+
 </html>
