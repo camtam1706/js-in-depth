@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JS Type Conversion & Coercion</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <script>
     function evaluateInput(id) {
       const input = document.getElementById(`input-${id}`).value;
@@ -18,6 +19,7 @@
     }
   </script>
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
     <h1 class="text-3xl font-bold mb-2 animate-pulse">🔁 JavaScript Type Conversion & Coercion</h1>
@@ -27,81 +29,84 @@
     <section class="bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-indigo-700 mb-4">1. 🧠 Explicit vs Implicit Conversion</h2>
       <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li><strong>Explicit</strong>: Developer uses functions like <code>String()</code>, <code>Number()</code>, <code>Boolean()</code>.</li>
-        <li><strong>Implicit (Coercion)</strong>: JavaScript auto-converts during expressions using <code>+</code>, <code>==</code>, etc.</li>
+        <li><strong>Explicit</strong>: Developer uses functions like <code>String()</code>, <code>Number()</code>,
+          <code>Boolean()</code>.</li>
+        <li><strong>Implicit (Coercion)</strong>: JavaScript auto-converts during expressions using <code>+</code>,
+          <code>==</code>, etc.</li>
         <li>Always prefer **explicit conversion** for clarity in production-grade code.</li>
       </ul>
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold text-indigo-700 mb-4">2. 🔄 Common Conversion Cases</h2>
-        <div class="grid md:grid-cols-3 gap-4 text-gray-700 text-sm">
-          
-          <!-- To String -->
-          <div>
-            <h3 class="font-bold text-blue-600 mb-2">To String</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <li><code>String(123)</code> → <code>"123"</code></li>
-              <li><code>String(true)</code> → <code>"true"</code></li>
-              <li><code>String(null)</code> → <code>"null"</code></li>
-              <li><code>String(undefined)</code> → <code>"undefined"</code></li>
-              <li><code>String([])</code> → <code>""</code></li>
-              <li><code>String([1])</code> → <code>"1"</code></li>
-              <li><code>String([1,2])</code> → <code>"1,2"</code></li>
-              <li><code>String({})</code> → <code>"[object Object]"</code></li>
-              <li><code>123 + ""</code> → <code>"123"</code></li>
-              <li><code>true + ""</code> → <code>"true"</code></li>
-            </ul>
-          </div>
-      
-          <!-- To Number -->
-          <div>
-            <h3 class="font-bold text-green-600 mb-2">To Number</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <li><code>Number("123")</code> → <code>123</code></li>
-              <li><code>Number("123abc")</code> → <code>NaN</code></li>
-              <li><code>Number(true)</code> → <code>1</code></li>
-              <li><code>Number(false)</code> → <code>0</code></li>
-              <li><code>Number(null)</code> → <code>0</code></li>
-              <li><code>Number(undefined)</code> → <code>NaN</code></li>
-              <li><code>Number([])</code> → <code>0</code></li>
-              <li><code>Number([1])</code> → <code>1</code></li>
-              <li><code>Number([1,2])</code> → <code>NaN</code></li>
-              <li><code>Number({})</code> → <code>NaN</code></li>
-              <li><code>"5" * "2"</code> → <code>10</code></li>
-              <li><code>"5" - 1</code> → <code>4</code></li>
-              <li><code>+""</code> → <code>0</code></li>
-              <li><code>+[]</code> → <code>0</code></li>
-            </ul>
-          </div>
-      
-          <!-- To Boolean -->
-          <div>
-            <h3 class="font-bold text-yellow-600 mb-2">To Boolean</h3>
-            <ul class="list-disc list-inside space-y-1">
-              <li><code>Boolean(false)</code> → <code>false</code></li>
-              <li><code>Boolean(0)</code> → <code>false</code></li>
-              <li><code>Boolean(NaN)</code> → <code>false</code></li>
-              <li><code>Boolean(null)</code> → <code>false</code></li>
-              <li><code>Boolean(undefined)</code> → <code>false</code></li>
-              <li><code>Boolean("")</code> → <code>false</code></li>
-              <li><code>Boolean("false")</code> → <code>true</code></li>
-              <li><code>Boolean("0")</code> → <code>true</code></li>
-              <li><code>Boolean([])</code> → <code>true</code></li>
-              <li><code>Boolean({})</code> → <code>true</code></li>
-              <li><code>Boolean(function(){})</code> → <code>true</code></li>
-              <li><code>Boolean(Symbol("a"))</code> → <code>true</code></li>
-            </ul>
-          </div>
-      
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-4">2. 🔄 Common Conversion Cases</h2>
+      <div class="grid md:grid-cols-3 gap-4 text-gray-700 text-sm">
+
+        <!-- To String -->
+        <div>
+          <h3 class="font-bold text-blue-600 mb-2">To String</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li><code>String(123)</code> → <code>"123"</code></li>
+            <li><code>String(true)</code> → <code>"true"</code></li>
+            <li><code>String(null)</code> → <code>"null"</code></li>
+            <li><code>String(undefined)</code> → <code>"undefined"</code></li>
+            <li><code>String([])</code> → <code>""</code></li>
+            <li><code>String([1])</code> → <code>"1"</code></li>
+            <li><code>String([1,2])</code> → <code>"1,2"</code></li>
+            <li><code>String({})</code> → <code>"[object Object]"</code></li>
+            <li><code>123 + ""</code> → <code>"123"</code></li>
+            <li><code>true + ""</code> → <code>"true"</code></li>
+          </ul>
         </div>
-      </section>
-      
+
+        <!-- To Number -->
+        <div>
+          <h3 class="font-bold text-green-600 mb-2">To Number</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li><code>Number("123")</code> → <code>123</code></li>
+            <li><code>Number("123abc")</code> → <code>NaN</code></li>
+            <li><code>Number(true)</code> → <code>1</code></li>
+            <li><code>Number(false)</code> → <code>0</code></li>
+            <li><code>Number(null)</code> → <code>0</code></li>
+            <li><code>Number(undefined)</code> → <code>NaN</code></li>
+            <li><code>Number([])</code> → <code>0</code></li>
+            <li><code>Number([1])</code> → <code>1</code></li>
+            <li><code>Number([1,2])</code> → <code>NaN</code></li>
+            <li><code>Number({})</code> → <code>NaN</code></li>
+            <li><code>"5" * "2"</code> → <code>10</code></li>
+            <li><code>"5" - 1</code> → <code>4</code></li>
+            <li><code>+""</code> → <code>0</code></li>
+            <li><code>+[]</code> → <code>0</code></li>
+          </ul>
+        </div>
+
+        <!-- To Boolean -->
+        <div>
+          <h3 class="font-bold text-yellow-600 mb-2">To Boolean</h3>
+          <ul class="list-disc list-inside space-y-1">
+            <li><code>Boolean(false)</code> → <code>false</code></li>
+            <li><code>Boolean(0)</code> → <code>false</code></li>
+            <li><code>Boolean(NaN)</code> → <code>false</code></li>
+            <li><code>Boolean(null)</code> → <code>false</code></li>
+            <li><code>Boolean(undefined)</code> → <code>false</code></li>
+            <li><code>Boolean("")</code> → <code>false</code></li>
+            <li><code>Boolean("false")</code> → <code>true</code></li>
+            <li><code>Boolean("0")</code> → <code>true</code></li>
+            <li><code>Boolean([])</code> → <code>true</code></li>
+            <li><code>Boolean({})</code> → <code>true</code></li>
+            <li><code>Boolean(function(){})</code> → <code>true</code></li>
+            <li><code>Boolean(Symbol("a"))</code> → <code>true</code></li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
 
     <section class="bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold text-indigo-700 mb-4">3. ⚠️ Edge Cases Tech Leads Must Know</h2>
       <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li><code>null == undefined</code> → <code>true</code>, but <code>null === undefined</code> → <code>false</code></li>
+        <li><code>null == undefined</code> → <code>true</code>, but <code>null === undefined</code> → <code>false</code>
+        </li>
         <li><code>[] == false</code> → <code>true</code>, <code>[] == ![]</code> → <code>true</code></li>
         <li><code>+[] === 0</code>, <code>+{}</code> → <code>NaN</code></li>
         <li>Avoid <code>==</code>, always prefer <code>===</code></li>
@@ -114,170 +119,254 @@
       <div class="space-y-4">
         <div>
           <label class="block font-medium text-gray-700 mb-1" for="input-1">Enter JS Expression:</label>
-          <input type="text" id="input-1" class="w-full border border-gray-300 rounded px-3 py-2" placeholder='e.g., "5" + 2' />
+          <input type="text" id="input-1" class="w-full border border-gray-300 rounded px-3 py-2"
+            placeholder='e.g., "5" + 2' />
           <button onclick="evaluateInput(1)" class="mt-2 px-4 py-1 bg-indigo-600 text-white rounded">Evaluate</button>
           <p class="mt-2 text-green-600 font-mono" id="result-1"></p>
         </div>
       </div>
     </section>
     <section class="bg-white p-6 rounded-lg shadow">
-        <h2 class="text-2xl font-semibold text-indigo-700 mb-4">5. 🧠 Coercion Simulation in <code>if</code>, <code>while</code>, and <code>+</code></h2>
-      
-        <div class="space-y-6">
-          <!-- if Coercion -->
-          <div>
-            <h3 class="text-lg font-semibold text-blue-600">🔹 <code>if</code> Condition Coercion</h3>
-            <input type="text" id="if-input" class="w-full border px-3 py-2 rounded" placeholder='e.g., "" or "0" or []' />
-            <button onclick="testIfCoercion()" class="mt-2 px-4 py-1 bg-blue-600 text-white rounded">Test if()</button>
-            <p id="if-result" class="mt-2 font-mono text-sm text-gray-700"></p>
-          </div>
-      
-          <!-- while Coercion -->
-          <div>
-            <h3 class="text-lg font-semibold text-yellow-600">🔁 <code>while</code> Loop Coercion</h3>
-            <input type="text" id="while-input" class="w-full border px-3 py-2 rounded" placeholder='e.g., 3 or "3" or []' />
-            <button onclick="testWhileCoercion()" class="mt-2 px-4 py-1 bg-yellow-600 text-white rounded">Run while()</button>
-            <p id="while-result" class="mt-2 font-mono text-sm text-gray-700 whitespace-pre-wrap"></p>
-          </div>
-      
-          <!-- + operator -->
-          <div>
-            <h3 class="text-lg font-semibold text-green-600">➕ String + Number Coercion</h3>
-            <input type="text" id="plus-left" class="w-full border px-3 py-2 rounded" placeholder='e.g., "5"' />
-            <input type="text" id="plus-right" class="w-full border px-3 py-2 mt-2 rounded" placeholder='e.g., 1' />
-            <button onclick="testPlusCoercion()" class="mt-2 px-4 py-1 bg-green-600 text-white rounded">Evaluate +</button>
-            <p id="plus-result" class="mt-2 font-mono text-sm text-gray-700"></p>
-          </div>
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-4">5. 🧠 Coercion Simulation in <code>if</code>,
+        <code>while</code>, and <code>+</code></h2>
+
+      <div class="space-y-6">
+        <!-- if Coercion -->
+        <div>
+          <h3 class="text-lg font-semibold text-blue-600">🔹 <code>if</code> Condition Coercion</h3>
+          <input type="text" id="if-input" class="w-full border px-3 py-2 rounded"
+            placeholder='e.g., "" or "0" or []' />
+          <button onclick="testIfCoercion()" class="mt-2 px-4 py-1 bg-blue-600 text-white rounded">Test if()</button>
+          <p id="if-result" class="mt-2 font-mono text-sm text-gray-700"></p>
         </div>
-      </section>
-      <section class="bg-white p-6 rounded-lg shadow mt-10">
-        <h2 class="text-2xl font-semibold text-red-600 mb-4">🚨 Dangerous Coercion Comparisons</h2>
-        <p class="mb-4 text-gray-700">Below is a list of tricky and dangerous coercion cases in JavaScript. These can lead to bugs if misunderstood.</p>
-      
-        <div class="overflow-x-auto">
-          <table class="min-w-full text-sm text-left border border-gray-300">
-            <thead class="bg-gray-100 border-b">
-              <tr>
-                <th class="px-4 py-2">Expression</th>
-                <th class="px-4 py-2">Result</th>
-                <th class="px-4 py-2">Why</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y">
-              <!-- Dangerous coercion rows -->
-              <tr>
-                <td class="px-4 py-2"><code>false == 0</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">Both coerced to 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>"" == 0</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">Empty string becomes 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>"" == false</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">Both → 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>null == undefined</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">Special equality case</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>null == 0</code></td>
-                <td class="px-4 py-2 text-red-600 font-bold">false</td>
-                <td class="px-4 py-2">Null is only loosely equal to undefined</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>[] == false</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">[] → "" → 0, false → 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>[] == ![]</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">![] → false; [] == false → true</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>{} + []</code></td>
-                <td class="px-4 py-2 text-blue-600 font-bold">0</td>
-                <td class="px-4 py-2">{} is block, +[] = 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>[] + {}</code></td>
-                <td class="px-4 py-2 text-blue-600 font-bold">"[object Object]"</td>
-                <td class="px-4 py-2">"" + "[object Object]"</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>[null] == false</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">[null] → "null" → NaN, false → 0 → NaN == 0 → false?</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>" \t\n" == 0</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">Whitespace → 0</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>{} == {}</code></td>
-                <td class="px-4 py-2 text-red-600 font-bold">false</td>
-                <td class="px-4 py-2">Different references</td>
-              </tr>
-              <tr>
-                <td class="px-4 py-2"><code>[1] == true</code></td>
-                <td class="px-4 py-2 text-green-600 font-bold">true</td>
-                <td class="px-4 py-2">[1] → "1" → 1, true → 1</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <!-- while Coercion -->
+        <div>
+          <h3 class="text-lg font-semibold text-yellow-600">🔁 <code>while</code> Loop Coercion</h3>
+          <input type="text" id="while-input" class="w-full border px-3 py-2 rounded"
+            placeholder='e.g., 3 or "3" or []' />
+          <button onclick="testWhileCoercion()" class="mt-2 px-4 py-1 bg-yellow-600 text-white rounded">Run
+            while()</button>
+          <p id="while-result" class="mt-2 font-mono text-sm text-gray-700 whitespace-pre-wrap"></p>
         </div>
-      
-        <div class="mt-6 text-gray-700 text-sm">
-          <p><strong>Best Practice:</strong> Always use <code>===</code> instead of <code>==</code> to avoid unexpected coercion.</p>
-          <p class="mt-2"><strong>Bonus:</strong> Use <code>Object.is()</code> for edge-case safe comparison (e.g. <code>NaN</code>).</p>
+
+        <!-- + operator -->
+        <div>
+          <h3 class="text-lg font-semibold text-green-600">➕ String + Number Coercion</h3>
+          <input type="text" id="plus-left" class="w-full border px-3 py-2 rounded" placeholder='e.g., "5"' />
+          <input type="text" id="plus-right" class="w-full border px-3 py-2 mt-2 rounded" placeholder='e.g., 1' />
+          <button onclick="testPlusCoercion()" class="mt-2 px-4 py-1 bg-green-600 text-white rounded">Evaluate
+            +</button>
+          <p id="plus-result" class="mt-2 font-mono text-sm text-gray-700"></p>
         </div>
-      </section>
-      <section class="bg-white p-6 rounded-lg shadow mt-10">
-        <h2 class="text-2xl font-semibold text-indigo-700 mb-4">🔄 Full Conversion Table</h2>
-        <div class="overflow-x-auto">
-          <table class="min-w-full text-sm text-left border border-gray-300">
-            <thead class="bg-gray-100 border-b">
-              <tr>
-                <th class="px-4 py-2">Input</th>
-                <th class="px-4 py-2">ToString()</th>
-                <th class="px-4 py-2">ToNumber()</th>
-                <th class="px-4 py-2">ToBoolean()</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y text-gray-800">
-              <tr><td class="px-4 py-2"><code>undefined</code></td><td class="px-4 py-2">"undefined"</td><td class="px-4 py-2">NaN</td><td class="px-4 py-2 text-red-600 font-semibold">false</td></tr>
-              <tr><td class="px-4 py-2"><code>null</code></td><td class="px-4 py-2">"null"</td><td class="px-4 py-2">0</td><td class="px-4 py-2 text-red-600 font-semibold">false</td></tr>
-              <tr><td class="px-4 py-2"><code>true</code></td><td class="px-4 py-2">"true"</td><td class="px-4 py-2">1</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>false</code></td><td class="px-4 py-2">"false"</td><td class="px-4 py-2">0</td><td class="px-4 py-2 text-red-600 font-semibold">false</td></tr>
-              <tr><td class="px-4 py-2"><code>""</code></td><td class="px-4 py-2">""</td><td class="px-4 py-2">0</td><td class="px-4 py-2 text-red-600 font-semibold">false</td></tr>
-              <tr><td class="px-4 py-2"><code>"123"</code></td><td class="px-4 py-2">"123"</td><td class="px-4 py-2">123</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>"123abc"</code></td><td class="px-4 py-2">"123abc"</td><td class="px-4 py-2">NaN</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>[]</code></td><td class="px-4 py-2">""</td><td class="px-4 py-2">0</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>[1]</code></td><td class="px-4 py-2">"1"</td><td class="px-4 py-2">1</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>{}</code></td><td class="px-4 py-2">"[object Object]"</td><td class="px-4 py-2">NaN</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>NaN</code></td><td class="px-4 py-2">"NaN"</td><td class="px-4 py-2">NaN</td><td class="px-4 py-2 text-red-600 font-semibold">false</td></tr>
-              <tr><td class="px-4 py-2"><code>Infinity</code></td><td class="px-4 py-2">"Infinity"</td><td class="px-4 py-2">Infinity</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>-Infinity</code></td><td class="px-4 py-2">"-Infinity"</td><td class="px-4 py-2">-Infinity</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>function() {}</code></td><td class="px-4 py-2">"function() {}"</td><td class="px-4 py-2">NaN</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-              <tr><td class="px-4 py-2"><code>Symbol("sym")</code></td><td class="px-4 py-2 text-red-500 font-semibold">❌ TypeError</td><td class="px-4 py-2 text-red-500 font-semibold">❌ TypeError</td><td class="px-4 py-2 text-green-600 font-semibold">true</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-           
+      </div>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow mt-10">
+      <h2 class="text-2xl font-semibold text-red-600 mb-4">🚨 Dangerous Coercion Comparisons</h2>
+      <p class="mb-4 text-gray-700">Below is a list of tricky and dangerous coercion cases in JavaScript. These can lead
+        to bugs if misunderstood.</p>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left border border-gray-300">
+          <thead class="bg-gray-100 border-b">
+            <tr>
+              <th class="px-4 py-2">Expression</th>
+              <th class="px-4 py-2">Result</th>
+              <th class="px-4 py-2">Why</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y">
+            <!-- Dangerous coercion rows -->
+            <tr>
+              <td class="px-4 py-2"><code>false == 0</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">Both coerced to 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>"" == 0</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">Empty string becomes 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>"" == false</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">Both → 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>null == undefined</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">Special equality case</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>null == 0</code></td>
+              <td class="px-4 py-2 text-red-600 font-bold">false</td>
+              <td class="px-4 py-2">Null is only loosely equal to undefined</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[] == false</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">[] → "" → 0, false → 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[] == ![]</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">![] → false; [] == false → true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>{} + []</code></td>
+              <td class="px-4 py-2 text-blue-600 font-bold">0</td>
+              <td class="px-4 py-2">{} is block, +[] = 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[] + {}</code></td>
+              <td class="px-4 py-2 text-blue-600 font-bold">"[object Object]"</td>
+              <td class="px-4 py-2">"" + "[object Object]"</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[null] == false</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">[null] → "null" → NaN, false → 0 → NaN == 0 → false?</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>" \t\n" == 0</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">Whitespace → 0</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>{} == {}</code></td>
+              <td class="px-4 py-2 text-red-600 font-bold">false</td>
+              <td class="px-4 py-2">Different references</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[1] == true</code></td>
+              <td class="px-4 py-2 text-green-600 font-bold">true</td>
+              <td class="px-4 py-2">[1] → "1" → 1, true → 1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 text-gray-700 text-sm">
+        <p><strong>Best Practice:</strong> Always use <code>===</code> instead of <code>==</code> to avoid unexpected
+          coercion.</p>
+        <p class="mt-2"><strong>Bonus:</strong> Use <code>Object.is()</code> for edge-case safe comparison (e.g.
+          <code>NaN</code>).</p>
+      </div>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow mt-10">
+      <h2 class="text-2xl font-semibold text-indigo-700 mb-4">🔄 Full Conversion Table</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left border border-gray-300">
+          <thead class="bg-gray-100 border-b">
+            <tr>
+              <th class="px-4 py-2">Input</th>
+              <th class="px-4 py-2">ToString()</th>
+              <th class="px-4 py-2">ToNumber()</th>
+              <th class="px-4 py-2">ToBoolean()</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y text-gray-800">
+            <tr>
+              <td class="px-4 py-2"><code>undefined</code></td>
+              <td class="px-4 py-2">"undefined"</td>
+              <td class="px-4 py-2">NaN</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">false</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>null</code></td>
+              <td class="px-4 py-2">"null"</td>
+              <td class="px-4 py-2">0</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">false</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>true</code></td>
+              <td class="px-4 py-2">"true"</td>
+              <td class="px-4 py-2">1</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>false</code></td>
+              <td class="px-4 py-2">"false"</td>
+              <td class="px-4 py-2">0</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">false</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>""</code></td>
+              <td class="px-4 py-2">""</td>
+              <td class="px-4 py-2">0</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">false</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>"123"</code></td>
+              <td class="px-4 py-2">"123"</td>
+              <td class="px-4 py-2">123</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>"123abc"</code></td>
+              <td class="px-4 py-2">"123abc"</td>
+              <td class="px-4 py-2">NaN</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[]</code></td>
+              <td class="px-4 py-2">""</td>
+              <td class="px-4 py-2">0</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>[1]</code></td>
+              <td class="px-4 py-2">"1"</td>
+              <td class="px-4 py-2">1</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>{}</code></td>
+              <td class="px-4 py-2">"[object Object]"</td>
+              <td class="px-4 py-2">NaN</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>NaN</code></td>
+              <td class="px-4 py-2">"NaN"</td>
+              <td class="px-4 py-2">NaN</td>
+              <td class="px-4 py-2 text-red-600 font-semibold">false</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>Infinity</code></td>
+              <td class="px-4 py-2">"Infinity"</td>
+              <td class="px-4 py-2">Infinity</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>-Infinity</code></td>
+              <td class="px-4 py-2">"-Infinity"</td>
+              <td class="px-4 py-2">-Infinity</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>function() {}</code></td>
+              <td class="px-4 py-2">"function() {}"</td>
+              <td class="px-4 py-2">NaN</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2"><code>Symbol("sym")</code></td>
+              <td class="px-4 py-2 text-red-500 font-semibold">❌ TypeError</td>
+              <td class="px-4 py-2 text-red-500 font-semibold">❌ TypeError</td>
+              <td class="px-4 py-2 text-green-600 font-semibold">true</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
-    <!-- Footer -->
-    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-      </footer>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
 
   <script>
     function testIfCoercion() {
@@ -285,7 +374,7 @@
       const result = value ? 'Condition is TRUE' : 'Condition is FALSE';
       document.getElementById('if-result').textContent = `if (${JSON.stringify(value)}) → ${result}`;
     }
-  
+
     function testWhileCoercion() {
       let count = 0;
       let log = '';
@@ -303,7 +392,7 @@
       }
       document.getElementById('while-result').textContent = log;
     }
-  
+
     function testPlusCoercion() {
       const left = eval(document.getElementById('plus-left').value);
       const right = eval(document.getElementById('plus-right').value);
@@ -311,6 +400,7 @@
       document.getElementById('plus-result').textContent = `${JSON.stringify(left)} + ${JSON.stringify(right)} = ${JSON.stringify(result)} (${typeof result})`;
     }
   </script>
-  
+
 </body>
+
 </html>
