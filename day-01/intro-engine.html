@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JS Engine Simulation</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -10,6 +11,7 @@
       opacity: 0.4;
       transition: all 0.5s ease;
     }
+
     .step.active {
       opacity: 1;
       transform: scale(1.05);
@@ -17,6 +19,7 @@
     }
   </style>
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
 
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
@@ -25,7 +28,8 @@
 
   <main class="max-w-6xl mx-auto px-4 py-10">
     <div class="text-center mb-10">
-      <button id="startBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition">
+      <button id="startBtn"
+        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow transition">
         ▶️ Start Simulation
       </button>
     </div>
@@ -82,10 +86,10 @@
     </div>
   </main>
 
-      <!-- Footer -->
-      <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-      </footer>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
   <script>
     const startBtn = document.getElementById('startBtn');
     const steps = document.querySelectorAll('.step');
@@ -101,4 +105,5 @@
   </script>
 
 </body>
+
 </html>
