@@ -8,51 +8,47 @@
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
-    <h1 class="text-3xl font-bold mb-2 animate-pulse">🧠 JavaScript Objects - Key Concepts for Senior Devs</h1>
+    <h1 class="text-3xl font-bold mb-2 animate-pulse">🧠 JavaScript Objects</h1>
   </header>
 
-  <main class="max-w-5xl mx-auto pt-8 px-6 space-y-10">
+  <main class="max-w-6xl mx-auto pt-10 px-6 space-y-10">
 
-    <!-- Object Basics -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">📦 Object Basics</h2>
-      <p>Objects in JavaScript are key-value pairs. Keys are strings (or Symbols), values can be anything.</p>
-      <pre class="bg-gray-100 p-4 rounded text-sm mt-2">const user = { name: "Alice", age: 25 };</pre>
+    <!-- Section Template -->
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">📦 Object Basics</h2>
+      <p class="text-gray-700">Objects in JavaScript are key-value pairs. Keys are strings (or Symbols), values can be anything.</p>
+      <pre class="bg-gray-100 p-4 rounded text-sm mt-4 font-mono">const user = { name: "Alice", age: 25 };</pre>
     </section>
 
-    <!-- Property Access -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">🔍 Dot vs Bracket Notation</h2>
-      <ul class="list-disc list-inside">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🔍 Dot vs Bracket Notation</h2>
+      <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
         <li><code>user.name</code> – dot notation, preferred for static keys</li>
         <li><code>user["name"]</code> – bracket notation, supports dynamic keys</li>
       </ul>
     </section>
 
-    <!-- Computed Properties -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">🧮 Computed Properties</h2>
-      <pre class="bg-gray-100 p-4 rounded text-sm">const key = "email";
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧮 Computed Properties</h2>
+      <pre class="bg-gray-100 p-4 rounded text-sm font-mono">const key = "email";
 const user = {
   [key]: "alice@example.com"
 };</pre>
     </section>
 
-    <!-- Property Descriptors -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">🛠️ Property Descriptors</h2>
-      <p>Use <code>Object.defineProperty()</code> to control property behavior:</p>
-      <ul class="list-disc list-inside text-sm mt-2">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🛠️ Property Descriptors</h2>
+      <p class="text-gray-700">Use <code>Object.defineProperty()</code> to control property behavior:</p>
+      <ul class="list-disc list-inside text-sm text-gray-700 mt-3 space-y-1">
         <li><code>writable</code>: can value be changed?</li>
         <li><code>enumerable</code>: shows in loops?</li>
         <li><code>configurable</code>: can property be redefined?</li>
       </ul>
     </section>
 
-    <!-- Methods and this -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">⚙️ Object Methods and <code>this</code></h2>
-      <pre class="bg-gray-100 p-4 rounded text-sm">const user = {
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">⚙️ Object Methods and <code>this</code></h2>
+      <pre class="bg-gray-100 p-4 rounded text-sm font-mono">const user = {
   name: "Alice",
   greet() {
     return `Hello, ${this.name}`;
@@ -60,32 +56,28 @@ const user = {
 };</pre>
     </section>
 
-    <!-- Cloning Objects -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">🔄 Cloning (Shallow vs Deep)</h2>
-      <p>Shallow: <code>Object.assign()</code>, spread syntax. Deep: use <code>structuredClone</code> or custom recursion.</p>
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🔄 Cloning (Shallow vs Deep)</h2>
+      <p class="text-gray-700">Shallow: <code>Object.assign()</code>, spread syntax. Deep: use <code>structuredClone</code> or custom recursion.</p>
     </section>
 
-    <!-- Prototypes -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">🧬 Prototypes and Inheritance</h2>
-      <p>Objects inherit from <code>Object.prototype</code>. Use <code>Object.create(proto)</code> for custom prototype chains.</p>
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧬 Prototypes and Inheritance</h2>
+      <p class="text-gray-700">Objects inherit from <code>Object.prototype</code>. Use <code>Object.create(proto)</code> for custom prototype chains.</p>
     </section>
 
-    <!-- Object utils -->
-    <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-semibold mb-4">📚 Utilities & Patterns</h2>
-      <ul class="list-disc list-inside text-sm">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">📚 Utilities & Patterns</h2>
+      <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
         <li><code>Object.keys()</code>, <code>Object.values()</code>, <code>Object.entries()</code></li>
         <li><code>Object.freeze()</code>, <code>Object.seal()</code>, <code>Object.defineProperty()</code></li>
         <li>Dynamic keys, optional chaining (<code>obj?.key</code>), nullish coalescing (<code>??</code>)</li>
       </ul>
     </section>
 
-    <!-- Tips for Senior Devs -->
-    <section class="bg-yellow-100 border-l-4 border-yellow-500 p-6 rounded">
-      <h3 class="text-xl font-bold text-yellow-700 mb-2">🚀 Tech Lead Tips</h3>
-      <ul class="list-disc list-inside text-sm text-gray-700">
+    <section class="bg-yellow-100 border-l-4 border-yellow-500 p-6 rounded-xl">
+      <h3 class="text-xl font-bold text-yellow-700 mb-3">🚀 Tech Lead Tips</h3>
+      <ul class="list-disc list-inside text-sm text-gray-800 space-y-1">
         <li>Design immutable patterns with <code>Object.freeze</code> for shared configs.</li>
         <li>Use <code>Object.defineProperty</code> to enforce internal rules in DDD aggregates.</li>
         <li>Prefer cloning with <code>structuredClone()</code> in modern environments for deep copy.</li>
@@ -95,9 +87,8 @@ const user = {
 
   </main>
 
-      <!-- Footer -->
-      <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-      </footer>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
 </body>
 </html>
