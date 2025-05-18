@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript Arrays Summary</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
     <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 Arrays in JavaScript</h1>
@@ -13,12 +15,13 @@
 
   <main class="max-w-6xl mx-auto px-6 pt-10 space-y-10">
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">📌 Introduction to Arrays</h2>
-      <p class="text-gray-700">Arrays are special data types in JavaScript that allow storing multiple values in a single variable, accessed by zero-based index.</p>
+      <p class="text-gray-700">Arrays are special data types in JavaScript that allow storing multiple values in a
+        single variable, accessed by zero-based index.</p>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">📥 Declaring Arrays</h2>
       <pre class="bg-gray-100 p-4 rounded text-sm font-mono">
 const arr1 = [];
@@ -27,10 +30,11 @@ const arr3 = [1, 2, 3];
 const arr4 = new Array(1, 2, 3);
 const arr5 = new Array(5); // [undefined × 5]
       </pre>
-      <p class="text-sm text-yellow-700 mt-3">⚠️ Prefer <code>[]</code> over <code>new Array()</code> to avoid confusion with single numeric arguments.</p>
+      <p class="text-sm text-yellow-700 mt-3">⚠️ Prefer <code>[]</code> over <code>new Array()</code> to avoid confusion
+        with single numeric arguments.</p>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🔧 Accessing & Mutating Elements</h2>
       <pre class="bg-gray-100 p-4 rounded text-sm font-mono">
 const fruits = ["Apple", "Banana", "Orange"];
@@ -39,7 +43,7 @@ fruits[1] = "Mango"; // Updates "Banana" to "Mango"
       </pre>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🔐 const vs let</h2>
       <pre class="bg-gray-100 p-4 rounded text-sm font-mono">
 const arr = [1, 2, 3];
@@ -51,7 +55,7 @@ arr2 = [4, 5, 6]; // ✅ OK
       </pre>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🛠️ Mutating Methods</h2>
       <ul class="list-disc list-inside text-sm text-gray-700 space-y-4">
         <li><code>push()</code>: <em>Adds to end</em>
@@ -77,7 +81,7 @@ a.splice(1, 1); // [1, 3]</pre>
       </ul>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧪 Non-Mutating Methods</h2>
       <ul class="list-disc list-inside text-sm text-gray-700 space-y-4">
         <li><code>slice()</code>: <em>Extracts elements</em>
@@ -96,7 +100,7 @@ a.slice(1); // [2, 3]</pre>
       </ul>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧬 Copying Arrays</h2>
       <pre class="bg-gray-100 p-4 rounded text-sm font-mono">
 const original = [1, 2, 3];
@@ -106,9 +110,10 @@ const copy2 = [...original];
       <p class="text-sm text-blue-700 mt-3">✅ Use <code>slice()</code> or spread operator to safely clone arrays.</p>
     </section>
 
-    <section class="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+    <section class="bg-white p-6 rounded-xl shadow border border-gray-100">
       <h2 class="text-2xl font-semibold text-blue-600 mb-4">🧭 Stack vs Heap</h2>
-      <p class="text-sm text-gray-700 mb-4">JavaScript stores primitive types in the <strong>stack</strong> and reference types (like arrays) in the <strong>heap</strong>.</p>
+      <p class="text-sm text-gray-700 mb-4">JavaScript stores primitive types in the <strong>stack</strong> and
+        reference types (like arrays) in the <strong>heap</strong>.</p>
       <pre class="bg-gray-100 p-4 rounded text-sm font-mono">
 let x = 10;      // stored in stack
 let y = x;       // copy value
@@ -126,4 +131,5 @@ console.log(arr1); // [2]
     &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
   </footer>
 </body>
+
 </html>
