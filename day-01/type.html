@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JavaScript Types Summary</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    input:focus, button:focus, textarea:focus {
+    input:focus,
+    button:focus,
+    textarea:focus {
       outline: none;
       box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
       border-color: #6366f1;
@@ -24,6 +27,7 @@
     }
   </script>
 </head>
+
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
     <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 Types in JavaScript</h1>
@@ -33,9 +37,9 @@
     <!-- Playground -->
     <section class="mt-8">
       <div class="space-y-8 bg-white p-8 rounded-xl shadow">
-    
+
         <h2 class="text-2xl font-bold text-blue-600">🧪 Interactive Playground</h2>
-    
+
         <!-- Block 1 -->
         <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <div class="mb-4">
@@ -49,7 +53,7 @@
             <strong>Result:</strong> <span id="output-1" class="text-blue-700"></span>
           </p>
         </div>
-    
+
         <!-- Block 2 -->
         <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
           <div class="mb-4">
@@ -58,12 +62,13 @@
               class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400" />
           </div>
           <button onclick="evaluateCode(2)"
-            class="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition duration-200">▶ Run</button>
+            class="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition duration-200">▶
+            Run</button>
           <p class="mt-4 text-sm text-gray-700">
             <strong>Result:</strong> <span id="output-2" class="text-green-700"></span>
           </p>
         </div>
-    
+
       </div>
     </section>
 
@@ -72,7 +77,8 @@
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-2xl font-semibold text-indigo-600 mb-4">🧩 Object vs Array</h2>
         <p class="text-gray-700 text-sm mb-4">
-          In JavaScript, both Arrays and Objects are of type <code>object</code>. However, they are used differently and can be distinguished using specific methods.
+          In JavaScript, both Arrays and Objects are of type <code>object</code>. However, they are used differently and
+          can be distinguished using specific methods.
         </p>
         <div class="overflow-x-auto">
           <table class="min-w-full text-sm border">
@@ -84,9 +90,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td class="border px-3 py-2">Usage</td><td class="border px-3 py-2">Key-value pairs</td><td class="border px-3 py-2">Ordered collection</td></tr>
-              <tr><td class="border px-3 py-2">Detection</td><td class="border px-3 py-2">typeof obj === 'object'</td><td class="border px-3 py-2">Array.isArray(arr)</td></tr>
-              <tr><td class="border px-3 py-2">Iteration</td><td class="border px-3 py-2">for...in</td><td class="border px-3 py-2">for, forEach, map</td></tr>
+              <tr>
+                <td class="border px-3 py-2">Usage</td>
+                <td class="border px-3 py-2">Key-value pairs</td>
+                <td class="border px-3 py-2">Ordered collection</td>
+              </tr>
+              <tr>
+                <td class="border px-3 py-2">Detection</td>
+                <td class="border px-3 py-2">typeof obj === 'object'</td>
+                <td class="border px-3 py-2">Array.isArray(arr)</td>
+              </tr>
+              <tr>
+                <td class="border px-3 py-2">Iteration</td>
+                <td class="border px-3 py-2">for...in</td>
+                <td class="border px-3 py-2">for, forEach, map</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -104,7 +122,8 @@ console.log(Array.isArray(arr)); // true
       <div class="bg-white p-6 rounded-lg shadow">
         <h2 class="text-2xl font-semibold text-purple-600 mb-4">🧠 Function vs Method</h2>
         <p class="text-gray-700 text-sm mb-4">
-          Technically, all methods are functions. The difference is <strong>how they're called</strong> and whether they have an associated context (<code>this</code>).
+          Technically, all methods are functions. The difference is <strong>how they're called</strong> and whether they
+          have an associated context (<code>this</code>).
         </p>
         <div class="overflow-x-auto">
           <table class="min-w-full text-sm border">
@@ -116,9 +135,21 @@ console.log(Array.isArray(arr)); // true
               </tr>
             </thead>
             <tbody>
-              <tr><td class="border px-3 py-2">Context</td><td class="border px-3 py-2">Global or undefined</td><td class="border px-3 py-2">Bound to object</td></tr>
-              <tr><td class="border px-3 py-2">Syntax</td><td class="border px-3 py-2">functionName()</td><td class="border px-3 py-2">obj.methodName()</td></tr>
-              <tr><td class="border px-3 py-2">Access to <code>this</code></td><td class="border px-3 py-2">No</td><td class="border px-3 py-2">Yes</td></tr>
+              <tr>
+                <td class="border px-3 py-2">Context</td>
+                <td class="border px-3 py-2">Global or undefined</td>
+                <td class="border px-3 py-2">Bound to object</td>
+              </tr>
+              <tr>
+                <td class="border px-3 py-2">Syntax</td>
+                <td class="border px-3 py-2">functionName()</td>
+                <td class="border px-3 py-2">obj.methodName()</td>
+              </tr>
+              <tr>
+                <td class="border px-3 py-2">Access to <code>this</code></td>
+                <td class="border px-3 py-2">No</td>
+                <td class="border px-3 py-2">Yes</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -145,4 +176,5 @@ person.greet();  // Method
     &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
   </footer>
 </body>
+
 </html>
