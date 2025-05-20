@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Scope Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        input:focus,
+        button:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header
+        class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+        <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 JavaScript Scope Overview</h1>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-10 p-6">
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">🌐 What is Scope?</h2>
+            <p>Scope determines the accessibility of variables. JavaScript uses <strong>lexical scoping</strong>,
+                meaning scope is determined by where code is written, not where it is called.</p>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">🧭 Types of Scope</h2>
+            <ul class="list-disc list-inside space-y-1">
+                <li><strong>Global Scope</strong>: Accessible from anywhere in the code.</li>
+                <li><strong>Function Scope</strong>: Defined inside a function, accessible only within that function.
+                </li>
+                <li><strong>Block Scope</strong>: Variables declared with <code>let</code> or <code>const</code> are
+                    scoped to the nearest block.</li>
+                <li><strong>Lexical Scope</strong>: Inner functions access variables from their outer function's scope.
+                </li>
+            </ul>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">📘 Code Example</h2>
+            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>const x = 10;
+
+function outer() {
+  const y = 20;
+
+  function inner() {
+    const z = 30;
+    console.log(x, y, z); // 10, 20, 30
+  }
+
+  inner();
+}
+
+outer();</code></pre>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">🧪 Try It Yourself</h2>
+            <textarea id="scopeInput" class="w-full p-2 border rounded mb-2"
+                rows="5">// Type your JavaScript code here</textarea>
+            <button onclick="runCode()"
+                class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Run</button>
+            <pre id="scopeOutput" class="bg-gray-100 p-4 mt-4 rounded text-sm font-mono overflow-x-auto"></pre>
+            <script>
+                function runCode() {
+                    const input = document.getElementById("scopeInput").value;
+                    const output = document.getElementById("scopeOutput");
+                    try {
+                        output.textContent = eval(input);
+                    } catch (e) {
+                        output.textContent = e.message;
+                    }
+                }
+            </script>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">⚠️ Scope Gotchas</h2>
+            <ul class="list-disc list-inside space-y-1">
+                <li><code>var</code> is function-scoped, not block-scoped.</li>
+                <li>Closures can accidentally retain memory.</li>
+                <li>Looping with <code>var</code> may lead to unexpected results.</li>
+            </ul>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">🧠 Best Practices for Senior/Tech Leads</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
+                <li>Use <code>let</code> and <code>const</code> instead of <code>var</code>.</li>
+                <li>Encourage predictable scope via modular functions.</li>
+                <li>Understand closures to apply memoization or currying patterns.</li>
+                <li>Ensure clean-up of retained references inside closures when necessary.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+</body>
+
+</html>
