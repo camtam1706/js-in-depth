@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for vs forEach vs for...of Benchmark</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function runBenchmark() {
+      const size = parseInt(document.getElementById('input-size').value);
+      const arr = new Array(size).fill(1);
+      const results = document.getElementById('results');
+
+      const arr1 = [...arr];
+      const startFor = performance.now();
+      for (let i = 0; i < arr1.length; i++) {
+        arr1[i] += 1;
+      }
+      const endFor = performance.now();
+
+      const arr2 = [...arr];
+      const startEach = performance.now();
+      arr2.forEach((val, idx) => {
+        arr2[idx] = val + 1;
+      });
+      const endEach = performance.now();
+
+      const arr3 = [...arr];
+      const startOf = performance.now();
+      let index = 0;
+      for (const val of arr3) {
+        arr3[index++] = val + 1;
+      }
+      const endOf = performance.now();
+
+      const forTime = (endFor - startFor).toFixed(2);
+      const forEachTime = (endEach - startEach).toFixed(2);
+      const forOfTime = (endOf - startOf).toFixed(2);
+
+      results.innerHTML = `
+        <table class="table-auto w-full text-sm mt-4">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="border px-4 py-2">Loop Type</th>
+              <th class="border px-4 py-2">Execution Time (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border px-4 py-2 font-medium text-blue-700">for</td>
+              <td class="border px-4 py-2">${forTime}</td>
+            </tr>
+            <tr>
+              <td class="border px-4 py-2 font-medium text-green-700">forEach</td>
+              <td class="border px-4 py-2">${forEachTime}</td>
+            </tr>
+            <tr>
+              <td class="border px-4 py-2 font-medium text-purple-700">for...of</td>
+              <td class="border px-4 py-2">${forOfTime}</td>
+            </tr>
+          </tbody>
+        </table>
+        <canvas id="chart" class="mt-6"></canvas>
+      `;
+
+      const ctx = document.getElementById('chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['for', 'forEach', 'for...of'],
+          datasets: [{
+            label: 'Execution Time (ms)',
+            data: [forTime, forEachTime, forOfTime],
+            backgroundColor: ['#3b82f6', '#10b981', '#8b5cf6']
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔁 Benchmark: for vs forEach vs for...of</h1>
+  </header>
+
+  <main class="max-w-6xl mx-auto py-10 px-6 space-y-8">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold text-blue-600 mb-4">🎛️ Benchmark Control</h2>
+      <label for="input-size" class="block font-medium text-gray-700 mb-2">Array Size (e.g. 1000000):</label>
+      <input id="input-size" type="number" value="1000000"
+        class="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
+      <button onclick="runBenchmark()"
+        class="mt-4 bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition duration-200">
+        ▶ Run Benchmark
+      </button>
+      <div id="results" class="mt-6 text-gray-800 font-mono"></div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold text-purple-600 mb-4">📊 Summary Table</h2>
+      <table class="table-auto w-full text-sm">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="border px-4 py-2">Feature</th>
+            <th class="border px-4 py-2">for</th>
+            <th class="border px-4 py-2">forEach</th>
+            <th class="border px-4 py-2">for...of</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border px-4 py-2">Supports break/continue</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+            <td class="border px-4 py-2 text-center">❌</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Supports async/await</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+            <td class="border px-4 py-2 text-center">❌</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Index control</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+            <td class="border px-4 py-2 text-center">✅</td>
+            <td class="border px-4 py-2 text-center">❌</td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">Performance (large array)</td>
+            <td class="border px-4 py-2 text-center">⚡ Fastest</td>
+            <td class="border px-4 py-2 text-center">🐢 Slowest</td>
+            <td class="border px-4 py-2 text-center">⚡ Fast</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
