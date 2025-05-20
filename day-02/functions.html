@@ -24,7 +24,7 @@
 
   <main class="max-w-6xl mx-auto space-y-10 p-6">
     <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">1. 🧩 Function Declaration</h2>
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">🧩 Function Declaration</h2>
       <p>Standard way to define a named function:</p>
       <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>function greet(name) {
   return `Hello, ${name}`;
@@ -32,7 +32,7 @@
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">2. 🪄 Function Expression</h2>
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">🪄 Function Expression</h2>
       <p>Function assigned to a variable (can be anonymous):</p>
       <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>const greet = function(name) {
   return `Hello, ${name}`;
@@ -40,7 +40,7 @@
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">3. 👻 Anonymous Functions</h2>
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">👻 Anonymous Functions</h2>
       <p>Functions without a name, often used as callbacks:</p>
       <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>setTimeout(function() {
   console.log("This runs after 1 second");
@@ -48,7 +48,7 @@
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">4. ⚠️ Functions Assigned Without ()</h2>
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">⚠️ Functions Assigned Without ()</h2>
       <p>Do <strong>not</strong> use parentheses when assigning a function reference:</p>
       <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>const sayHi = function() {
   console.log("Hi");
@@ -59,7 +59,72 @@ execute(); // calls sayHi</code></pre>
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-purple-600 mb-4">5. 🧠 Best Practices for Senior/Tech Leads</h2>
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">🧬 Nested Functions</h2>
+      <p>Functions can be defined inside other functions. The inner function has access to variables of the outer
+        function (closure):</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>function outer(a) {
+      function inner(b) {
+        return a + b; // inner can access 'a'
+      }
+      return inner(10);
+    }
+    
+    console.log(outer(5)); // 15</code></pre>
+      <p class="text-sm text-gray-700 mt-2">This is commonly used for encapsulation or creating closures with persistent
+        variables.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">🏹 Arrow Functions (ES6)</h2>
+      <p>Arrow functions provide a concise syntax for writing functions. They do <strong>not</strong> have their own
+        <code>this</code>, <code>arguments</code>, or <code>super</code> binding.
+      </p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>// Basic arrow function
+    const add = (a, b) => a + b;
+    
+    // Single parameter, no parentheses needed
+    const square = x => x * x;
+    
+    // No parameters
+    const greet = () => console.log(\"Hello\");</code></pre>
+      <p class="text-sm text-gray-700 mt-2">Arrow functions are best suited for callbacks and non-method functions.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">📦 Function as Argument (Callback)</h2>
+      <p>Functions can be passed as arguments to other functions. This enables callbacks and higher-order functions:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>function process(callback) {
+      console.log(\"Start\");
+      callback();
+      console.log(\"End\");
+    }
+    
+    function sayHello() {
+      console.log(\"Hello from callback!\");
+    }
+    
+    process(sayHello);</code></pre>
+      <p class="text-sm text-gray-700 mt-2">This pattern is common in asynchronous code (e.g., <code>setTimeout</code>,
+        event listeners, or Array methods like <code>map()</code>).</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">🔁 Function Returning Function</h2>
+      <p>A function can return another function. This pattern is useful for closures and function factories:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>function multiplier(factor) {
+      return function(number) {
+        return number * factor;
+      };
+    }
+    
+    const double = multiplier(2);
+    console.log(double(5)); // 10</code></pre>
+      <p class="text-sm text-gray-700 mt-2">The inner function \"remembers\" the <code>factor</code> variable from the
+        outer function via closure.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-purple-600 mb-4">🧠 Best Practices for Senior/Tech Leads</h2>
       <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
         <li>Use named functions for better stack traces</li>
         <li>Keep functions pure where possible (no side effects)</li>
