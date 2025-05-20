@@ -2,102 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JavaScript Loops Summary</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-    <style>
-        input:focus,
-        button:focus,
-        textarea:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
-            border-color: #6366f1;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Loops Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    input:focus,
+    button:focus,
+    textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+      border-color: #6366f1;
+    }
+  </style>
 </head>
 
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
-    <header
-        class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
-        <h1 class="text-3xl font-bold animate-pulse mb-2">🔁 JavaScript Loops Overview</h1>
-    </header>
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔁 JavaScript Loops Overview</h1>
+    <p class="text-sm">Mastering control flow: from basics to tech lead best practices</p>
+  </header>
 
-    <main class="max-w-6xl mx-auto space-y-10 p-6">
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">1. 🌀 for Loop</h2>
-            <p>Use when you know how many times to iterate:</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
+  <main class="max-w-6xl mx-auto space-y-10 p-6">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">1. 🌀 for Loop</h2>
+      <p>Use when you know how many times to iterate:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
   console.log(i);
 }</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">2. 🔁 while Loop</h2>
-            <p>Runs as long as the condition is true:</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>let i = 0;
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">2. 🔁 while Loop</h2>
+      <p>Runs as long as the condition is true:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>let i = 0;
 while (i < 5) {
   console.log(i);
   i++;
 }</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">3. 🔂 do...while Loop</h2>
-            <p>Executes at least once before checking condition:</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>let i = 0;
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">3. 🔂 do...while Loop</h2>
+      <p>Executes at least once before checking condition:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>let i = 0;
 do {
   console.log(i);
   i++;
 } while (i < 5);</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">4. 🧵 for...of Loop (ES6)</h2>
-            <p>Used to iterate over arrays, strings, sets, etc.:</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (const char of "hello") {
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">4. 🧵 for...of Loop (ES6)</h2>
+      <p>Used to iterate over arrays, strings, sets, etc.:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (const char of "hello") {
   console.log(char);
 }</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">5. 🗂 for...in Loop</h2>
-            <p>Used to iterate over object properties (not for arrays!):</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>const user = { name: "Alice", age: 30 };
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">5. 🗂 for...in Loop</h2>
+      <p>Used to iterate over object properties (not for arrays!):</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>const user = { name: "Alice", age: 30 };
 for (const key in user) {
   console.log(key + ':', user[key]);
 }</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">6. ⛔ break & continue</h2>
-            <p><strong>break</strong> exits the loop, <strong>continue</strong> skips current iteration:</p>
-            <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-blue-600 mb-4">6. ⛔ break & continue</h2>
+      <p><strong>break</strong> exits the loop, <strong>continue</strong> skips current iteration:</p>
+      <pre class="bg-gray-100 p-4 mt-2 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
   if (i === 3) break;
   console.log(i);
 }</code></pre>
-            <pre class="bg-gray-100 p-4 mt-4 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
+      <pre class="bg-gray-100 p-4 mt-4 rounded text-sm font-mono overflow-x-auto"><code>for (let i = 0; i < 5; i++) {
   if (i === 2) continue;
   console.log(i);
 }</code></pre>
-        </section>
+    </section>
 
-        <section class="bg-white p-6 rounded-lg shadow">
-            <h2 class="text-2xl font-bold text-purple-600 mb-4">7. 🧠 Best Practices for Senior/Tech Leads</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
-                <li>Use <code>for...of</code> with arrays/iterables, not <code>for...in</code></li>
-                <li>Avoid modifying array/object during iteration (use pure functions)</li>
-                <li>Know when to break early for performance</li>
-                <li>Write clean, intention-revealing loops (avoid nested loops when possible)</li>
-                <li>Replace loops with higher-order functions (<code>map</code>, <code>reduce</code>) when readability
-                    improves</li>
-            </ul>
-        </section>
-    </main>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-purple-600 mb-4">7. 🧠 Best Practices for Senior/Tech Leads</h2>
+      <ul class="list-disc list-inside text-gray-700 space-y-2 text-sm">
+        <li>Use <code>for...of</code> with arrays/iterables, not <code>for...in</code></li>
+        <li>Avoid modifying array/object during iteration (use pure functions)</li>
+        <li>Know when to break early for performance</li>
+        <li>Write clean, intention-revealing loops (avoid nested loops when possible)</li>
+        <li>Replace loops with higher-order functions (<code>map</code>, <code>reduce</code>) when readability improves</li>
+      </ul>
+    </section>
+  </main>
 
-    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-    </footer>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
 </body>
 
 </html>
