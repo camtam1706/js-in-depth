@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Foundations</title>
+  <title>JS Foundations</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -22,70 +22,208 @@
 
   <!-- Header -->
   <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
-    <h1 class="text-3xl font-bold mb-2 animate-pulse">Foundations</h1>
+    <h1 class="text-3xl font-bold mb-2 animate-pulse">JS Foundations</h1>
     <p class="text-xl font-light">Explore core concepts in a modern, elegant way</p>
   </header>
 
   <!-- Main content -->
   <main class="pt-10 px-6 max-w-6xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-    
+
     <!-- Card: Enabled -->
-    <div class="card bg-white shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
-      <h2 class="text-xl font-semibold text-blue-700 mb-4">Introduction to JavaScript</h2>
-      <ul class="list-disc list-inside space-y-2 text-gray-700 text-base">
-        <li>
-          <a href="day-01/intro.html" class="text-blue-600 hover:text-blue-800 font-medium underline transition">What is JavaScript?</a>
-        </li>
-        <li><span class="text-gray-600"><a href="day-01/intro-engine.html" class="text-blue-600 hover:text-blue-800 font-medium underline transition">How Compilation Works</a></span></li>
-      </ul>
-    </div>
+    <a href="01-intro/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Introduction to JavaScript</h2>
+      </div>
+    </a>
 
-    <!-- Cards: Disabled -->
-    <script>
-      const topics = [
-        "Fundamentals",
-        "Code quality",
-        "Objects: the basics",
-        "Data types",
-        "Advanced working with functions",
-        "Object properties",
-        "Prototypes, inheritance",
-        "Classes",
-        "Error handling",
-        "Promises, async/await",
-        "Generators, advanced iteration",
-        "Modules",
-        "JS Misc",
-        "Browser: Document",
-        "Introduction to Events",
-        "UI Events",
-        "Forms, controls",
-        "Document and resource loading",
-        "UI Misc",
-        "Frames and windows",
-        "Binary data, files",
-        "Network requests",
-        "Storing data in the browser",
-        "Animation",
-        "Web components",
-        "Regular expressions"
-      ];
+    <a href="02-fundamentals/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Fundamentals</h2>
+      </div>
+    </a>
 
-      document.write(
-        topics.map((title) => `
-          <div class="card bg-gray-200 text-gray-500 rounded-2xl p-6 shadow-inner opacity-0 translate-y-10">
-            <h2 class="text-xl font-semibold mb-2">${title}</h2>
-            <p class="text-sm">Learn the essentials and nuances of <strong>${title.split(" ")[1] || 'JavaScript'}</strong>.</p>
-          </div>
-        `).join('')
-      );
-    </script>
+    <a href="03-code-quality/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Code quality</h2>
+      </div>
+    </a>
+
+    <a href="04-obj-basic/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Objects: the basics</h2>
+      </div>
+    </a>
+
+    <a href="05-data-types/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Data types</h2>
+      </div>
+    </a>
+
+    <a href="06-functions/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Advanced working functions</h2>
+      </div>
+    </a>
+
+    <a href="07-obj-properties/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Object properties</h2>
+      </div>
+    </a>
+
+    <a href="08-prototypes/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Prototypes, inheritance</h2>
+      </div>
+    </a>
+
+    <a href="09-classes/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Classes</h2>
+      </div>
+    </a>
+
+    <a href="10-error-handling/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Error handling</h2>
+      </div>
+    </a>
+
+    <a href="11-promises/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Promises, async/await</h2>
+      </div>
+    </a>
+
+    <a href="12-advanced-iteration/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Generators, advanced iteration</h2>
+      </div>
+    </a>
+
+    <a href="13-modules/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Modules</h2>
+      </div>
+    </a>
+
+    <a href="14-js-misc/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">JS Misc</h2>
+      </div>
+    </a>
+
+    <a href="15-document/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Browser: Document</h2>
+      </div>
+    </a>
+
+    <a href="16-events/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Introduction to Events</h2>
+      </div>
+    </a>
+
+    <a href="17-ui-events/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">UI Events</h2>
+      </div>
+    </a>
+
+    <a href="18-forms/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Forms, controls</h2>
+      </div>
+    </a>
+
+    <a href="19-resource-loading/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Document and resource loading</h2>
+      </div>
+    </a>
+
+    <a href="20-ui-misc/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">UI Misc</h2>
+      </div>
+    </a>
+
+    <a href="21-frames/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Frames and windows</h2>
+      </div>
+    </a>
+
+    <a href="22-binary-data/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Binary data, files</h2>
+      </div>
+    </a>
+
+    <a href="23-networks/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Network requests</h2>
+      </div>
+    </a>
+
+    <a href="24-data-browser/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Storing data in the browser</h2>
+      </div>
+    </a>
+
+    <a href="25-animation/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Animation</h2>
+      </div>
+    </a>
+
+    <a href="26-web-components/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Web components</h2>
+      </div>
+    </a>
+    <a href="27-expressions/index.html">
+      <div
+        class="card bg-white shadow-xl hover:shadow transform transition-all duration-300 hover:translate-y-1 rounded-2xl p-6 opacity-0 translate-y-10">
+        <h2 class="text-xl font-semibold text-blue-700">Regular expressions</h2>
+      </div>
+    </a>
+
   </main>
 
-    <!-- Footer -->
-    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
-      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
-    </footer>
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
 
 </body>
 
