@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Operators Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header
+        class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+        <h1 class="text-3xl font-bold animate-pulse mb-2">🧮 JavaScript Operators Overview</h1>
+    </header>
+
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+        <!-- Section 1: Operator Basics -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">⚙️ Operator Basics</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Operands</strong>: The values that operators act upon. For example, in <code>5 * 2</code>, 5
+                    and 2 are operands.</li>
+                <li><strong>Unary Operators</strong>: Operate on a single operand. Example: <code>-x</code> negates the
+                    value of <code>x</code>.</li>
+                <li><strong>Binary Operators</strong>: Operate on two operands. Example: <code>x + y</code> adds
+                    <code>x</code> and <code>y</code>.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 2: Arithmetic Operators -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">➕ Arithmetic Operators</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><code>+</code>: Addition</li>
+                <li><code>-</code>: Subtraction</li>
+                <li><code>*</code>: Multiplication</li>
+                <li><code>/</code>: Division</li>
+                <li><code>%</code>: Remainder</li>
+                <li><code>**</code>: Exponentiation</li>
+            </ul>
+        </section>
+
+        <!-- Section 3: String Concatenation -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">🧵 String Concatenation</h2>
+            <p>The <code>+</code> operator can also concatenate strings. If either operand is a string, the other is converted to a string:</p>
+            <pre class="bg-gray-100 rounded-md p-4 mt-4 text-sm overflow-auto">
+<code>"Hello" + " World"      // "Hello World"
+"1" + 2 + 2                  // "122"     (left-to-right: "1" + 2 → "12", then "12" + 2 → "122")
+2 + 2 + "1"                  // "41"      (left-to-right: 2 + 2 → 4, then 4 + "1" → "41")
+"Number: " + 3 + 4           // "Number: 34"
+"10" - 2                    // 8         ("10" is coerced to number)
+"10" * "2"                  // 20        (both strings are coerced to numbers)
+"hello" * 2                // NaN       ("hello" cannot be converted to number)
+</code>
+</pre>
+            <p class="mt-4">🧠 <strong>Note:</strong> Only the <code>+</code> operator triggers string concatenation. Other arithmetic operators (e.g., <code>-</code>, <code>*</code>) coerce operands to numbers.</p>
+          </section>
+          
+
+        <!-- Section 4: Comparison Operators -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">🔍 Comparison Operators</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><code>==</code>: Equality (with type coercion)</li>
+                <li><code>===</code>: Strict equality (no type coercion)</li>
+                <li><code>!=</code>: Inequality (with type coercion)</li>
+                <li><code>!==</code>: Strict inequality (no type coercion)</li>
+                <li><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>: Greater than, less
+                    than, etc.</li>
+            </ul>
+        </section>
+
+        <!-- Section 5: Logical Operators -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">🔍 Comparison & Logical Operators</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Comparison:</strong> <code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code>,
+                    <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>
+                </li>
+                <li><strong>Logical:</strong> <code>&&</code>, <code>||</code>, <code>!</code></li>
+                <li><strong>Nullish Coalescing:</strong> <code>??</code> returns the right-hand operand when the left is
+                    <code>null</code> or <code>undefined</code>.
+                </li>
+                <li>
+                    <strong>Falsy values:</strong> These values evaluate to <code>false</code> in logical expressions:
+                    <pre class="bg-gray-100 rounded-md p-4 mt-2 text-sm overflow-auto">
+<code>false, 0, -0, "", null, undefined, NaN</code></pre>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 6: Nullish Coalescing Operator -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">🤷 Nullish Coalescing Operator</h2>
+            <p>The <code>??</code> operator returns the first defined value (not <code>null</code> or
+                <code>undefined</code>):
+            </p>
+            <pre class="bg-gray-100 p-4 rounded"><code>let user;
+alert(user ?? "Anonymous"); // "Anonymous"</code></pre>
+        </section>
+
+        <!-- Section 7: Assignment Operators -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">📝 Assignment Operators</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><code>=</code>: Assigns a value to a variable.</li>
+                <li><code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code>: Performs
+                    operation and assigns the result.</li>
+            </ul>
+        </section>
+
+        <!-- Section 8: Conditional (Ternary) Operator -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">❓ Conditional (Ternary) Operator</h2>
+            <p>Syntax: <code>condition ? valueIfTrue : valueIfFalse</code></p>
+            <pre class="bg-gray-100 p-4 rounded"><code>let accessAllowed = (age > 18) ? true : false;</code></pre>
+        </section>
+
+        <!-- Section 9: Senior/Lead Considerations -->
+        <section class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-semibold mb-4">🧠 Senior/Lead Considerations</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Type Coercion Awareness</strong>: Understand how JavaScript coerces types, especially with
+                    <code>==</code> vs. <code>===</code>.
+                </li>
+                <li><strong>Short-Circuit Evaluation</strong>: Leverage <code>||</code> and <code>&&</code> for default
+                    values and conditional execution.</li>
+                <li><strong>Nullish Coalescing</strong>: Use <code>??</code> to provide default values only when dealing
+                    with <code>null</code> or <code>undefined</code>.</li>
+                <li><strong>Operator Precedence</strong>: Be cautious with complex expressions; use parentheses to
+                    ensure correct evaluation order.</li>
+                <li><strong>Code Readability</strong>: Avoid overusing the ternary operator in complex conditions;
+                    prefer <code>if...else</code> for clarity.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+        &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+</body>
+
+</html>
