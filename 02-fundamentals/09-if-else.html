@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript if / else Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔀 JavaScript if / else Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">📌 Overview</h2>
+      <p>The <code>if</code> statement executes a block of code if a condition is true. Optionally, <code>else</code> or <code>else if</code> can be used to handle other cases.</p>
+      <pre class="bg-gray-100 rounded p-4 mt-4"><code>if (condition) {
+  // code to execute if condition is true
+} else if (anotherCondition) {
+  // code if anotherCondition is true
+} else {
+  // code if none of the above conditions are true
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">⚠️ Condition Conversion</h2>
+      <p>Conditions are evaluated using boolean coercion. Some falsy values include:</p>
+      <pre class="bg-gray-100 rounded p-4 mt-4"><code>false
+0
+"" (empty string)
+null
+undefined
+NaN</code></pre>
+      <p>All other values are considered truthy.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🧪 Ternary Operator</h2>
+      <p>A shorter form of if...else for assignments or simple logic:</p>
+      <pre class="bg-gray-100 rounded p-4 mt-4"><code>let result = condition ? value1 : value2;</code></pre>
+      <p>It can be nested but avoid overusing as it reduces readability.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">👨‍💼 Senior/Lead Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Favor early returns in functions to reduce nested <code>if</code> blocks.</li>
+        <li>For complex branching, consider using <code>switch</code> or a map object for clarity.</li>
+        <li>Keep logic declarative and readable; avoid deeply nested conditions.</li>
+        <li>Use ternary only when expressions are short and readable.</li>
+        <li>In critical systems, always consider implications of falsy values like <code>0</code> or empty strings.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
