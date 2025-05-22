@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debugging JavaScript in Chrome</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+      <h1 class="text-3xl font-bold animate-pulse mb-2">🛠️ Debugging JavaScript in Chrome</h1>
+    </header>
+
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+      <!-- Section 1 -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔍 The “Sources” Panel</h2>
+        <p>
+          The Sources panel in Chrome DevTools is essential for debugging JavaScript. It consists of three main areas:
+        </p>
+        <ul class="list-disc list-inside mt-2">
+          <li><strong>File Navigator:</strong> Lists all files loaded in the page, including HTML, CSS, and JavaScript.</li>
+          <li><strong>Code Editor:</strong> Displays the source code of the selected file.</li>
+          <li><strong>JavaScript Debugging Pane:</strong> Provides tools for setting breakpoints and stepping through code.</li>
+        </ul>
+        <p class="mt-2">
+          To access it, open DevTools with <code>F12</code> (or <code>Cmd+Opt+I</code> on Mac) and select the <strong>Sources</strong> tab.
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧪 Using the Console</h2>
+        <p>
+          Press <code>Esc</code> to open the console at the bottom of DevTools. Here, you can execute JavaScript commands and inspect values.
+        </p>
+        <p class="mt-2">
+          For example:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2">
+1 + 2 // Returns 3
+hello("debugger") // Returns undefined
+        </pre>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">⏸️ Breakpoints</h2>
+        <p>
+          Breakpoints allow you to pause code execution at specific lines:
+        </p>
+        <ul class="list-disc list-inside mt-2">
+          <li>Click on the line number in the Code Editor to set a breakpoint.</li>
+          <li>Use the right panel to manage breakpoints: enable/disable or remove them.</li>
+          <li>Right-click a line number to set a <strong>conditional breakpoint</strong> that triggers only when a specified condition is true.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧭 The “debugger” Statement</h2>
+        <p>
+          Insert the <code>debugger;</code> statement in your code to pause execution when DevTools is open:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2">
+function hello(name) {
+  let phrase = `Hello, ${name}!`;
+
+  debugger; // Execution pauses here
+
+  say(phrase);
+}
+        </pre>
+        <p class="mt-2">
+          This is useful for debugging without manually setting breakpoints.
+        </p>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">👨‍💼 Tips for Senior/Lead Developers</h2>
+        <ul class="list-disc list-inside mt-2">
+          <li><strong>Encourage Best Practices:</strong> Promote the use of DevTools for debugging instead of relying solely on <code>console.log()</code>.</li>
+          <li><strong>Implement Conditional Breakpoints:</strong> Use them to debug complex scenarios without cluttering the code.</li>
+          <li><strong>Leverage the Call Stack:</strong> Analyze the call stack to understand the sequence of function calls leading to a particular state.</li>
+          <li><strong>Monitor Scope Variables:</strong> Inspect variables in different scopes to ensure they hold expected values.</li>
+          <li><strong>Utilize Watch Expressions:</strong> Keep track of specific expressions or variables as you step through the code.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+  </body>
+</html>
