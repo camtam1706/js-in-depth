@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Nullish Coalescing Operator (??) in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚙️ Nullish Coalescing Operator (??)</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 What is the Nullish Coalescing Operator?</h2>
+      <p>
+        The <code>??</code> operator returns the first operand if it's not <code>null</code> or <code>undefined</code>;
+        otherwise, it returns the second operand.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let user = null;
+let name = user ?? "Anonymous"; // "Anonymous"</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Difference Between <code>??</code> and <code>||</code></h2>
+      <p>
+        The <code>||</code> operator returns the first truthy value, which means it considers <code>0</code>,
+        <code>""</code>, and <code>false</code> as falsy. In contrast, <code>??</code> only considers <code>null</code>
+        and <code>undefined</code> as nullish.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let height = 0;
+console.log(height || 100); // 100
+console.log(height ?? 100); // 0</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Common Use Cases</h2>
+      <ul class="list-disc list-inside">
+        <li>Providing default values when variables are <code>null</code> or <code>undefined</code>.</li>
+        <li>Chaining multiple values to find the first defined one.</li>
+        <li>Combining with optional chaining (<code>?.</code>) for safe property access.</li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let firstName = null;
+let lastName = null;
+let nickName = "Supercoder";
+let name = firstName ?? lastName ?? nickName ?? "Anonymous"; // "Supercoder"</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Important Considerations</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>Operator Precedence:</strong> <code>??</code> has lower precedence than most operators, so use
+          parentheses when combining with other operators.</li>
+        <li><strong>Syntax Restrictions:</strong> Cannot be used directly with <code>||</code> or <code>&&</code>
+          without parentheses.</li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>// Correct usage with parentheses
+let result = (a && b) ?? c;</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>Code Clarity:</strong> Ensure team members understand the difference between <code>??</code> and
+          <code>||</code> to prevent unintended behavior.</li>
+        <li><strong>Browser Compatibility:</strong> <code>??</code> is part of ES2020; ensure that target environments
+          support it or include necessary polyfills.</li>
+        <li><strong>Code Reviews:</strong> Watch for misuse of <code>??</code> where <code>||</code> might be more
+          appropriate, especially when dealing with falsy values like <code>0</code> or <code>""</code>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
