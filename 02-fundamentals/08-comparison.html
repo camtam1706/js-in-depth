@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Comparison Operators</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔍 JavaScript Comparison Operators</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section: Basic Comparison Operators -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📘 Basic Comparison Operators</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>&gt;</code> : Greater than</li>
+        <li><code>&lt;</code> : Less than</li>
+        <li><code>&gt;=</code> : Greater than or equal to</li>
+        <li><code>&lt;=</code> : Less than or equal to</li>
+        <li><code>==</code> : Equal (loose equality, allows type coercion)</li>
+        <li><code>===</code> : Strictly equal (no type coercion)</li>
+        <li><code>!=</code> : Not equal (loose inequality)</li>
+        <li><code>!==</code> : Strictly not equal</li>
+      </ul>
+    </section>
+
+    <!-- Section: String Comparison -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔤 String Comparison</h2>
+      <p>Strings are compared lexicographically, based on Unicode values:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm"><code>
+console.log('Z' > 'A'); // true
+console.log('Glow' > 'Glee'); // true
+console.log('Bee' > 'Be'); // true
+        </code></pre>
+    </section>
+
+    <!-- Section: Comparison with Different Types -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Comparison with Different Types</h2>
+      <p>When comparing values of different types, JavaScript converts them to numbers:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm"><code>
+console.log('2' > 1); // true
+console.log('01' == 1); // true
+console.log(true == 1); // true
+console.log(false == 0); // true
+        </code></pre>
+    </section>
+
+    <!-- Section: Comparison with null and undefined -->
+    <!-- Section: Comparison with null and undefined -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">❓ Comparison with null and undefined</h2>
+      <p>Examples of how <code>null</code> and <code>undefined</code> behave in comparisons:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm"><code>
+// Equality checks
+console.log(null == undefined);  // true
+console.log(null === undefined); // false
+
+// Comparisons with numbers
+console.log(null > 0);  // false
+console.log(null == 0); // false
+console.log(null >= 0); // true
+  </code></pre>
+      <p class="mt-4">⚠️ Be cautious: comparisons involving <code>null</code> or <code>undefined</code> can lead to
+        unexpected results due to type coercion.</p>
+    </section>
+
+    <!-- Section: Object Comparison -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧱 Object Comparison</h2>
+      <p>Objects are compared by reference, not by value:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm"><code>
+let a = {};
+let b = {};
+
+console.log(a == b); // false
+        </code></pre>
+      <p class="mt-4">To compare object values, compare each property manually or use utility functions.</p>
+    </section>
+
+    <!-- Section: Tips for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Tips for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Prefer <code>===</code> and <code>!==</code> over <code>==</code> and <code>!=</code> to avoid type coercion
+          issues.</li>
+        <li>Be cautious when comparing <code>null</code> and <code>undefined</code>; consider using <code>== null</code>
+          to check for both.</li>
+        <li>Remember that object comparisons check for reference equality, not value equality.</li>
+        <li>Use <code>Number.isNaN()</code> to accurately check for <code>NaN</code> values.</li>
+        <li>Understand JavaScript's type coercion rules to prevent unexpected comparison results.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
