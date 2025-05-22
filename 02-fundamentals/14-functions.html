@@ -74,12 +74,76 @@ function greet() {
     </section>
 
     <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚖️ Function Declaration vs Function Expression</h2>
+
+      <p class="mb-4">There are two common ways to define a function in JavaScript: <strong>Function
+          Declaration</strong> and <strong>Function Expression</strong>. Here's how they differ:</p>
+
+      <div class="overflow-x-auto mb-4">
+        <table class="min-w-full table-auto border border-gray-300 text-sm text-left">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border px-4 py-2">Aspect</th>
+              <th class="border px-4 py-2">Function Declaration</th>
+              <th class="border px-4 py-2">Function Expression</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border px-4 py-2">Syntax</td>
+              <td class="border px-4 py-2"><code>function name() {}</code></td>
+              <td class="border px-4 py-2"><code>const name = function() {}</code></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="border px-4 py-2">Hoisting</td>
+              <td class="border px-4 py-2">Hoisted – callable before definition</td>
+              <td class="border px-4 py-2">Not hoisted – callable only after definition</td>
+            </tr>
+            <tr>
+              <td class="border px-4 py-2">Use Case</td>
+              <td class="border px-4 py-2">Ideal for global or top-level functions</td>
+              <td class="border px-4 py-2">Great for inline/conditional definitions</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="border px-4 py-2">Readability</td>
+              <td class="border px-4 py-2">Easier to spot in code base</td>
+              <td class="border px-4 py-2">Can be used with anonymous functions</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="font-medium mb-2">🧪 Example:</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <h3 class="font-semibold mb-1">Function Declaration:</h3>
+          <pre class="bg-gray-100 p-4 rounded"><code>greet();
+    
+function greet() {
+  alert('Hello from declaration!');
+}</code></pre>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-1">Function Expression:</h3>
+          <pre class="bg-gray-100 p-4 rounded"><code>// greet(); ❌ Error
+    
+const greet = function() {
+  alert('Hello from expression!');
+};
+    
+greet();</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold mb-4">⚠️ Senior/Lead Considerations</h2>
       <ul class="list-disc list-inside space-y-2">
         <li><strong>Hoisting Behavior:</strong> Understand the differences in hoisting between function declarations and
           expressions to avoid unexpected behaviors.</li>
         <li><strong>Arrow Functions:</strong> Use arrow functions for concise syntax, but be aware of their lexical
-          <code>this</code> binding, which differs from regular functions.</li>
+          <code>this</code> binding, which differs from regular functions.
+        </li>
         <li><strong>Code Readability:</strong> Maintain clear and consistent function definitions to enhance code
           readability and maintainability.</li>
         <li><strong>Function Naming:</strong> Use descriptive names for functions to convey their purpose effectively.
