@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Logical Operators</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+      <h1 class="text-3xl font-bold animate-pulse mb-2">🔗 JavaScript Logical Operators</h1>
+    </header>
+
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+      <!-- Section: Logical OR -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🟢 Logical OR (||)</h2>
+        <p>
+          The OR operator returns the first truthy value among its operands. If all operands are falsy, it returns the last operand. This behavior is known as short-circuit evaluation.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let result = value1 || value2 || value3;
+        </code></pre>
+        <p class="mt-4">
+          Example:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let name = "";
+let nickname = "Coder";
+let displayName = name || nickname || "Anonymous";
+console.log(displayName); // Output: "Coder"
+        </code></pre>
+      </section>
+
+      <!-- Section: Logical AND -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔴 Logical AND (&&)</h2>
+        <p>
+          The AND operator returns the first falsy value among its operands. If all operands are truthy, it returns the last operand. This also utilizes short-circuit evaluation.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let result = value1 && value2 && value3;
+        </code></pre>
+        <p class="mt-4">
+          Example:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let isLoggedIn = true;
+let hasPermission = false;
+let access = isLoggedIn && hasPermission;
+console.log(access); // Output: false
+        </code></pre>
+      </section>
+
+      <!-- Section: Logical NOT -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">⚪ Logical NOT (!)</h2>
+        <p>
+          The NOT operator inverts the truthiness of its operand. It converts the operand to a boolean and returns the opposite value.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let result = !value;
+        </code></pre>
+        <p class="mt-4">
+          Example:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let isAvailable = false;
+console.log(!isAvailable); // Output: true
+        </code></pre>
+      </section>
+
+      <!-- Section: Nullish Coalescing -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🟡 Nullish Coalescing (??)</h2>
+        <p>
+          The nullish coalescing operator returns the right-hand operand when the left-hand operand is null or undefined.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let result = value1 ?? value2;
+        </code></pre>
+        <p class="mt-4">
+          Example:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>
+let userInput = null;
+let defaultValue = "Default";
+let result = userInput ?? defaultValue;
+console.log(result); // Output: "Default"
+        </code></pre>
+      </section>
+
+      <!-- Section: Senior/Lead Considerations -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">👨‍💼 Senior/Lead Developer Considerations</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>
+            <strong>Short-Circuit Evaluation:</strong> Understand and leverage short-circuit behavior for cleaner and more efficient code.
+          </li>
+          <li>
+            <strong>Truthy and Falsy Values:</strong> Be aware of JavaScript's type coercion rules to avoid unexpected results.
+          </li>
+          <li>
+            <strong>Code Readability:</strong> Use logical operators to write concise code, but ensure it remains readable and maintainable.
+          </li>
+          <li>
+            <strong>Nullish Coalescing vs. OR:</strong> Use '??' when you need to provide default values for null or undefined, avoiding unintended behavior with falsy values like 0 or "".
+          </li>
+          <li>
+            <strong>Consistent Practices:</strong> Establish and enforce coding standards regarding the use of logical operators within your team or organization.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+  </body>
+</html>
