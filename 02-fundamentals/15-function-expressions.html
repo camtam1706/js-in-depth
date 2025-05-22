@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Function Expressions</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚙️ JavaScript Function Expressions</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Function Expressions vs Declarations</h2>
+      <p>
+        In JavaScript, functions can be defined in two primary ways:
+      </p>
+      <ul class="list-disc list-inside mt-2">
+        <li><strong>Function Declaration:</strong> Defined using the <code>function</code> keyword followed by a name.
+          These are hoisted, meaning they are available before their definition in the code.</li>
+        <li><strong>Function Expression:</strong> Defined by assigning a function to a variable. These are not hoisted
+          and are created when the execution reaches them.</li>
+      </ul>
+      <p class="mt-2">
+        Example of a Function Expression:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>const sayHi = function() {
+  alert("Hello");
+};</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 Functions Are Values</h2>
+      <p>
+        In JavaScript, functions are first-class citizens. This means they can be:
+      </p>
+      <ul class="list-disc list-inside mt-2">
+        <li>Assigned to variables</li>
+        <li>Passed as arguments to other functions</li>
+        <li>Returned from other functions</li>
+      </ul>
+      <p class="mt-2">
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>function greet() {
+  alert("Hi");
+}
+
+const sayHello = greet;
+sayHello(); // Outputs: Hi</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Named Function Expressions (NFE)</h2>
+      <p>
+        A Named Function Expression is a function expression that has a name. This name is local to the function's scope
+        and can be useful for recursion or debugging.
+      </p>
+      <p class="mt-2">
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>const factorial = function fact(n) {
+  return n <= 1 ? 1 : n * fact(n - 1);
+};
+
+console.log(factorial(5)); // Outputs: 120</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Hoisting Behavior</h2>
+      <p>
+        Function Declarations are hoisted, meaning they can be called before they are defined in the code. Function
+        Expressions, however, are not hoisted and will result in an error if called before their definition.
+      </p>
+      <p class="mt-2">
+        Example of hoisting with Function Declaration:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>sayHi(); // Outputs: Hello
+
+function sayHi() {
+  alert("Hello");
+}</code></pre>
+      <p class="mt-2">
+        Example of Function Expression not being hoisted:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>sayHi(); // Error: Cannot access 'sayHi' before initialization
+
+const sayHi = function() {
+  alert("Hello");
+};</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚀 Immediately Invoked Function Expressions (IIFE)</h2>
+      <p>
+        An IIFE is a function that is executed immediately after its definition. It's commonly used to create a new
+        scope and avoid polluting the global namespace.
+      </p>
+      <p class="mt-2">
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>(function() {
+  // Code inside this function is in a separate scope
+  console.log("IIFE executed");
+})();</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Key Takeaways</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Function Expressions are not hoisted; they are created when the execution reaches them.</li>
+        <li>Functions in JavaScript are values and can be manipulated like other data types.</li>
+        <li>Named Function Expressions can be useful for recursion and debugging.</li>
+        <li>IIFEs are useful for creating isolated scopes and avoiding global namespace pollution.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li><strong>Code Clarity:</strong> Choose between Function Declarations and Expressions based on readability and
+          hoisting behavior.</li>
+        <li><strong>Modular Design:</strong> Use IIFEs or ES6 modules to encapsulate code and manage scope effectively.
+        </li>
+        <li><strong>Performance:</strong> Be aware of the implications of hoisting and closures on performance and
+          memory usage.</li>
+        <li><strong>Team Standards:</strong> Establish and enforce coding standards regarding function definitions to
+          maintain consistency across the codebase.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📦 Modular Design in Practice</h2>
+      <p>
+        Modular design is essential for scalability, reusability, and code isolation. Before ES6 modules were
+        introduced, developers often used IIFEs to simulate module-like behavior.
+      </p>
+      <p class="mt-2">Example using IIFE:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>const UserModule = (function() {
+  const privateData = "secret";
+
+  function showName() {
+    console.log("User Module");
+  }
+
+  return {
+    showName
+  };
+})();
+
+UserModule.showName();</code></pre>
+      <p class="mt-2">With ES6 Modules:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>// user.js
+export function showName() {
+  console.log("User Module");
+}
+
+// main.js
+import { showName } from './user.js';
+showName();</code></pre>
+      <p class="mt-2">
+        ES6 modules are the modern and recommended approach. They offer built-in scope isolation and static structure,
+        making bundling and tree-shaking more efficient.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📈 Performance Considerations for Hoisting & Closures</h2>
+      <p>
+        While JavaScript engines are highly optimized, understanding how hoisting and closures affect memory and
+        execution time is crucial for writing efficient code.
+      </p>
+      <ul class="list-disc list-inside mt-2">
+        <li><strong>Hoisting:</strong> Function Declarations are hoisted, so they exist in memory before execution.
+          Avoid defining unused functions as they consume memory.</li>
+        <li><strong>Closures:</strong> Closures retain references to their outer scopes, which can cause memory leaks if
+          not handled carefully (e.g., in long-lived event handlers or timers).</li>
+      </ul>
+      <p class="mt-2">
+        Example of a closure causing memory concern:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>function setup() {
+  const bigData = new Array(1000000).fill('*');
+  return function() {
+    console.log(bigData[0]);
+  };
+}
+
+const leak = setup(); // bigData is retained in memory</code></pre>
+      <p class="mt-2">
+        Tip: Dereference variables or use weak references (when supported) to avoid holding unnecessary memory.
+      </p>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
