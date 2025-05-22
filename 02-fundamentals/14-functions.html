@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Function Basics Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 JavaScript Function Basics</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 What is a Function?</h2>
+      <p>Functions are reusable blocks of code that perform a specific task. They help in organizing code, avoiding
+        repetition, and improving readability.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Function Declaration</h2>
+      <p>Defines a function with the <code>function</code> keyword, followed by a name, parameters, and a body.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function greet() {
+  alert('Hello!');
+}</code></pre>
+      <p>Function declarations are hoisted, meaning they can be called before they are defined in the code.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧾 Function Expression</h2>
+      <p>Defines a function as part of an expression, often assigned to a variable.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const greet = function() {
+  alert('Hello!');
+};</code></pre>
+      <p>Function expressions are not hoisted; they can only be called after they are defined.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Parameters and Arguments</h2>
+      <p>Functions can accept inputs called parameters, which are specified during function definition. When calling the
+        function, actual values called arguments are passed.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function greet(name) {
+  alert('Hello, ' + name);
+}
+
+greet('Alice');</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📦 Return Values</h2>
+      <p>Functions can return values using the <code>return</code> statement. This allows the function to output a
+        result that can be used elsewhere in the code.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function add(a, b) {
+  return a + b;
+}
+
+let sum = add(2, 3); // sum is 5</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔒 Scope and Variables</h2>
+      <p>Variables declared inside a function are local to that function and cannot be accessed outside. Functions can
+        also access variables from their outer scope.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let user = 'Alice';
+
+function greet() {
+  let message = 'Hello, ' + user;
+  alert(message);
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Senior/Lead Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Hoisting Behavior:</strong> Understand the differences in hoisting between function declarations and
+          expressions to avoid unexpected behaviors.</li>
+        <li><strong>Arrow Functions:</strong> Use arrow functions for concise syntax, but be aware of their lexical
+          <code>this</code> binding, which differs from regular functions.</li>
+        <li><strong>Code Readability:</strong> Maintain clear and consistent function definitions to enhance code
+          readability and maintainability.</li>
+        <li><strong>Function Naming:</strong> Use descriptive names for functions to convey their purpose effectively.
+        </li>
+        <li><strong>Modularity:</strong> Break down complex tasks into smaller, reusable functions to promote modularity
+          and testability.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
