@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Variables Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 JavaScript Variables Summary</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What is a Variable?</h2>
+      <p>A variable is a named storage for data. It allows you to store and manipulate values in your code.</p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Declaring Variables: let, const, var</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>let</strong>: Block-scoped, can be updated but not re-declared within the same scope.</li>
+        <li><strong>const</strong>: Block-scoped, cannot be updated or re-declared. Must be initialized during declaration.</li>
+        <li><strong>var</strong>: Function-scoped, can be updated and re-declared. Hoisted to the top of its scope.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📐 Scope and Hoisting</h2>
+      <p>Variables declared with <code>let</code> and <code>const</code> are block-scoped and not accessible before their declaration due to the temporal dead zone. <code>var</code> is function-scoped and hoisted, meaning it's accessible before its declaration but initialized with <code>undefined</code>.</p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📝 Variable Naming Rules</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Names can include letters, digits, underscores, and dollar signs.</li>
+        <li>Must begin with a letter, underscore, or dollar sign.</li>
+        <li>Case-sensitive: <code>myVar</code> and <code>myvar</code> are different.</li>
+        <li>Cannot use reserved keywords like <code>let</code>, <code>class</code>, etc.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Prefer <code>const</code> by default; use <code>let</code> only when reassignment is needed.</li>
+        <li>Avoid <code>var</code> to prevent unexpected behaviors due to hoisting and lack of block scope.</li>
+        <li>Ensure consistent variable naming conventions across the codebase.</li>
+        <li>Be cautious with global variables to avoid polluting the global namespace.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+</html>
