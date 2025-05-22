@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Strict Mode Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚠️ JavaScript Strict Mode</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What is Strict Mode?</h2>
+      <p>
+        Introduced in ECMAScript 5 (ES5), strict mode is a way to opt into a restricted variant of JavaScript, thereby implicitly opting out of "sloppy mode". It helps in catching common coding bloopers, prevents the use of potentially problematic features, and makes it easier to write "secure" JavaScript.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚀 Enabling Strict Mode</h2>
+      <p>
+        Strict mode can be enabled by adding the directive <code>"use strict";</code> at the beginning of a script or a function.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>// For entire script
+"use strict";
+...
+
+// For a specific function
+function myFunction() {
+  "use strict";
+  ...
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Key Changes in Strict Mode</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Eliminates some JavaScript silent errors by changing them to throw errors.</li>
+        <li>Fixes mistakes that make it difficult for JavaScript engines to perform optimizations.</li>
+        <li>Prohibits some syntax likely to be defined in future versions of ECMAScript.</li>
+        <li>Disallows the use of undeclared variables.</li>
+        <li>Prevents the use of duplicate parameter names.</li>
+        <li>Disallows assignments to read-only properties.</li>
+        <li>Prohibits the use of the <code>with</code> statement.</li>
+        <li>Changes the semantics of <code>eval()</code> and <code>arguments</code>.</li>
+        <li>In functions, <code>this</code> is <code>undefined</code> if the function is called without an object.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Important Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Modules and classes are in strict mode by default; no need to explicitly enable it.</li>
+        <li>Be cautious when integrating third-party libraries that may not be strict mode compliant.</li>
+        <li>Ensure that team members are aware of strict mode implications to maintain code consistency.</li>
+        <li>Use strict mode to catch common errors early in the development process, improving code quality.</li>
+        <li>Understand that strict mode can affect the behavior of <code>this</code> and <code>eval()</code>, which may impact legacy code.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+</html>
