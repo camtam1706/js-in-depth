@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Data Types Summary</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+      <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Data Types Summary</h1>
+    </header>
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔢 Primitive Types</h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>Number</strong>: Represents both integer and floating-point numbers. Special values include <code>NaN</code>, <code>Infinity</code>, and <code>-Infinity</code>.</li>
+          <li><strong>BigInt</strong>: Used for integers beyond the safe range of <code>Number</code>. Created by appending <code>n</code> to the end of an integer, e.g., <code>123n</code>.</li>
+          <li><strong>String</strong>: Represents textual data. Can use single, double, or backticks for template literals.</li>
+          <li><strong>Boolean</strong>: Logical type with two values: <code>true</code> and <code>false</code>.</li>
+          <li><strong>Null</strong>: Represents an intentional absence of any object value. Note: <code>typeof null</code> returns <code>"object"</code>, which is a known quirk.</li>
+          <li><strong>Undefined</strong>: Indicates a variable that has been declared but not assigned a value.</li>
+          <li><strong>Symbol</strong>: Unique and immutable primitive value, often used as the key of an Object property to avoid property name collisions.</li>
+        </ul>
+      </section>
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧱 Object Type</h2>
+        <p>Objects are collections of key-value pairs. They can store multiple values and more complex entities. Functions, arrays, and other objects are all of the object type.</p>
+      </section>
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔄 Type Conversions</h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li><strong>String Conversion</strong>: Occurs when outputting values. Can be performed with <code>String(value)</code>.</li>
+          <li><strong>Numeric Conversion</strong>: Occurs in mathematical operations. Can be performed with <code>Number(value)</code>.</li>
+          <li><strong>Boolean Conversion</strong>: Occurs in logical operations. Can be performed with <code>Boolean(value)</code>.</li>
+        </ul>
+      </section>
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧑‍💼 Notes for Senior/Lead Developers</h2>
+        <ul class="list-disc pl-6 space-y-2">
+          <li>Be cautious with type coercion, especially in comparisons. Use <code>===</code> and <code>!==</code> to avoid unexpected results.</li>
+          <li>Understand the differences between <code>null</code> and <code>undefined</code>, and use them appropriately to represent absence of value.</li>
+          <li>Leverage <code>Symbol</code> to create unique object property keys, especially when integrating with third-party code to avoid property name collisions.</li>
+          <li>Avoid using <code>new Number()</code>, <code>new String()</code>, or <code>new Boolean()</code> as they create wrapper objects, which can lead to unexpected behavior.</li>
+          <li>Be aware of the limitations of the <code>Number</code> type with large integers and consider using <code>BigInt</code> when precision is required.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+  </body>
+</html>
