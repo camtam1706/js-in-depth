@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Switch Statement Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔀 JavaScript Switch Statement</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📚 Overview</h2>
+      <p>The <code>switch</code> statement evaluates an expression and executes code based on matching <code>case</code> clauses. It's a cleaner alternative to multiple <code>if...else</code> statements when dealing with numerous conditions.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Syntax</h2>
+      <pre class="bg-gray-100 p-4 rounded"><code>switch (expression) {
+  case value1:
+    // Code block
+    break;
+  case value2:
+    // Code block
+    break;
+  default:
+    // Default code block
+}</code></pre>
+      <ul class="list-disc list-inside mt-4">
+        <li><code>expression</code> is evaluated once.</li>
+        <li>Compared with each <code>case</code> for strict equality (<code>===</code>).</li>
+        <li><code>break</code> exits the switch block; without it, execution continues to the next case (fall-through).</li>
+        <li><code>default</code> executes if no matching case is found.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 Key Concepts</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>Strict Comparison:</strong> <code>switch</code> uses strict comparison (<code>===</code>), so type matters.</li>
+        <li><strong>Fall-Through Behavior:</strong> Omitting <code>break</code> leads to fall-through, executing subsequent cases.</li>
+        <li><strong>Grouped Cases:</strong> Multiple cases can share the same code block by stacking them without <code>break</code>.</li>
+        <li><strong>Default Case:</strong> Acts as a fallback when no case matches; it's optional but recommended.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Example</h2>
+      <pre class="bg-gray-100 p-4 rounded"><code>let fruit = 'apple';
+
+switch (fruit) {
+  case 'banana':
+    console.log('Yellow fruit');
+    break;
+  case 'apple':
+    console.log('Red or green fruit');
+    break;
+  default:
+    console.log('Unknown fruit');
+}</code></pre>
+      <p class="mt-4">This will output: <code>Red or green fruit</code></p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>Maintainability:</strong> Ensure <code>switch</code> statements remain concise; consider refactoring if they become too lengthy.</li>
+        <li><strong>Type Safety:</strong> Be cautious with type comparisons; unexpected types can lead to bugs due to strict equality.</li>
+        <li><strong>Default Case:</strong> Always include a <code>default</code> case to handle unforeseen values gracefully.</li>
+        <li><strong>Code Duplication:</strong> Avoid repeating code in multiple cases; use functions to encapsulate shared logic.</li>
+        <li><strong>Performance:</strong> For a large number of cases, consider using lookup objects or maps for better performance.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+</html>
