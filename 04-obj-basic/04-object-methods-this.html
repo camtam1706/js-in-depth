@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Object Methods Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔧 Object Methods Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">📘 Introduction</h2>
+      <p>
+        JavaScript objects come with a rich set of built-in methods for introspection, cloning, and immutability
+        control.
+        This summary applies the 80/20 rule: focus on the most commonly used and impactful methods that cover 80% of
+        typical use cases.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🗂 Core Introspection Methods</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.keys(obj)</code> – Returns an array of own enumerable property names.</li>
+        <li><code>Object.values(obj)</code> – Returns an array of own enumerable property values.</li>
+        <li><code>Object.entries(obj)</code> – Returns an array of [key, value] pairs for own enumerable properties.
+        </li>
+        <li><code>obj.hasOwnProperty(prop)</code> – Checks if <code>prop</code> exists as own property.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">📝 Cloning & Merging</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.assign(target, ...sources)</code> – Shallow copies own enumerable properties from sources into
+          target.</li>
+        <li><code>{ ...obj }</code> (spread) – Another shallow clone using syntax sugar.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🔒 Immutability Controls</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.freeze(obj)</code> – Makes object and nested existing properties read-only (shallow).</li>
+        <li><code>Object.seal(obj)</code> – Prevents adding/removing properties but allows editing values.</li>
+        <li><code>Object.preventExtensions(obj)</code> – Disallows adding new properties.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">⚙️ Property Descriptors & Prototypes</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.getOwnPropertyDescriptor(obj, prop)</code> – Retrieves the descriptor for <code>prop</code>
+          (writable, enumerable, configurable).</li>
+        <li><code>Object.defineProperty(obj, prop, descriptor)</code> – Defines or modifies a property with detailed
+          control.</li>
+        <li><code>Object.getPrototypeOf(obj)</code> / <code>Object.setPrototypeOf(obj, proto)</code> – Inspect or change
+          an object’s prototype.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🔍 Miscellaneous Utilities</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.entries(obj)</code> and <code>Object.fromEntries()</code> – Convert between objects and entries
+          arrays.</li>
+        <li><code>Object.is(value1, value2)</code> – Like <code>===</code>, but treats <code>NaN</code> equal to
+          <code>NaN</code> and distinguishes +0 and -0.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🔄 The <code>this</code> Keyword</h2>
+      <p>
+        The <code>this</code> keyword refers to the current execution context and varies based on invocation:
+      </p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>In object method calls, <code>this</code> points to the owning object.</li>
+        <li>Standalone function calls default <code>this</code> to <code>undefined</code> in strict mode (or global
+          object otherwise).</li>
+        <li>Arrow functions inherit <code>this</code> from their lexical (surrounding) scope.</li>
+        <li>Using <code>call</code>, <code>apply</code>, or <code>bind</code> allows explicit <code>this</code> binding.
+        </li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded overflow-auto"><code>// As object method
+const obj = {
+  x: 10,
+  getX() { return this.x; }
+};
+console.log(obj.getX()); // 10
+
+// Arrow function inheriting this
+function Counter() {
+  this.count = 0;
+  setInterval(() => {
+    this.count++;
+    console.log(this.count);
+  }, 1000);
+}
+new Counter();
+
+// Explicit binding
+function greet() { return this.name; }
+const user = { name: 'Alice' };
+console.log(greet.call(user)); // 'Alice'
+</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🛠 Examples</h2>
+      <pre class="bg-gray-100 p-4 rounded overflow-auto"><code>// Shallow clone
+const clone = { ...original };
+
+// Freeze and attempt modification
+const user = { name: 'Alice' };
+Object.freeze(user);
+user.name = 'Bob'; // no effect
+
+// Descriptor inspection
+const desc = Object.getOwnPropertyDescriptor(user, 'name');
+console.log(desc);
+</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">👩‍💼 Senior/Lead Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Watch for performance: cloning large objects repeatedly can be costly.</li>
+        <li>Enforce immutability patterns at architecture level rather than ad-hoc <code>freeze</code> calls.</li>
+        <li>Prefer explicit <code>defineProperty</code> for security-sensitive or API layers requiring precise
+          descriptors.</li>
+        <li>Consider deep cloning libraries when nested data structures need full immutability.</li>
+        <li>Use prototype methods thoughtfully to avoid accidental mutation of shared objects.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
