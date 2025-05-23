@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Coding Style Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧑‍💻 JavaScript Coding Style Guide</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📐 Syntax Rules</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Use "Egyptian" style braces: opening brace on the same line as the statement.</li>
+        <li>Prefer braces even for single-line blocks to enhance readability.</li>
+        <li>Limit line length to 80–120 characters for better readability.</li>
+        <li>Use 2 spaces for indentation; spaces are preferred over tabs.</li>
+        <li>Insert empty lines to separate logical blocks of code.</li>
+        <li>Always use semicolons to terminate statements.</li>
+      </ul>
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold mb-2">Example:</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>function pow(x, n) {
+  let result = 1;
+
+  for (let i = 0; i < n; i++) {
+    result *= x;
+  }
+
+  return result;
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧰 Function Placement</h2>
+      <p>There are three common ways to organize functions:</p>
+      <ol class="list-decimal list-inside space-y-2">
+        <li><strong>Functions before usage:</strong> Define all functions at the top.</li>
+        <li><strong>Functions after usage:</strong> Place helper functions below the main code.</li>
+        <li><strong>Inline functions:</strong> Define functions where they are first used.</li>
+      </ol>
+      <p>The second approach is often preferred as it allows readers to understand the main logic before diving into
+        helper functions.</p>
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold mb-2">Example:</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>// Main code
+let elem = createElement();
+setHandler(elem);
+walkAround();
+
+// Helper functions
+function createElement() {
+  // ...
+}
+
+function setHandler(elem) {
+  // ...
+}
+
+function walkAround() {
+  // ...
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📚 Style Guides</h2>
+      <p>Adopting a consistent style guide ensures uniformity across the codebase. Popular style guides include:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Google JavaScript Style Guide</li>
+        <li>Airbnb JavaScript Style Guide</li>
+        <li>Idiomatic.JS</li>
+        <li>StandardJS</li>
+      </ul>
+      <p>Choose one that fits your team's preferences and stick to it.</p>
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold mb-2">Example from Airbnb Style Guide:</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>// Use const for all of your references; avoid using var
+const a = 1;
+const b = 2;
+
+// Use arrow functions
+const add = (x, y) => x + y;</code></pre>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧹 Automated Linters</h2>
+      <p>Linters help maintain code quality by enforcing style rules and catching potential errors. Popular linters
+        include:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>JSLint:</strong> One of the first JavaScript linters.</li>
+        <li><strong>JSHint:</strong> Offers more configuration options than JSLint.</li>
+        <li><strong>ESLint:</strong> Highly configurable and widely adopted.</li>
+      </ul>
+      <p>To set up ESLint:</p>
+      <ol class="list-decimal list-inside space-y-2">
+        <li>Install Node.js.</li>
+        <li>Install ESLint globally: <code>npm install -g eslint</code></li>
+        <li>Create a configuration file <code>.eslintrc</code> in your project root.</li>
+        <li>Configure your editor to integrate with ESLint.</li>
+      </ol>
+      <p>Example <code>.eslintrc</code> configuration:</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>{
+  "extends": "eslint:recommended",
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-console": 0,
+    "indent": ["error", 2]
+  }
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧑‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Enforce Consistency:</strong> Ensure the team adheres to the chosen style guide.</li>
+        <li><strong>Code Reviews:</strong> Focus on readability, maintainability, and adherence to style rules.</li>
+        <li><strong>Mentorship:</strong> Guide junior developers in understanding and applying coding standards.</li>
+        <li><strong>Tooling:</strong> Integrate linters and formatters into the development workflow.</li>
+        <li><strong>Documentation:</strong> Maintain clear documentation of coding standards and best practices.</li>
+      </ul>
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold mb-2">Example:</h3>
+        <pre class="bg-gray-100 p-4 rounded"><code>// Enforce early returns to reduce nesting
+function process(data) {
+  if (!data) {
+    return;
+  }
+
+  // proceed with processing
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
