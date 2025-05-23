@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Comments Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📝 JavaScript Comments Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 Types of Comments</h2>
+      <p>JavaScript supports two types of comments:</p>
+      <ul class="list-disc list-inside mt-2">
+        <li><code>//</code> Single-line comments</li>
+        <li><code>/* ... */</code> Multi-line comments</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Bad Comment Practices</h2>
+      <p>Avoid using comments to explain what the code does. Instead, write self-explanatory code. For example:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>// This code checks if i is a prime number
+for (let j = 2; j < i; j++) {
+  if (i % j == 0) continue nextPrime;
+}</code></pre>
+      <p>Can be refactored to:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>function isPrime(n) {
+  for (let i = 2; i < n; i++) {
+    if (n % i == 0) return false;
+  }
+  return true;
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">✅ Good Comment Practices</h2>
+      <p>Use comments to describe:</p>
+      <ul class="list-disc list-inside mt-2">
+        <li>High-level architecture and component interactions</li>
+        <li>Function parameters and return values using JSDoc</li>
+        <li>Reasons behind specific implementations or decisions</li>
+      </ul>
+      <p>Example of JSDoc:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>/**
+ * Returns x raised to the n-th power.
+ *
+ * @param {number} x The base number.
+ * @param {number} n The exponent, must be a natural number.
+ * @return {number} x raised to the n-th power.
+ */
+function pow(x, n) {
+  // implementation
+}</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside mt-2">
+        <li>Promote writing self-descriptive code to reduce the need for comments.</li>
+        <li>Encourage the use of JSDoc for documenting complex functions and APIs.</li>
+        <li>Review comments during code reviews to ensure they add value.</li>
+        <li>Maintain architectural documentation to provide a high-level overview.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
