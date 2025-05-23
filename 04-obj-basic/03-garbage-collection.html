@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Garbage Collection Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🗑️ JavaScript Garbage Collection</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🔍 Introduction</h2>
+      <p>JavaScript relies on automatic garbage collection (GC) to reclaim memory from objects that are no longer
+        reachable. This frees developers from manual memory management, reducing the risk of memory leaks and dangling
+        references.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">⚙️ How GC Works</h2>
+      <p>GC engines periodically identify unreachable objects and reclaim their memory. The most common approach in
+        modern engines (V8, SpiderMonkey) is the <strong>mark-and-sweep</strong> algorithm, often combined with
+        generational strategies.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">📝 Mark-and-Sweep Algorithm</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>Mark phase</strong>: Traverse from roots (global, stack, closures), marking reachable objects.</li>
+        <li><strong>Sweep phase</strong>: Scan heap, reclaim memory from unmarked objects.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">📈 Generational Collection</h2>
+      <p>Objects are categorized into <em>young</em> and <em>old</em> generations. Young-generation collections run
+        frequently and quickly, collecting short-lived objects, while old-generation collections happen less often for
+        long-lived objects, optimizing performance.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">🚫 Memory Leaks &amp; Best Practices</h2>
+      <p>Common sources of leaks include:</p>
+      <ul class="list-disc list-inside">
+        <li>Unintentional global variables</li>
+        <li>Forgotten timers or callbacks</li>
+        <li>Detached DOM nodes</li>
+      </ul>
+      <p>Mitigate leaks by:</p>
+      <ul class="list-disc list-inside">
+        <li>Using <code>let</code>/<code>const</code> to avoid globals</li>
+        <li>Clearing timers and event listeners</li>
+        <li>Reference cleanup in complex structures</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold flex items-center gap-2 mb-4">💼 Senior/Lead Considerations</h2>
+      <p>For senior or lead engineers, focus on:</p>
+      <ul class="list-disc list-inside space-y-4">
+        <li>
+          <strong>Profiling memory usage in production</strong>
+          <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>// In Chrome DevTools
+1. Open DevTools → Memory tab
+2. Choose 'Heap snapshot' and click 'Take snapshot'
+3. Inspect snapshot for detached DOM nodes or large retained trees
+
+// Node.js heap snapshot example
+const inspector = require('inspector');
+const fs = require('fs');
+const session = new inspector.Session();
+session.connect();
+session.post('HeapProfiler.takeHeapSnapshot', {}, (err, r) => {
+  if (!err) console.log('Snapshot saved');
+});
+session.on('HeapProfiler.addHeapSnapshotChunk', (m) => {
+  fs.appendFileSync('heap.heapsnapshot', m.params.chunk);
+});</code></pre>
+        </li>
+        <li>
+          <strong>Architecting modules to minimize cross-module references</strong>
+          <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>// Good: isolating caches per module
+// cache.js
+class Cache {
+  constructor() { this.map = new Map(); }
+  get(key) { return this.map.get(key); }
+  set(key, val) { this.map.set(key, val); }
+}
+module.exports = new Cache();
+
+// serviceA.js
+const cache = require('./cache');
+function loadData(id) {
+  let data = cache.get(id);
+  if (!data) { data = fetchFromDB(id); cache.set(id, data); }
+  return data;
+}
+module.exports = { loadData };
+
+// serviceB.js doesn’t import serviceA or vice versa, reducing circular retention
+</code></pre>
+        </li>
+        <li>
+          <strong>Educating teams on GC costs and memory optimization patterns</strong>
+          <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>// Example workshop outline
+// 1. Demo: JS memory over-allocation (e.g., large arrays)
+// 2. Live profiling session
+// 3. Hands-on: fix memory leak in sample app
+// 4. Best practices: use WeakMap for caches, cleanup listeners
+</code></pre>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
