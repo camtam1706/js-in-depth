@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToPrimitive Conversion in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔁 ToPrimitive Conversion</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📘 Overview</h2>
+      <p>JavaScript automatically converts objects to primitives when needed. This process is called
+        <strong>ToPrimitive</strong> and is used in operations like addition or comparison.
+      </p>
+    </section>
+
+    <!-- Hints -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 Conversion Hints</h2>
+      <ul class="list-disc list-inside">
+        <li><strong>"string" hint:</strong> When converting to a string, like <code>alert(obj)</code> or string
+          concatenation.</li>
+        <li><strong>"number" hint:</strong> When using math operations, like <code>+ - * /</code>.</li>
+        <li><strong>"default" hint:</strong> For rare cases like <code>obj == number</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Symbol.toPrimitive -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 Symbol.toPrimitive</h2>
+      <p>Objects can define their conversion behavior using <code>Symbol.toPrimitive</code> method:</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let user = {
+  name: "John",
+  money: 1000,
+  [Symbol.toPrimitive](hint) {
+    return hint === "string" ? `{name: \"${this.name}\"}` : this.money;
+  }
+};</code></pre>
+    </section>
+
+    <!-- Fallback Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Fallback: valueOf and toString</h2>
+      <p>If <code>Symbol.toPrimitive</code> is not present, JavaScript uses:</p>
+      <ul class="list-disc list-inside">
+        <li><strong>For number hint:</strong> <code>valueOf</code> first, then <code>toString</code></li>
+        <li><strong>For string hint:</strong> <code>toString</code> first, then <code>valueOf</code></li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded"><code>let user = {
+  name: "John",
+  toString() { return this.name; },
+  valueOf() { return 1000; }
+};</code></pre>
+    </section>
+
+    <!-- Example Behavior -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Example: Conversion in Action</h2>
+      <pre class="bg-gray-100 p-4 rounded"><code>alert(user);         // toString → "John"
+alert(+user);          // valueOf → 1000
+alert(user + 500);     // valueOf → 1000 + 500 = 1500</code></pre>
+    </section>
+
+    <!-- Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚀 Senior/Lead Tips</h2>
+      <ul class="list-disc list-inside">
+        <li>Be explicit with <code>Symbol.toPrimitive</code> when designing reusable or library-grade objects.</li>
+        <li>Understand that coercion behaviors can lead to bugs — enforce type safety where possible.</li>
+        <li>Prefer explicit conversion like <code>String(obj)</code> or <code>Number(obj)</code> in critical logic.</li>
+        <li>Unit test custom conversion behaviors to avoid unintended results in production.</li>
+        <li>Document conversion logic in shared objects to ensure clarity for teammates.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
