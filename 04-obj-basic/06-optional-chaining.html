@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Optional Chaining in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔗 Optional Chaining in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📘 Introduction</h2>
+      <p>Optional Chaining (<code>?.</code>) allows safe access to nested object properties without checking every level
+        manually.</p>
+    </section>
+
+    <!-- Usage -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Usage</h2>
+      <p class="mb-4">
+        Optional chaining (`?.`) is a powerful feature in JavaScript that allows for safe access to nested object
+        properties, methods, or array elements. It prevents runtime errors when accessing properties of `undefined` or
+        `null` values.
+      </p>
+
+      <h3 class="text-xl font-semibold mb-2">✅ When to Use</h3>
+      <ul class="list-disc list-inside mb-4">
+        <li>
+          <strong>Accessing deeply nested properties</strong> where intermediate properties might be `null` or
+          `undefined`.
+          <pre class="bg-gray-100 p-4 rounded"><code>let user = {};
+console.log(user?.address?.street); // undefined, no error</code></pre>
+        </li>
+        <li>
+          <strong>Calling methods</strong> that may not exist.
+          <pre class="bg-gray-100 p-4 rounded"><code>user.sayHi?.(); // No error if sayHi doesn't exist</code></pre>
+        </li>
+        <li>
+          <strong>Accessing array elements</strong> when the array might be `null` or `undefined`.
+          <pre class="bg-gray-100 p-4 rounded"><code>let users = null;
+console.log(users?.[0]); // undefined, no error</code></pre>
+        </li>
+      </ul>
+
+      <h3 class="text-xl font-semibold mb-2">❌ When Not to Use</h3>
+      <ul class="list-disc list-inside mb-4">
+        <li>
+          <strong>Accessing properties of objects that are guaranteed to exist</strong>.
+          <pre class="bg-gray-100 p-4 rounded"><code>let user = { name: "Alice" };
+console.log(user.name); // "Alice"
+console.log(user?.name); // "Alice" - unnecessary use of ?.</code></pre>
+        </li>
+        <li>
+          <strong>When the variable itself is not declared</strong>. Using `?.` does not prevent a `ReferenceError`.
+          <pre
+            class="bg-gray-100 p-4 rounded"><code>console.log(user?.name); // ReferenceError: user is not defined</code></pre>
+        </li>
+        <li>
+          <strong>On the left-hand side of an assignment</strong>. Optional chaining cannot be used to assign values.
+          <pre class="bg-gray-100 p-4 rounded"><code>let user = null;
+user?.name = "John"; // SyntaxError</code></pre>
+        </li>
+      </ul>
+
+      <p class="mt-2 text-sm text-gray-700">
+        Use optional chaining judiciously to maintain code clarity and avoid masking potential bugs.
+      </p>
+    </section>
+
+    <!-- Cautions -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Cautions</h2>
+      <ul class="list-disc list-inside mb-4">
+        <li>Only use when it's okay that the object might be <code>null</code> or <code>undefined</code>.</li>
+        <li>Overuse can hide bugs.</li>
+        <li><strong>The variable before <code>?.</code> must be declared</strong>:</li>
+      </ul>
+      <pre
+        class="bg-gray-100 p-4 rounded"><code>console.log(user?.name); // ReferenceError: user is not defined</code></pre>
+      <p class="mt-2 text-sm text-red-600">To avoid this, always ensure the variable exists before using
+        <code>?.</code>.</p>
+    </section>
+
+    <!-- Optional Chaining & Assignment -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">✍️ Optional Chaining and Assignments</h2>
+      <p>
+        The optional chaining operator <strong>cannot</strong> be used on the left-hand side of an assignment because
+        it's not an L-value.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let user = null;
+
+// ❌ Invalid
+user?.name = "John"; // SyntaxError
+
+// ✅ Valid workaround
+if (user) {
+  user.name = "John";
+}</code></pre>
+      <p class="mt-2 text-sm text-gray-700">Optional chaining is only for reading, not writing values.</p>
+    </section>
+
+    <!-- Notes for Senior/Lead -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside mb-4">
+        <li>Set best practices for when to use optional chaining.</li>
+        <li>Avoid masking bugs by silently failing.</li>
+        <li>Educate team about misuse patterns.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
