@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Symbols Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔑 JavaScript Symbols Overview</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 What Are Symbols?</h2>
+      <p>Symbols are a unique and immutable primitive type introduced in ES6. They are primarily used as unique
+        identifiers for object properties.</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>const id = Symbol("id");</code></pre>
+      <p class="mt-4">Even symbols with the same description are not equal:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>Symbol("id") === Symbol("id"); // false</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔒 Symbols as Hidden Properties</h2>
+      <p>Using symbols as object property keys allows the creation of hidden properties that won't collide with other
+        property keys and are not accessible through typical enumeration methods.</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>const user = { name: "Alice" };
+const id = Symbol("id");
+user[id] = 123;</code></pre>
+      <p class="mt-4">These symbol-keyed properties are not accessible via <code>for...in</code> loops or
+        <code>Object.keys()</code>, but can be accessed directly using the symbol.</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🌐 Global Symbols</h2>
+      <p>Global symbols are stored in a global registry and can be accessed across different parts of an application
+        using <code>Symbol.for()</code> and retrieved using <code>Symbol.keyFor()</code>.</p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>const globalId = Symbol.for("id");
+const sameGlobalId = Symbol.for("id");
+console.log(globalId === sameGlobalId); // true</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Encapsulation:</strong> Use symbols to create private-like properties, enhancing encapsulation in
+          objects.</li>
+        <li><strong>Library Design:</strong> When designing libraries or frameworks, symbols can prevent property name
+          collisions.</li>
+        <li><strong>Performance:</strong> Be cautious with the overuse of symbols, as they can complicate debugging and
+          may have performance implications.</li>
+        <li><strong>Global Registry:</strong> Utilize the global symbol registry judiciously to share symbols across
+          different parts of an application without polluting the global namespace.</li>
+        <li><strong>Integration:</strong> Ensure that the use of symbols does not interfere with serialization processes
+          like JSON.stringify, which ignores symbol-keyed properties.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
