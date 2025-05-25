@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Numbers Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔢 JavaScript Numbers Overview</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Number Types -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Number Types</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Regular Numbers:</strong> Stored in 64-bit IEEE-754 format, supporting both integers and
+          floating-point numbers.</li>
+        <li><strong>BigInt:</strong> Used for integers larger than <code>2^53 - 1</code> or smaller than
+          <code>-(2^53 - 1)</code>.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Number Representations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧮 Number Representations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Underscore Separator:</strong> Improves readability, e.g., <code>1_000_000</code>.</li>
+        <li><strong>Exponential Notation:</strong> <code>1e6</code> equals <code>1,000,000</code>.</li>
+        <li><strong>Hexadecimal:</strong> <code>0xFF</code> equals <code>255</code>.</li>
+        <li><strong>Binary:</strong> <code>0b11111111</code> equals <code>255</code>.</li>
+        <li><strong>Octal:</strong> <code>0o377</code> equals <code>255</code>.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Number Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Number Methods</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>toString(base)</code>: Converts number to string in specified base.</li>
+        <li><code>toFixed(n)</code>: Formats number with <code>n</code> digits after decimal point.</li>
+        <li><code>parseInt(string, base)</code>: Parses string to integer of specified base.</li>
+        <li><code>parseFloat(string)</code>: Parses string to floating-point number.</li>
+        <li><code>isNaN(value)</code>: Checks if value is NaN.</li>
+        <li><code>isFinite(value)</code>: Checks if value is a finite number.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Precision Issues -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Precision Issues</h2>
+      <p class="mb-4">
+        JavaScript uses the IEEE 754 double-precision floating-point format, which can lead to unexpected results when
+        performing arithmetic with decimal numbers due to binary representation limitations.
+      </p>
+      <p class="mb-4">
+        For example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mb-4 overflow-x-auto"><code class="language-javascript">
+console.log(0.1 + 0.2); // Outputs: 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); // Outputs: false
+          </code></pre>
+      <p class="mb-4">
+        To mitigate such issues, JavaScript provides <code>Number.EPSILON</code>, which represents the smallest interval
+        between two representable numbers. It can be used to compare floating-point numbers for approximate equality.
+      </p>
+      <p class="mb-4">
+        Here's how you can use <code>Number.EPSILON</code> for comparisons:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mb-4 overflow-x-auto"><code class="language-javascript">
+function approximatelyEqual(a, b) {
+  return Math.abs(a - b) < Number.EPSILON;
+}
+
+console.log(approximatelyEqual(0.1 + 0.2, 0.3)); // Outputs: true
+          </code></pre>
+      <p class="mb-4">
+        For numbers with larger magnitudes, it's advisable to scale <code>Number.EPSILON</code> accordingly:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mb-4 overflow-x-auto"><code class="language-javascript">
+function approximatelyEqual(a, b) {
+  return Math.abs(a - b) < Number.EPSILON * Math.max(Math.abs(a), Math.abs(b));
+}
+
+console.log(approximatelyEqual(1000.1 + 0.2, 1000.3)); // Outputs: true
+          </code></pre>
+      <p>
+        By incorporating such comparison functions, you can handle floating-point arithmetic more reliably in your
+        JavaScript applications.
+      </p>
+    </section>
+
+    <!-- Section: toFixed() vs Number.EPSILON -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 toFixed() vs Number.EPSILON</h2>
+
+      <p class="mb-4">
+        <strong><code>toFixed()</code></strong> and <strong><code>Number.EPSILON</code></strong> serve different
+        purposes in JavaScript, although both are used when working with floating-point numbers.
+      </p>
+
+      <h3 class="text-xl font-semibold mb-2">📌 Purpose</h3>
+      <ul class="list-disc list-inside mb-4 space-y-1">
+        <li><code>toFixed(n)</code>: Rounds a number and returns a string with exactly <code>n</code> digits after the
+          decimal point.</li>
+        <li><code>Number.EPSILON</code>: Helps compare floating-point numbers that may have tiny precision errors.</li>
+      </ul>
+
+      <h3 class="text-xl font-semibold mb-2">⚠️ Precision Issue with toFixed()</h3>
+      <pre class="bg-gray-100 p-4 rounded overflow-x-auto mb-4"><code class="language-javascript">
+let num = 1.005;
+console.log(num.toFixed(2)); // "1.00" → inaccurate due to binary representation
+  </code></pre>
+
+      <h3 class="text-xl font-semibold mb-2">✅ Using Number.EPSILON for Accurate Rounding</h3>
+      <pre class="bg-gray-100 p-4 rounded overflow-x-auto mb-4"><code class="language-javascript">
+function roundTo(n, decimals) {
+  const factor = Math.pow(10, decimals);
+  return Math.round((n + Number.EPSILON) * factor) / factor;
+}
+
+console.log(roundTo(1.005, 2)); // 1.01
+  </code></pre>
+
+      <h3 class="text-xl font-semibold mb-2">🆚 Summary Comparison</h3>
+      <table class="table-auto w-full text-left border border-gray-300 mb-4">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2">Feature</th>
+            <th class="px-4 py-2">toFixed()</th>
+            <th class="px-4 py-2">Number.EPSILON</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t">
+            <td class="px-4 py-2">Return Type</td>
+            <td class="px-4 py-2">String</td>
+            <td class="px-4 py-2">Number</td>
+          </tr>
+          <tr class="border-t">
+            <td class="px-4 py-2">Use Case</td>
+            <td class="px-4 py-2">Formatting for display</td>
+            <td class="px-4 py-2">Accurate numeric comparison</td>
+          </tr>
+          <tr class="border-t">
+            <td class="px-4 py-2">Handles precision errors?</td>
+            <td class="px-4 py-2">❌ No</td>
+            <td class="px-4 py-2">✅ Yes</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        When precision matters, especially for calculations or comparisons, prefer mathematical rounding with
+        <code>Math.round()</code> and <code>Number.EPSILON</code>. Use <code>toFixed()</code> only for final string
+        output.
+      </p>
+    </section>
+
+    <!-- Section: Special Numeric Values -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Special Numeric Values</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>NaN</code>: Result of invalid mathematical operations.</li>
+        <li><code>Infinity</code> and <code>-Infinity</code>: Result of division by zero or overflow.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Senior/Lead Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Senior/Lead Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Be cautious with floating-point arithmetic; always account for precision errors.</li>
+        <li>Use <code>Number.EPSILON</code> for reliable floating-point comparisons.</li>
+        <li>Avoid mixing <code>BigInt</code> and <code>Number</code> types without explicit conversion.</li>
+        <li>Implement input validation to prevent <code>NaN</code> and <code>Infinity</code> from propagating through
+          calculations.</li>
+        <li>Utilize <code>toString(base)</code> for debugging and representing numbers in different numeral systems.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
