@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Primitives & Methods</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Primitives & Methods</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What Are Primitives?</h2>
+      <p>
+        In JavaScript, there are seven primitive data types:
+        <code>string</code>, <code>number</code>, <code>bigint</code>,
+        <code>boolean</code>, <code>symbol</code>, <code>null</code>, and
+        <code>undefined</code>. These are immutable values that are not
+        objects and have no methods or properties.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Primitives Behaving Like Objects</h2>
+      <p>
+        Although primitives are not objects, JavaScript allows access to
+        methods and properties on them. This is achieved through temporary
+        object wrappers:
+      </p>
+      <ul class="list-disc pl-5 mt-2">
+        <li><code>String</code> for string primitives</li>
+        <li><code>Number</code> for number primitives</li>
+        <li><code>Boolean</code> for boolean primitives</li>
+        <li><code>Symbol</code> for symbol primitives</li>
+        <li><code>BigInt</code> for bigint primitives</li>
+      </ul>
+      <p class="mt-2">
+        For example, calling <code>"hello".toUpperCase()</code> creates a
+        temporary <code>String</code> object to access the method, then
+        discards it.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Special Cases: null and undefined</h2>
+      <p>
+        The primitives <code>null</code> and <code>undefined</code> do not
+        have corresponding object wrappers. Attempting to access properties or
+        methods on them will result in errors.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Avoid Using Wrapper Constructors</h2>
+      <p>
+        While it's possible to create wrapper objects using constructors like
+        <code>new Number(5)</code>, this practice is discouraged. Wrapper
+        objects behave differently from their primitive counterparts and can
+        lead to unexpected results, especially in comparisons and conditionals.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">💡 Key Takeaways</h2>
+      <ul class="list-disc pl-5 mt-2">
+        <li>
+          Primitives are simple, immutable data types in JavaScript.
+        </li>
+        <li>
+          JavaScript provides temporary object wrappers to allow method access
+          on primitives.
+        </li>
+        <li>
+          Avoid using wrapper constructors like <code>new Number()</code>.
+        </li>
+        <li>
+          <code>null</code> and <code>undefined</code> do not have methods or
+          properties.
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧰 Auto-boxing in JavaScript</h2>
+      <p>
+        In JavaScript, primitive values such as <code>string</code>, <code>number</code>, and <code>boolean</code> are
+        not objects and do not have methods. However, JavaScript allows you to access methods and properties on these
+        primitives through a process called <strong>auto-boxing</strong>.
+      </p>
+      <p class="mt-2">
+        When you attempt to access a property or method on a primitive value, JavaScript automatically wraps the
+        primitive in its corresponding object wrapper, allowing access to the desired property or method.
+      </p>
+      <p class="mt-2">
+        For example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let str = "hello";
+console.log(str.toUpperCase()); // Outputs: "HELLO"</code></pre>
+      <p class="mt-2">
+        Here's what happens under the hood:
+      </p>
+      <ol class="list-decimal pl-5 mt-2">
+        <li>JavaScript detects that <code>str</code> is a primitive string.</li>
+        <li>It creates a temporary <code>String</code> object wrapper around <code>str</code>.</li>
+        <li>The <code>toUpperCase()</code> method is called on the <code>String</code> object.</li>
+        <li>The result is returned, and the temporary object is discarded.</li>
+      </ol>
+      <p class="mt-2">
+        This mechanism allows primitives to behave like objects temporarily, enabling method access without manual
+        conversion.
+      </p>
+      <p class="mt-2">
+        It's important to note that this temporary object is discarded after the operation. Therefore, adding properties
+        to a primitive does not persist:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let num = 42;
+num.customProp = "test";
+console.log(num.customProp); // Outputs: undefined</code></pre>
+      <p class="mt-2">
+        In the example above, <code>customProp</code> is added to a temporary object, which is then discarded, making
+        <code>customProp</code> inaccessible afterward.
+      </p>
+      <p class="mt-2">
+        Additionally, it's advisable to avoid using wrapper constructors like <code>new Number(5)</code> as they create
+        actual objects, leading to unexpected behavior:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let a = 5;
+let b = new Number(5);
+console.log(a == b);  // true
+console.log(a === b); // false</code></pre>
+      <p class="mt-2">
+        In this example, <code>a</code> is a primitive, while <code>b</code> is an object, resulting in different
+        outcomes when using <code>==</code> and <code>===</code>.
+      </p>
+      <p class="mt-2">
+        Understanding auto-boxing helps in writing cleaner and more predictable JavaScript code by leveraging the
+        language's ability to handle primitives and objects seamlessly.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-5 mt-2">
+        <li>
+          Be cautious when extending native prototypes; it can lead to
+          conflicts and unexpected behavior.
+        </li>
+        <li>
+          Understand the performance implications of temporary object wrappers
+          when working with large-scale applications.
+        </li>
+        <li>
+          Ensure that your team is aware of the differences between primitives
+          and their object counterparts to prevent bugs.
+        </li>
+        <li>
+          Encourage the use of strict mode (<code>"use strict"</code>) to
+          catch errors related to primitives and their wrappers.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
