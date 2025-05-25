@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Map & Set Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Map & Set</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Map Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🗺️ Map Overview</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Map</strong> is a collection of keyed data items, similar to an Object, but allows keys of any type.
+        </li>
+        <li>Methods:
+          <ul class="list-disc pl-6">
+            <li><code>new Map()</code> – creates the map.</li>
+            <li><code>map.set(key, value)</code> – stores the value by the key.</li>
+            <li><code>map.get(key)</code> – returns the value by the key.</li>
+            <li><code>map.has(key)</code> – returns true if the key exists.</li>
+            <li><code>map.delete(key)</code> – removes the element by the key.</li>
+            <li><code>map.clear()</code> – removes everything from the map.</li>
+            <li><code>map.size</code> – returns the current element count.</li>
+          </ul>
+        </li>
+        <li>Keys are not converted to strings; any type of key is possible.</li>
+        <li>Chaining is possible: <code>map.set('1', 'str1').set(1, 'num1').set(true, 'bool1');</code></li>
+      </ul>
+    </section>
+
+    <!-- Set Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔢 Set Overview</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Set</strong> is a collection of unique values.</li>
+        <li>Methods:
+          <ul class="list-disc pl-6">
+            <li><code>new Set()</code> – creates the set.</li>
+            <li><code>set.add(value)</code> – adds a value.</li>
+            <li><code>set.has(value)</code> – checks for the value.</li>
+            <li><code>set.delete(value)</code> – removes the value.</li>
+            <li><code>set.clear()</code> – clears the set.</li>
+            <li><code>set.size</code> – returns the number of elements.</li>
+          </ul>
+        </li>
+        <li>Useful for storing unique values of any type.</li>
+        <li>Can be converted to an array: <code>Array.from(set)</code></li>
+      </ul>
+    </section>
+
+    <!-- Map vs Object -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚖️ Map vs Object</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Map</strong> allows keys of any type, maintains insertion order, and has a size property.</li>
+        <li><strong>Object</strong> keys are strings or symbols, and does not guarantee order.</li>
+        <li>Use <strong>Map</strong> when you need keys of various types and order matters.</li>
+        <li>Use <strong>Object</strong> when you need simple key-value pairs with string keys.</li>
+      </ul>
+    </section>
+
+    <!-- Set vs Array -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Set vs Array</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Set</strong> stores unique values, automatically removing duplicates.</li>
+        <li><strong>Array</strong> allows duplicate values and provides more methods for manipulation.</li>
+        <li>Use <strong>Set</strong> when uniqueness is required.</li>
+        <li>Convert between them as needed: <code>Array.from(set)</code> and <code>new Set(array)</code></li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 For Loop vs Map & Set Iteration</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>For Loop</strong>:
+          <ul class="list-disc pl-6">
+            <li>Higher performance in most cases, especially with large datasets.</li>
+            <li>Allows tight control over the iteration flow, including the use of <code>break</code> and
+              <code>continue</code>.</li>
+            <li>Suitable when complex operations are needed in each iteration.</li>
+          </ul>
+        </li>
+        <li><strong>Map & Set Iteration</strong>:
+          <ul class="list-disc pl-6">
+            <li>Uses <code>for...of</code> or <code>forEach</code> to iterate through elements.</li>
+            <li>More readable and concise, especially when handling simple operations.</li>
+            <li>Preserves the original insertion order of elements.</li>
+          </ul>
+        </li>
+        <li><strong>Performance Comparison</strong>:
+          <ul class="list-disc pl-6">
+            <li>The <code>for</code> loop is typically faster than <code>forEach</code> or <code>map</code> due to no
+              overhead from callback functions.</li>
+            <li>With small datasets, the performance difference is negligible; prioritize writing code that is easy to
+              read and maintain.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Senior/Lead Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Senior/Lead Considerations</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Understand the differences between <strong>Map</strong>, <strong>Set</strong>, <strong>WeakMap</strong>, and
+          <strong>WeakSet</strong>.
+        </li>
+        <li>Use <strong>WeakMap</strong> and <strong>WeakSet</strong> for memory-sensitive applications, as they allow
+          garbage collection of keys.</li>
+        <li>Be aware of the performance implications of using these data structures in large-scale applications.</li>
+        <li>Ensure proper iteration and conversion when interfacing with APIs that expect arrays or objects.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
