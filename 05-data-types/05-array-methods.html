@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Array Methods Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Array Methods Summary</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Add/Remove Elements</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>push(...items)</code>: Add items to the end.</li>
+        <li><code>pop()</code>: Remove the last item.</li>
+        <li><code>shift()</code>: Remove the first item.</li>
+        <li><code>unshift(...items)</code>: Add items to the beginning.</li>
+        <li><code>splice(start, deleteCount, ...items)</code>: Add/remove items at a specific index.</li>
+        <li><code>slice(start, end)</code>: Create a shallow copy of a portion of an array.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Search and Filter</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>indexOf(item)</code>: Find the index of an item.</li>
+        <li><code>includes(item)</code>: Check if an item exists.</li>
+        <li><code>find(callback)</code>: Find the first item matching a condition.</li>
+        <li><code>filter(callback)</code>: Create a new array with items matching a condition.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Transform and Iterate</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>map(callback)</code>: Create a new array by applying a function to each item.</li>
+        <li><code>forEach(callback)</code>: Execute a function for each item.</li>
+        <li><code>reduce(callback, initialValue)</code>: Reduce the array to a single value.</li>
+        <li><code>sort()</code>: Sort the array in place.</li>
+        <li><code>reverse()</code>: Reverse the array in place.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Senior/Lead Developer Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Understand the mutability of methods: <code>splice</code> and <code>sort</code> modify the original array,
+          while <code>slice</code> and <code>map</code> return new arrays.</li>
+        <li>Be cautious with performance when chaining multiple array methods on large datasets.</li>
+        <li>Ensure proper use of <code>reduce</code> for complex data transformations.</li>
+        <li>Leverage <code>flatMap</code> for mapping and flattening arrays in one step.</li>
+        <li>Utilize <code>every</code> and <code>some</code> for condition checks across arrays.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
