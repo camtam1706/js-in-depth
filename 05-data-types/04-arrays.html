@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Arrays Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Arrays Overview</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Array Basics -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔢 Array Basics</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Arrays are ordered collections of elements, accessible by index starting from 0.</li>
+        <li>They can store elements of any type, including other arrays, objects, and functions.</li>
+        <li>Common operations include adding/removing elements and accessing elements by index.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2: Common Array Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Common Array Methods</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><code>push()</code>: Add elements to the end of the array.</li>
+        <li><code>pop()</code>: Remove the last element from the array.</li>
+        <li><code>shift()</code>: Remove the first element from the array.</li>
+        <li><code>unshift()</code>: Add elements to the beginning of the array.</li>
+        <li><code>splice()</code>: Add, remove, or replace elements at a specific index.</li>
+        <li><code>slice()</code>: Create a shallow copy of a portion of the array.</li>
+        <li><code>concat()</code>: Merge two or more arrays.</li>
+        <li><code>at()</code>: Access elements using positive or negative indices.</li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Performance Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚡ Performance Considerations</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><code>push()</code> and <code>pop()</code> are generally faster than <code>shift()</code> and
+          <code>unshift()</code> because they don't require reindexing the entire array.
+        </li>
+        <li>Using <code>splice()</code> can be costly if used frequently on large arrays.</li>
+        <li>Be cautious with methods that modify the original array versus those that return a new array.</li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Benchmark push/pop vs shift/unshift -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📊 Benchmark Comparison: push/pop vs shift/unshift</h2>
+      <p class="mb-4">
+        This chart shows the execution time for 100,000 array operations. The benchmark runs in your browser
+        environment.
+      </p>
+
+      <canvas id="benchmarkChart" class="w-full max-w-2xl mx-auto mb-6"></canvas>
+
+      <script>
+        function runBenchmark() {
+          const operations = 100_000;
+          const timings = {};
+
+          // push
+          let arr1 = [];
+          let start = performance.now();
+          for (let i = 0; i < operations; i++) arr1.push(i);
+          timings.push = performance.now() - start;
+
+          // pop
+          start = performance.now();
+          for (let i = 0; i < operations; i++) arr1.pop();
+          timings.pop = performance.now() - start;
+
+          // unshift
+          let arr2 = [];
+          start = performance.now();
+          for (let i = 0; i < operations; i++) arr2.unshift(i);
+          timings.unshift = performance.now() - start;
+
+          // shift
+          start = performance.now();
+          for (let i = 0; i < operations; i++) arr2.shift();
+          timings.shift = performance.now() - start;
+
+          return timings;
+        }
+
+        const results = runBenchmark();
+        const labels = ['push', 'pop', 'shift', 'unshift'];
+        const values = [results.push, results.pop, results.shift, results.unshift];
+
+        const ctx = document.getElementById('benchmarkChart').getContext('2d');
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Execution time (ms)',
+              data: values,
+              backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Performance Comparison of Array Methods',
+                font: { size: 16 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: (context) => `${context.parsed.y.toFixed(2)} ms`
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Milliseconds (ms)'
+                }
+              }
+            }
+          }
+        });
+      </script>
+
+      <p class="mt-4 text-sm text-gray-600 text-center">
+        Benchmarks executed live in your browser using <code>performance.now()</code>.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Why push/pop are faster than shift/unshift</h2>
+      <p class="mb-4">
+        Understanding internal operations helps explain why <code>push()</code> and <code>pop()</code> outperform
+        <code>shift()</code> and <code>unshift()</code>.
+      </p>
+
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong><code>push()</code> and <code>pop()</code></strong> only interact with the <em>end</em> of the array.
+          These operations simply add or remove an item at the last index — no elements need to be moved or reindexed.
+        </li>
+        <li>
+          <strong><code>shift()</code> and <code>unshift()</code></strong> work on the <em>start</em> of the array.
+          This requires **shifting every element** to a new index on each call, which becomes increasingly expensive as
+          the array grows.
+        </li>
+        <li>
+          This re-indexing introduces **O(n)** time complexity for <code>shift/unshift</code> versus **O(1)** for
+          <code>push/pop</code>.
+        </li>
+        <li>
+          Performance becomes especially critical in loops or when dealing with large arrays in real-time applications
+          (e.g., rendering, animation, or game logic).
+        </li>
+      </ul>
+
+      <div class="mt-4 text-sm text-gray-600">
+        🧠 <strong>Tip for seniors:</strong> In critical code paths, always prefer <code>push/pop</code> unless
+        absolutely necessary to use <code>shift/unshift</code>. For queues, consider using a linked list or deque for
+        optimal performance.
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Benchmark: for vs for...of</h2>
+      <p class="mb-4">
+        This chart compares the performance of traditional <code>for</code> loops and <code>for...of</code> loops when
+        iterating over 100,000 array elements.
+      </p>
+
+      <canvas id="loopBenchmarkChart" class="w-full max-w-2xl mx-auto mb-6"></canvas>
+
+      <script>
+        function benchmarkLoops() {
+          const operations = 100000;
+          const arr = Array.from({ length: operations }, (_, i) => i);
+          const timings = {};
+
+          // for loop
+          let sum = 0;
+          let start = performance.now();
+          for (let i = 0; i < arr.length; i++) sum += arr[i];
+          timings.forLoop = performance.now() - start;
+
+          // for...of loop
+          sum = 0;
+          start = performance.now();
+          for (const val of arr) sum += val;
+          timings.forOf = performance.now() - start;
+
+          return timings;
+        }
+
+        const loopResults = benchmarkLoops();
+        const loopLabels = ['for', 'for...of'];
+        const loopValues = [loopResults.forLoop, loopResults.forOf];
+
+        const loopCtx = document.getElementById('loopBenchmarkChart').getContext('2d');
+        new Chart(loopCtx, {
+          type: 'bar',
+          data: {
+            labels: loopLabels,
+            datasets: [{
+              label: 'Execution time (ms)',
+              data: loopValues,
+              backgroundColor: ['#6366F1', '#EC4899'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Performance Comparison: for vs for...of',
+                font: { size: 16 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: (context) => `${context.parsed.y.toFixed(2)} ms`
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Milliseconds (ms)'
+                }
+              }
+            }
+          }
+        });
+      </script>
+
+      <p class="mt-4 text-sm text-gray-600 text-center">
+        Performance may vary by browser. <code>for</code> is generally faster in tight loops.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🏎️ Why <code>for</code> is faster than <code>for...of</code></h2>
+      <p class="mb-4">
+        Although both are used to iterate over arrays, they differ significantly in how they work under the hood.
+      </p>
+
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong><code>for</code></strong> is a low-level loop that directly accesses array elements via index:
+          <code>array[i]</code>. There’s no additional overhead — just basic increment and index access.
+        </li>
+        <li>
+          <strong><code>for...of</code></strong> uses the array’s internal **iterator protocol** under the hood:
+          it calls <code>array[Symbol.iterator]()</code> and uses <code>next()</code> to fetch each value.
+        </li>
+        <li>
+          This means <code>for...of</code> has more abstraction layers and is slightly slower due to:
+          <ul class="list-disc ml-5">
+            <li>Function calls on each iteration.</li>
+            <li>Handling returned iterator objects with <code>{ value, done }</code> shape.</li>
+          </ul>
+        </li>
+        <li>
+          While <code>for...of</code> is more concise and readable, the difference becomes noticeable when iterating
+          over large arrays (e.g. 100K+ elements).
+        </li>
+      </ul>
+
+      <div class="mt-4 text-sm text-gray-600">
+        🧠 <strong>Tip for seniors:</strong> Use <code>for</code> when absolute performance matters (tight loops, hot
+        paths). Prefer <code>for...of</code> when readability is more important than micro-optimization.
+      </div>
+    </section>
+
+    <!-- Section 4: Tips for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Tips for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>Encourage the use of immutable operations to prevent unintended side effects.</li>
+        <li>Promote consistency in array method usage across the codebase.</li>
+        <li>Consider performance implications when choosing array methods, especially in performance-critical
+          applications.</li>
+        <li>Leverage modern JavaScript features like <code>at()</code> for cleaner and more readable code.</li>
+        <li>Implement utility functions for common array operations to reduce code duplication.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
