@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Essentials</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 JSON Essentials</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: What is JSON -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What is JSON?</h2>
+      <p>
+        JSON (JavaScript Object Notation) is a lightweight, text-based data interchange format. It is easy for humans to
+        read and write, and easy for machines to parse and generate. JSON is language-independent but uses conventions
+        familiar to programmers of the C family of languages.
+      </p>
+    </section>
+
+    <!-- Section 2: JSON Syntax -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📝 JSON Syntax</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Data is in name/value pairs.</li>
+        <li>Data is separated by commas.</li>
+        <li>Curly braces hold objects.</li>
+        <li>Square brackets hold arrays.</li>
+        <li>Keys must be strings enclosed in double quotes.</li>
+        <li>Values can be strings, numbers, objects, arrays, booleans, or null.</li>
+      </ul>
+    </section>
+
+    <!-- Section 3: JSON.stringify() -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 JSON.stringify()</h2>
+      <p>
+        The <code>JSON.stringify()</code> method converts a JavaScript object or value to a JSON string. It can take two
+        optional parameters: a replacer function and a space value for formatting.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const obj = { name: "John", age: 30 };
+const jsonString = JSON.stringify(obj);
+console.log(jsonString); // Output: '{"name":"John","age":30}'</code></pre>
+    </section>
+
+    <!-- Section 4: JSON.parse() -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📥 JSON.parse()</h2>
+      <p>
+        The <code>JSON.parse()</code> method parses a JSON string, constructing the JavaScript value or object described
+        by the string. It can also take an optional reviver function for transforming the result.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const jsonString = '{"name":"John","age":30}';
+const obj = JSON.parse(jsonString);
+console.log(obj.name); // Output: 'John'</code></pre>
+    </section>
+
+    <!-- Section 5: toJSON Method -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Custom toJSON Method</h2>
+      <p>
+        Objects can define a <code>toJSON()</code> method to customize their JSON representation during serialization.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const user = {
+  name: "John",
+  toJSON() {
+    return { userName: this.name };
+  }
+};
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // Output: '{"userName":"John"}'</code></pre>
+    </section>
+
+    <!-- Section 6: Common Pitfalls -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Common Pitfalls</h2>
+      <p class="mb-4">When working with <code>JSON.stringify()</code>, be aware of the following common issues:</p>
+
+      <!-- Circular References -->
+      <h3 class="text-xl font-semibold mb-2">🔁 Circular References</h3>
+      <p>
+        Attempting to stringify an object with circular references will throw a <code>TypeError</code>:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const obj = {};
+obj.self = obj;
+JSON.stringify(obj); // Throws: TypeError: Converting circular structure to JSON</code></pre>
+      <p>
+        To handle this, you can use a custom replacer function to omit circular references:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function getCircularReplacer() {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) return;
+      seen.add(value);
+    }
+    return value;
+  };
+}
+    
+const obj = {};
+obj.self = obj;
+const jsonString = JSON.stringify(obj, getCircularReplacer());
+console.log(jsonString); // Output: {}</code></pre>
+
+      <!-- Unsupported Data Types -->
+      <h3 class="text-xl font-semibold mt-6 mb-2">🚫 Unsupported Data Types</h3>
+      <p>
+        <code>JSON.stringify()</code> omits functions, <code>undefined</code>, and symbols when found in objects, and
+        replaces them with <code>null</code> when found in arrays:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const obj = {
+  a: undefined,
+  b: function() {},
+  c: Symbol("c")
+};
+console.log(JSON.stringify(obj)); // Output: '{}'
+    
+const arr = [undefined, function() {}, Symbol("c")];
+console.log(JSON.stringify(arr)); // Output: '[null,null,null]'</code></pre>
+
+      <!-- Special Number Values -->
+      <h3 class="text-xl font-semibold mt-6 mb-2">🔢 Special Number Values</h3>
+      <p>
+        Special number values like <code>NaN</code> and <code>Infinity</code> are serialized as <code>null</code>:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const obj = { num1: NaN, num2: Infinity };
+console.log(JSON.stringify(obj)); // Output: '{"num1":null,"num2":null}'</code></pre>
+
+      <!-- Symbol-keyed Properties -->
+      <h3 class="text-xl font-semibold mt-6 mb-2">🔑 Symbol-keyed Properties</h3>
+      <p>
+        Properties with symbol keys are completely ignored during serialization:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const sym = Symbol("key");
+const obj = { [sym]: "value" };
+console.log(JSON.stringify(obj)); // Output: '{}'</code></pre>
+
+      <!-- BigInt Values -->
+      <h3 class="text-xl font-semibold mt-6 mb-2">🔠 BigInt Values</h3>
+      <p>
+        Attempting to stringify <code>BigInt</code> values will throw a <code>TypeError</code>:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>const obj = { big: 10n };
+JSON.stringify(obj); // Throws: TypeError: Do not know how to serialize a BigInt</code></pre>
+    </section>
+
+    <!-- Section 7: Tips for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Tips for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Data Validation:</strong> Always validate JSON data against a schema to ensure data integrity and
+          security.</li>
+        <li><strong>Performance Considerations:</strong> Be cautious with large JSON payloads; consider streaming or
+          pagination to handle big data efficiently.</li>
+        <li><strong>Security:</strong> Avoid using <code>eval()</code> to parse JSON; use <code>JSON.parse()</code> to
+          prevent code injection vulnerabilities.</li>
+        <li><strong>Custom Serialization:</strong> Implement <code>toJSON()</code> methods for complex objects to
+          control their serialized output.</li>
+        <li><strong>Logging and Debugging:</strong> Use the third parameter in <code>JSON.stringify()</code> for
+          pretty-printing JSON during debugging.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
