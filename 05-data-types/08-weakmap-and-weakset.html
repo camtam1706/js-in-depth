@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WeakMap & WeakSet Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 WeakMap & WeakSet Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- WeakMap Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🗺️ WeakMap Overview</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Key Constraint:</strong> Only objects can be used as keys; primitives are not allowed.</li>
+        <li><strong>Garbage Collection:</strong> If there are no other references to a key object, it and its associated value are automatically removed from memory.</li>
+        <li><strong>Methods Supported:</strong> <code>set</code>, <code>get</code>, <code>has</code>, and <code>delete</code>.</li>
+        <li><strong>Limitations:</strong> Cannot be iterated over; no <code>keys()</code>, <code>values()</code>, or <code>entries()</code> methods.</li>
+        <li><strong>Use Case:</strong> Storing metadata or auxiliary information tied to objects without preventing their garbage collection.</li>
+      </ul>
+    </section>
+
+    <!-- WeakSet Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📦 WeakSet Overview</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Content Constraint:</strong> Only objects can be added; primitives are not allowed.</li>
+        <li><strong>Garbage Collection:</strong> Objects are automatically removed when there are no other references to them.</li>
+        <li><strong>Methods Supported:</strong> <code>add</code>, <code>has</code>, and <code>delete</code>.</li>
+        <li><strong>Limitations:</strong> Cannot be iterated over; no <code>size</code> or <code>clear()</code> methods.</li>
+        <li><strong>Use Case:</strong> Tracking object presence (e.g., whether a user has visited) without preventing garbage collection.</li>
+      </ul>
+    </section>
+
+    <!-- Practical Use Cases -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔧 Practical Use Cases</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>WeakMap:</strong> Caching results of function computations tied to objects, ensuring cache entries are removed when objects are no longer needed.</li>
+        <li><strong>WeakSet:</strong> Recording whether certain objects (e.g., messages) have been processed or visited, without modifying the objects themselves.</li>
+      </ul>
+    </section>
+
+    <!-- Considerations for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🎯 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Memory Management:</strong> Utilize WeakMap and WeakSet to prevent memory leaks by allowing automatic garbage collection of unused objects.</li>
+        <li><strong>Design Patterns:</strong> Incorporate these structures in designs where object lifecycle management is critical, such as in caching or tracking object states.</li>
+        <li><strong>Limitations Awareness:</strong> Be mindful of their non-enumerable nature; avoid scenarios where iteration over keys or values is required.</li>
+        <li><strong>Security and Encapsulation:</strong> Use WeakMap to store private data associated with objects, enhancing encapsulation and security.</li>
+        <li><strong>Third-Party Integrations:</strong> When interfacing with external libraries or frameworks, leverage WeakMap and WeakSet to attach metadata without altering or risking retention of external objects.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+</html>
