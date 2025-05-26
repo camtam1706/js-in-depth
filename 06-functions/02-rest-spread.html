@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rest Parameters & Spread Syntax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+      <h1 class="text-3xl font-bold animate-pulse mb-2">📘 Rest Parameters & Spread Syntax</h1>
+    </header>
+
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+      <!-- Section: Rest Parameters -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔧 Rest Parameters</h2>
+        <p>
+          Rest parameters allow functions to accept an indefinite number of arguments as an array. This is useful when the number of arguments is unknown.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>function sumAll(...args) {
+  return args.reduce((sum, current) => sum + current, 0);
+}
+
+sumAll(1, 2, 3); // 6</code></pre>
+      </section>
+
+      <!-- Section: Spread Syntax -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">📤 Spread Syntax</h2>
+        <p>
+          Spread syntax allows an iterable such as an array to be expanded in places where zero or more arguments or elements are expected.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-4"><code>const numbers = [1, 2, 3];
+const newNumbers = [...numbers, 4, 5]; // [1, 2, 3, 4, 5]
+
+function multiply(a, b, c) {
+  return a * b * c;
+}
+
+multiply(...numbers); // 6</code></pre>
+      </section>
+
+      <!-- Section: Comparison -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">⚖️ Comparison</h2>
+        <ul class="list-disc list-inside">
+          <li><strong>Rest Parameters</strong>: Collects all remaining elements into an array.</li>
+          <li><strong>Spread Syntax</strong>: Spreads an array into individual elements.</li>
+          <li>Both use the <code>...</code> syntax but serve opposite purposes.</li>
+        </ul>
+      </section>
+
+      <!-- Section: Notes for Senior/Lead Developers -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧠 Notes for Senior/Lead Developers</h2>
+        <ul class="list-disc list-inside">
+          <li>Ensure clarity between rest parameters and the <code>arguments</code> object; prefer rest parameters for cleaner syntax and better readability.</li>
+          <li>When using spread syntax, be cautious with deep cloning; spread creates shallow copies.</li>
+          <li>In performance-critical applications, assess the impact of using rest and spread, as they can introduce overhead.</li>
+          <li>Educate team members on the differences and appropriate use cases to maintain code consistency.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+  </body>
+</html>
