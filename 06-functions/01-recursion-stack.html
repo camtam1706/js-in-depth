@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Recursion Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔁 JavaScript Recursion Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 What is Recursion?</h2>
+      <p>
+        Recursion is a programming pattern where a function calls itself to solve a problem that can be broken down into
+        simpler sub-problems of the same type. It's particularly useful for tasks that can be defined in terms of
+        similar subtasks, such as traversing data structures like trees or linked lists.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Iterative vs Recursive Approaches</h2>
+      <p>
+        Consider the function <code>pow(x, n)</code> that computes <code>x</code> raised to the power <code>n</code>:
+      </p>
+      <ul class="list-disc list-inside">
+        <li><strong>Iterative:</strong> Uses a loop to multiply <code>x</code> by itself <code>n</code> times.</li>
+        <li><strong>Recursive:</strong> Defines <code>pow(x, n)</code> as <code>x * pow(x, n - 1)</code>, with a base
+          case of <code>pow(x, 1) = x</code>.</li>
+      </ul>
+      <p>
+        The recursive approach often leads to shorter and more readable code but may have performance implications due
+        to call stack usage.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Execution Context and Stack</h2>
+      <p>
+        Each recursive call adds a new execution context to the call stack. Once the base case is reached, the stack
+        unwinds as each call returns its result. Deep recursion can lead to stack overflow if the recursion depth
+        exceeds the engine's limit (commonly around 10,000 calls).
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🌳 Recursive Data Structures</h2>
+      <p>
+        Data structures like linked lists and trees are naturally recursive. For example, a linked list can be defined
+        as an object containing a value and a reference to the next node (which is itself a list or null). Recursive
+        functions are ideal for traversing such structures.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📈 Performance Considerations</h2>
+      <p>
+        While recursion can simplify code, it's important to consider performance:
+      </p>
+      <ul class="list-disc list-inside">
+        <li>Recursive solutions may be less efficient due to call stack overhead.</li>
+        <li>Some recursive functions can be rewritten iteratively to improve performance.</li>
+        <li>Tail call optimization can mitigate stack growth but is not widely supported in JavaScript engines.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧮 Factorial Function</h2>
+      <p>
+        The factorial of a number <code>n</code> is the product of all positive integers less than or equal to
+        <code>n</code>. This can be implemented recursively:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function factorial(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  }
+  return n * factorial(n - 1);
+}
+
+console.log(factorial(5)); // Output: 120</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔢 Fibonacci Sequence</h2>
+      <p>
+        The Fibonacci sequence is a series where each number is the sum of the two preceding ones:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function fibonacci(n) {
+  if (n === 0 || n === 1) {
+    return n;
+  }
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(6)); // Output: 8</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Countdown Function</h2>
+      <p>
+        A simple recursive function to count down from a given number to 1:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function countDown(fromNumber) {
+  console.log(fromNumber);
+  let nextNumber = fromNumber - 1;
+  if (nextNumber > 0) {
+    countDown(nextNumber);
+  }
+}
+
+countDown(3); // Output: 3 2 1</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">➕ Sum of Natural Numbers</h2>
+      <p>
+        Calculate the sum of natural numbers up to <code>n</code> using recursion:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function sum(n) {
+  if (n <= 1) {
+    return n;
+  }
+  return n + sum(n - 1);
+}
+
+console.log(sum(5)); // Output: 15</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📏 Greatest Common Divisor (GCD)</h2>
+      <p>
+        Find the GCD of two numbers using the Euclidean algorithm:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function gcd(a, b) {
+  if (b === 0) {
+    return a;
+  }
+  return gcd(b, a % b);
+}
+
+console.log(gcd(48, 18)); // Output: 6</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Tips for Senior/Lead Developers</h2>
+      <p>
+        When working with recursion:
+      </p>
+      <ul class="list-disc list-inside">
+        <li>Ensure base cases are well-defined to prevent infinite recursion.</li>
+        <li>Be cautious of stack overflows in deep recursion; consider iterative solutions when appropriate.</li>
+        <li>Use memoization to optimize recursive functions that perform redundant calculations.</li>
+        <li>Educate team members on the trade-offs between recursive and iterative approaches.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
