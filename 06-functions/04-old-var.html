@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Understanding var in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 Understanding <code>var</code> in JavaScript</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📖 Introduction to <code>var</code></h2>
+      <p>
+        The <code>var</code> keyword is one of the original ways to declare variables in JavaScript. While modern code often uses <code>let</code> and <code>const</code>, understanding <code>var</code> is essential for maintaining legacy code and grasping JavaScript's evolution.
+      </p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Scope of <code>var</code></h2>
+      <p>
+        Variables declared with <code>var</code> are either function-scoped or globally scoped. Unlike <code>let</code> and <code>const</code>, <code>var</code> does not have block scope.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>if (true) {
+  var test = true;
+}
+console.log(test); // true</code></pre>
+      <p>
+        In the example above, <code>test</code> is accessible outside the <code>if</code> block due to <code>var</code>'s lack of block scope.
+      </p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚀 Hoisting with <code>var</code></h2>
+      <p>
+        Declarations made with <code>var</code> are hoisted to the top of their scope. This means you can reference a <code>var</code> variable before its declaration, but its value will be <code>undefined</code> until the assignment is encountered.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>console.log(message); // undefined
+var message = "Hello";</code></pre>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Redeclaration with <code>var</code></h2>
+      <p>
+        Variables declared with <code>var</code> can be redeclared within the same scope without errors. This can lead to unexpected behavior and is one reason why <code>let</code> and <code>const</code> are preferred in modern code.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>var user = "Alice";
+var user = "Bob";
+console.log(user); // "Bob"</code></pre>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 <code>var</code> in <code>for</code> Loops</h2>
+      <p>
+        When using <code>var</code> in a <code>for</code> loop, the variable declared is function-scoped, not block-scoped. This means that the same variable is shared across all iterations of the loop.
+      </p>
+      <p>
+        This behavior can lead to unexpected results when using closures inside loops. For example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>for (var i = 0; i &lt; 3; i++) {
+  setTimeout(function() {
+    console.log(i);
+  }, 1000);
+}
+// Output after 1 second: 3, 3, 3</code></pre>
+      <p>
+        In the example above, all three functions share the same <code>i</code> variable, which ends up being 3 after the loop completes.
+      </p>
+      <p>
+        To achieve the expected behavior, you can use <code>let</code> instead of <code>var</code>:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>for (let i = 0; i &lt; 3; i++) {
+  setTimeout(function() {
+    console.log(i);
+  }, 1000);
+}
+// Output after 1 second: 0, 1, 2</code></pre>
+      <p>
+        Here, <code>let</code> creates a new binding for each iteration, preserving the correct value of <code>i</code> inside each closure.
+      </p>
+      <p>
+        Alternatively, you can use an Immediately Invoked Function Expression (IIFE) to create a new scope for each iteration:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>for (var i = 0; i &lt; 3; i++) {
+(function(j) {
+  setTimeout(function() {
+    console.log(j);
+  }, 1000);
+})(i);
+}
+// Output after 1 second: 0, 1, 2</code></pre>
+      <p>
+        The IIFE captures the current value of <code>i</code> in a new variable <code>j</code>, which is then used inside the closure.
+      </p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Avoid using <code>var</code> in new codebases; prefer <code>let</code> and <code>const</code> for better scoping and predictability.
+        </li>
+        <li>
+          When refactoring legacy code, be cautious of <code>var</code>'s function scope and hoisting behavior to prevent introducing bugs.
+        </li>
+        <li>
+          Educate team members about the differences between <code>var</code>, <code>let</code>, and <code>const</code> to promote best practices.
+        </li>
+        <li>
+          Consider using linters and code analysis tools to identify and replace <code>var</code> declarations systematically.
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+</html>
