@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Destructuring Assignment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 JavaScript Destructuring Assignment</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section: Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📘 Overview</h2>
+      <p>
+        Destructuring assignment is a syntax in JavaScript that allows unpacking values from arrays or properties from
+        objects into distinct variables. It provides a concise way to extract multiple properties or elements in a
+        single statement.
+      </p>
+    </section>
+
+    <!-- Section: Array Destructuring -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔢 Array Destructuring</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Basic syntax:</strong> <code>const [a, b] = [1, 2];</code></li>
+        <li><strong>Skipping elements:</strong> <code>const [a, , b] = [1, 2, 3];</code></li>
+        <li><strong>Default values:</strong> <code>const [a = 1, b = 2] = [];</code></li>
+        <li><strong>Rest operator:</strong> <code>const [a, ...rest] = [1, 2, 3];</code></li>
+        <li><strong>Swapping variables:</strong> <code>[a, b] = [b, a];</code></li>
+        <li><strong>Works with iterables:</strong> <code>const [a, b] = 'hi';</code></li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded"><code>// Basic array destructuring
+const [firstName, surname] = ["John", "Smith"];
+console.log(firstName); // "John"
+console.log(surname);   // "Smith"
+
+// Skipping elements
+const [firstName, , title] = ["Julius", "Caesar", "Consul"];
+console.log(title); // "Consul"
+
+// Using rest operator
+const [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+console.log(rest); // ["Consul", "of the Roman Republic"]
+
+// Swapping variables
+let a = 1, b = 2;
+[a, b] = [b, a];
+console.log(a); // 2
+console.log(b); // 1
+
+// Destructuring strings
+const [a, b, c] = "abc";
+console.log(a); // "a"
+console.log(b); // "b"
+console.log(c); // "c"</code></pre>
+    </section>
+
+    <!-- Section: Object Destructuring -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Object Destructuring</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Basic syntax:</strong> <code>const {a, b} = obj;</code></li>
+        <li><strong>Renaming variables:</strong> <code>const {a: newA} = obj;</code></li>
+        <li><strong>Default values:</strong> <code>const {a = 1} = {};</code></li>
+        <li><strong>Nested destructuring:</strong> <code>const {a: {b}} = obj;</code></li>
+        <li><strong>Rest operator:</strong> <code>const {a, ...rest} = obj;</code></li>
+        <li><strong>Dynamic property names:</strong> <code>const {[key]: value} = obj;</code></li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded"><code>// Basic object destructuring
+const user = { name: "John", age: 30 };
+const { name, age } = user;
+console.log(name); // "John"
+console.log(age);  // 30
+
+// Renaming variables
+const { name: userName } = user;
+console.log(userName); // "John"
+
+// Default values
+const { isAdmin = false } = user;
+console.log(isAdmin); // false
+
+// Nested destructuring
+const nestedUser = { name: "John", address: { city: "New York" } };
+const { address: { city } } = nestedUser;
+console.log(city); // "New York"
+
+// Rest operator
+const { name: n, ...rest } = user;
+console.log(n);    // "John"
+console.log(rest); // { age: 30 }</code></pre>
+    </section>
+
+    <!-- Section: Function Parameters -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Function Parameters</h2>
+      <p>
+        Destructuring can be used directly in function parameters to extract specific values:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function greet({ name, age }) {
+  console.log(`Hello, ${name}. You are ${age} years old.`);
+}
+
+greet({ name: "Alice", age: 25 }); // "Hello, Alice. You are 25 years old."</code></pre>
+      <p>
+        This approach is especially useful for functions that receive configuration objects.
+      </p>
+    </section>
+
+    <!-- Section: Senior/Lead Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Senior/Lead Considerations</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Readability:</strong> Avoid overusing nested destructuring which can reduce code clarity.</li>
+        <li><strong>Default values:</strong> Ensure default values are set appropriately to prevent undefined errors.
+        </li>
+        <li><strong>Function parameters:</strong> Be cautious when destructuring in function parameters, especially when
+          the function might be called with undefined or null arguments.</li>
+        <li><strong>Consistency:</strong> Maintain consistent use of destructuring across the codebase for better
+          maintainability.</li>
+        <li><strong>Performance:</strong> While destructuring is convenient, be aware of its performance implications in
+          critical code paths.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
