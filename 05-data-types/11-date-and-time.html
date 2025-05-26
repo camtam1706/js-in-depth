@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Date Object Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📅 JavaScript Date Object Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Creating Dates</h2>
+      <p class="mb-4">JavaScript provides multiple ways to create Date objects:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>new Date()</code>: Current date and time.
+          <pre class="bg-gray-100 p-4 rounded"><code>const now = new Date();
+console.log(now);</code></pre>
+        </li>
+        <li><code>new Date(milliseconds)</code>: Milliseconds since Jan 1, 1970 UTC.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date(86400000); // Jan 2, 1970
+console.log(date);</code></pre>
+        </li>
+        <li><code>new Date(dateString)</code>: Parses ISO 8601 strings.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date("2023-12-25T10:00:00");
+console.log(date);</code></pre>
+        </li>
+        <li><code>new Date(year, monthIndex, day, hours, minutes, seconds, milliseconds)</code>: Months are 0-based.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date(2023, 11, 25, 10, 0, 0);
+console.log(date);</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📆 Accessing Components</h2>
+      <p class="mb-4">Retrieve specific components from a Date object:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>getFullYear()</code>: Four-digit year.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date("2021-03-25");
+console.log(date.getFullYear()); // 2021</code></pre>
+        </li>
+        <li><code>getMonth()</code>: Month (0-11).
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getMonth()); // 2 (March)</code></pre>
+        </li>
+        <li><code>getDate()</code>: Day of the month (1-31).
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getDate()); // 25</code></pre>
+        </li>
+        <li><code>getDay()</code>: Day of the week (0-6).
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getDay()); // 4 (Thursday)</code></pre>
+        </li>
+        <li><code>getHours()</code>, <code>getMinutes()</code>, <code>getSeconds()</code>, <code>getMilliseconds()</code>: Time components.
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getHours()); // 0
+console.log(date.getMinutes()); // 0
+console.log(date.getSeconds()); // 0
+console.log(date.getMilliseconds()); // 0</code></pre>
+        </li>
+        <li><code>getUTC*</code>: UTC equivalents of the above methods.
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getUTCFullYear()); // 2021</code></pre>
+        </li>
+        <li><code>getTimezoneOffset()</code>: Difference between UTC and local time in minutes.
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(date.getTimezoneOffset()); // e.g., -420</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Modifying Dates</h2>
+      <p class="mb-4">Modify components of a Date object:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>setFullYear()</code>, <code>setMonth()</code>, <code>setDate()</code>, etc.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date();
+date.setFullYear(2025);
+date.setMonth(0); // January
+date.setDate(1);
+console.log(date);</code></pre>
+        </li>
+        <li>Auto-corrects invalid dates:
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date(2023, 1, 30); // Feb 30
+console.log(date); // Mar 2, 2023</code></pre>
+        </li>
+        <li>Negative or zero values adjust date accordingly:
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date(2023, 0, 0); // Dec 31, 2022
+console.log(date);</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⏱️ Timestamps & Differences</h2>
+      <p class="mb-4">Work with timestamps and calculate differences:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>getTime()</code> or unary plus: Milliseconds since Jan 1, 1970 UTC.
+          <pre class="bg-gray-100 p-4 rounded"><code>const date = new Date();
+console.log(date.getTime());
+console.log(+date);</code></pre>
+        </li>
+        <li><code>Date.now()</code>: Current timestamp without creating a Date object.
+          <pre class="bg-gray-100 p-4 rounded"><code>console.log(Date.now());</code></pre>
+        </li>
+        <li>Subtracting dates yields difference in milliseconds:
+          <pre class="bg-gray-100 p-4 rounded"><code>const start = new Date("2023-01-01");
+const end = new Date("2023-12-31");
+const diff = end - start;
+console.log(diff); // milliseconds
+console.log(diff / (1000 * 60 * 60 * 24)); // days</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📈 Benchmarking</h2>
+      <p class="mb-4">Measure performance using timestamps:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Use <code>Date.now()</code> for performance measurements:
+          <pre class="bg-gray-100 p-4 rounded"><code>const start = Date.now();
+// Code to measure
+const end = Date.now();
+console.log(`Elapsed time: ${end - start} ms`);</code></pre>
+        </li>
+        <li>Run benchmarks multiple times to get reliable results.</li>
+        <li>Be cautious: JavaScript engines optimize hot code paths.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 For Senior/Lead Developers</h2>
+      <p class="mb-4">Advanced considerations for date handling:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Always use <code>getFullYear()</code> instead of deprecated <code>getYear()</code>.</li>
+        <li>Be aware of time zone differences and daylight saving time when manipulating dates.</li>
+        <li>Use <code>performance.now()</code> for high-resolution time measurements in browsers:
+          <pre class="bg-gray-100 p-4 rounded"><code>const start = performance.now();
+// Code to measure
+const end = performance.now();
+console.log(`Elapsed time: ${end - start} ms`);</code></pre>
+        </li>
+        <li>Consider using libraries like Moment.js or date-fns for complex date manipulations.</li>
+        <li>Ensure consistent date handling across different locales and time zones in applications.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+</html>
