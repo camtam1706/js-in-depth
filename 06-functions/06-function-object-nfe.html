@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Function Object Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 JavaScript Function Object Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Function Object -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔧 Function Object</h2>
+      <p>
+        In JavaScript, functions are first-class objects. This means they can be assigned to variables, passed as
+        arguments, and have properties and methods.
+      </p>
+    </section>
+
+    <!-- Function Properties -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Function Properties</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>name</strong>: Returns the name of the function. If the function is anonymous but assigned to a
+          variable, the name is inferred.
+        </li>
+        <li>
+          <strong>length</strong>: Indicates the number of parameters the function expects, excluding rest parameters.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Custom Properties -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Custom Properties</h2>
+      <p>
+        Functions can have custom properties added to them, allowing for the storage of additional information or state.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded">
+<code>function counter() {
+  counter.count++;
+}
+counter.count = 0;
+counter();
+console.log(counter.count); // 1</code>
+        </pre>
+    </section>
+
+    <!-- Named Function Expressions (NFE) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🏷️ Named Function Expressions (NFE)</h2>
+      <p>
+        A Named Function Expression allows the function to refer to itself internally, which is useful for recursion or
+        event handlers that need to unbind themselves.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded">
+<code>let sayHi = function func(who) {
+  if (who) {
+    console.log(`Hello, ${who}`);
+  } else {
+    func("Guest");
+  }
+};
+sayHi(); // Hello, Guest</code>
+        </pre>
+    </section>
+
+    <!-- Function Declaration vs Function Expression -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚖️ Function Declaration vs Function Expression</h2>
+      <p class="mb-4">
+        JavaScript supports multiple ways to define functions. Two common ones are:
+      </p>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Function Declaration:</strong> <code>function foo() { ... }</code></li>
+        <li><strong>Function Expression:</strong> <code>let foo = function() { ... }</code></li>
+      </ul>
+
+      <div class="mt-4">
+        <h3 class="text-lg font-semibold mb-2">🔍 Key Differences</h3>
+        <ul class="list-decimal list-inside space-y-2">
+          <li>
+            <strong>Hoisting:</strong>
+            Function declarations are hoisted with their definition. You can call them before they appear in the code.
+            <pre class="bg-gray-100 p-3 rounded"><code>sayHi(); // works
+function sayHi() {
+  console.log("Hello");
+}</code></pre>
+            In contrast, function expressions are hoisted as variables but not initialized:
+            <pre class="bg-gray-100 p-3 rounded"><code>sayHi(); // ❌ TypeError: sayHi is not a function
+let sayHi = function() {
+  console.log("Hello");
+};</code></pre>
+          </li>
+          <li>
+            <strong>Scope:</strong>
+            Function declarations are block-scoped in ES6 modules or strict mode, but function expressions can be scoped
+            to blocks via `let`/`const`.
+          </li>
+          <li>
+            <strong>Readability & Debugging:</strong>
+            Named function expressions provide better stack traces:
+            <pre class="bg-gray-100 p-3 rounded"><code>let sayHi = function greet(name) {
+  console.log(name ? "Hi " + name : "Hi Guest");
+};</code></pre>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Considerations for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🎯 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          Be cautious when adding custom properties to functions, as it can lead to unexpected behaviors, especially in
+          asynchronous contexts.
+        </li>
+        <li>
+          Understand the differences between function declarations and expressions, and their hoisting behaviors.
+        </li>
+        <li>
+          Utilize Named Function Expressions for better stack traces and debugging.
+        </li>
+        <li>
+          Ensure that the use of function properties aligns with the team's coding standards and does not hinder code
+          readability.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
