@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript: new Function()</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 JavaScript: new Function()</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Overview</h2>
+      <p>
+        The <code>new Function()</code> constructor allows creating functions dynamically from strings at runtime. This
+        is particularly useful when the function body is not known until execution, such as receiving code from a
+        server.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let sum = new Function('a', 'b', 'return a + b');
+alert( sum(1, 2) ); // 3</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Scope & Closure</h2>
+      <p>
+        Functions created with <code>new Function</code> do not capture the current lexical environment. Instead, their
+        scope is the global environment.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function getFunc() {
+  let value = "test";
+  let func = new Function('alert(value)');
+  return func;
+}
+getFunc()(); // ReferenceError: value is not defined</code></pre>
+      <p class="mt-4">
+        In contrast, regular functions capture their lexical environment:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function getFunc() {
+  let value = "test";
+  let func = function() { alert(value); };
+  return func;
+}
+getFunc()(); // "test"</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Use Cases</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Dynamic code execution received from external sources.</li>
+        <li>Compiling functions from templates in complex web applications.</li>
+        <li>Creating functions where the body is not known until runtime.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Limitations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Cannot access variables from the outer (local) scope.</li>
+        <li>Potential security risks if executing untrusted code.</li>
+        <li>May interfere with code minification and optimization processes.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧑‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Evaluate the necessity of using <code>new Function</code>; prefer safer alternatives when possible.</li>
+        <li>Ensure that any dynamically created code is sanitized to prevent security vulnerabilities.</li>
+        <li>Be aware of the implications on scope and closures, especially in larger codebases.</li>
+        <li>Consider the impact on performance and maintainability when introducing dynamic function creation.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
