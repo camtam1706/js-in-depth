@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scheduling in JavaScript: setTimeout & setInterval</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+      <h1 class="text-3xl font-bold animate-pulse mb-2">⏱️ Scheduling in JavaScript: setTimeout & setInterval</h1>
+    </header>
+
+    <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">📌 Overview</h2>
+        <p>
+          JavaScript provides two primary methods for scheduling code execution:
+        </p>
+        <ul class="list-disc list-inside mt-2">
+          <li><strong>setTimeout(func, delay, ...args)</strong>: Executes <code>func</code> once after <code>delay</code> milliseconds.</li>
+          <li><strong>setInterval(func, delay, ...args)</strong>: Executes <code>func</code> repeatedly every <code>delay</code> milliseconds.</li>
+        </ul>
+        <p class="mt-2">
+          Both methods return a timer ID, which can be used to cancel the scheduled execution using <code>clearTimeout</code> or <code>clearInterval</code>.
+        </p>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">⏳ setTimeout</h2>
+        <p>
+          <code>setTimeout</code> schedules a single execution of a function after a specified delay.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2"><code>function greet() {
+  console.log('Hello!');
+}
+setTimeout(greet, 1000); // Logs 'Hello!' after 1 second</code></pre>
+        <p class="mt-2">
+          To cancel a scheduled timeout:
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2"><code>const timerId = setTimeout(greet, 1000);
+clearTimeout(timerId); // Cancels the scheduled execution</code></pre>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔁 setInterval</h2>
+        <p>
+          <code>setInterval</code> schedules repeated executions of a function at specified intervals.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2"><code>function tick() {
+  console.log('Tick');
+}
+const intervalId = setInterval(tick, 2000); // Logs 'Tick' every 2 seconds
+
+// To stop the interval after 5 seconds:
+setTimeout(() => clearInterval(intervalId), 5000);</code></pre>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🔄 Nested setTimeout</h2>
+        <p>
+          Using nested <code>setTimeout</code> calls allows for more precise control over the timing, especially when the execution time of the function varies.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2"><code>function repeat() {
+  console.log('Repeated action');
+  setTimeout(repeat, 2000);
+}
+setTimeout(repeat, 2000);</code></pre>
+        <p class="mt-2">
+          This approach ensures that the next execution is scheduled only after the current one completes, preventing potential overlaps.
+        </p>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">⚠️ Important Considerations</h2>
+        <ul class="list-disc list-inside mt-2">
+          <li><strong>Minimum Delay:</strong> In browsers, the minimum delay for timers is clamped to 4ms for nested timers after a certain depth.</li>
+          <li><strong>Zero Delay:</strong> A delay of 0ms doesn't execute immediately; the function is queued and runs after the current call stack is cleared.</li>
+          <li><strong>Garbage Collection:</strong> Scheduled functions retain references to their enclosing scopes, preventing garbage collection. Always clear timers when they're no longer needed.</li>
+          <li><strong>Blocking Operations:</strong> Long-running operations can delay the execution of scheduled functions, as JavaScript is single-threaded.</li>
+        </ul>
+      </section>
+
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-4">🧠 For Senior/Lead Developers</h2>
+        <ul class="list-disc list-inside mt-2">
+          <li><strong>Use setTimeout over setInterval:</strong> To avoid potential overlaps and ensure consistent intervals, especially when the execution time of the function varies.</li>
+          <li><strong>Event Loop Awareness:</strong> Understand how timers interact with the event loop and how blocking operations can affect timer accuracy.</li>
+          <li><strong>Resource Management:</strong> Ensure timers are cleared appropriately to prevent memory leaks, especially in single-page applications or when dealing with dynamic components.</li>
+          <li><strong>Testing Timers:</strong> When writing tests, consider using mocks or fakes for timers to avoid flaky tests and to control the timing behavior.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+      &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+    </footer>
+  </body>
+</html>
