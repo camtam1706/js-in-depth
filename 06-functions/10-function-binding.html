@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Function.bind() Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔗 JavaScript Function.bind()</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Core Concept</h2>
+      <p>
+        The <code>bind()</code> method creates a new function with a specified <code>this</code> value and, optionally,
+        initial arguments. This is particularly useful when passing object methods as callbacks, ensuring they retain
+        the correct context.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function greet() {
+  console.log(this.name);
+}
+
+const person = { name: 'Alice' };
+const greetPerson = greet.bind(person);
+greetPerson(); // Output: Alice</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Common Pitfalls</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Immutable Binding:</strong> Once a function is bound, its <code>this</code> context cannot be
+          changed. Rebinding has no effect.</li>
+        <li><strong>Property Loss:</strong> Bound functions do not inherit properties from the original function.</li>
+        <li><strong>Arrow Functions:</strong> Arrow functions do not have their own <code>this</code>; binding them has
+          no effect.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Partial Application</h2>
+      <p>
+        <code>bind()</code> can also be used for partial function application by presetting initial arguments.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function multiply(a, b) {
+  return a * b;
+}
+
+const double = multiply.bind(null, 2);
+console.log(double(5)); // Output: 10</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Performance:</strong> Excessive use of <code>bind()</code> can lead to memory overhead. Consider
+          alternatives like arrow functions or closures when appropriate.</li>
+        <li><strong>Readability:</strong> Overusing <code>bind()</code> can make code harder to read and maintain.
+          Ensure its use is justified and clear to other developers.</li>
+        <li><strong>Testing:</strong> Bound functions can be challenging to test due to fixed context. Design functions
+          to be as pure and context-independent as possible.</li>
+        <li><strong>Consistency:</strong> Establish and document guidelines for when and how to use <code>bind()</code>
+          within your codebase to maintain consistency.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
