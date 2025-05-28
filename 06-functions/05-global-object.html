@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Global Object Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🌐 JavaScript Global Object Overview</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 What is the Global Object?</h2>
+      <p>
+        The global object provides variables and functions that are available anywhere. By default, those that are built
+        into the language or the environment.
+        In a browser it is named <code>window</code>, for Node.js it is <code>global</code>, for other environments it
+        may have another name.
+        Recently, <code>globalThis</code> was added to the language, as a standardized name for a global object, that
+        should be supported across all environments. It’s supported in all major browsers.
+      </p>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Key Characteristics</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Variables declared with <code>var</code> in the global scope become properties of the global object.</li>
+        <li>Variables declared with <code>let</code> and <code>const</code> do not become properties of the global
+          object.</li>
+        <li>Functions declared in the global scope become methods of the global object.</li>
+        <li>Using global variables is generally discouraged. There should be as few global variables as possible.</li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔧 Practical Usage</h2>
+      <p>
+        You can access global functions and variables directly:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>var gVar = 5;
+alert(window.gVar); // 5</code></pre>
+      <p>
+        Or define global properties explicitly:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>window.currentUser = { name: "John" };
+alert(window.currentUser.name); // John</code></pre>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Best Practices</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Minimize the use of global variables to reduce potential conflicts and maintain cleaner code.</li>
+        <li>Prefer using modules and proper scoping to encapsulate variables and functions.</li>
+        <li>Use <code>globalThis</code> for a consistent reference to the global object across different environments.
+        </li>
+      </ul>
+    </section>
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Ensure that your team understands the implications of polluting the global namespace and enforces best
+          practices to avoid it.</li>
+        <li>Implement code reviews that check for unnecessary global variable declarations.</li>
+        <li>Encourage the use of modern JavaScript features like modules to promote better code organization and
+          maintainability.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
