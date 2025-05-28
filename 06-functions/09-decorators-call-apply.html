@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Decorators and call/apply in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧩 Decorators and call/apply in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">⚙️ Transparent Caching</h2>
+      <p>
+        Decorators are functions that modify the behavior of other functions. A common use case is caching the results
+        of expensive function calls to improve performance.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function slow(x) {
+  alert(`Called with ${x}`);
+  return x;
+}
+
+function cachingDecorator(func) {
+  let cache = new Map();
+
+  return function(x) {
+    if (cache.has(x)) {
+      return cache.get(x);
+    }
+
+    let result = func(x);
+    cache.set(x, result);
+    return result;
+  };
+}
+
+slow = cachingDecorator(slow);</code></pre>
+      <p class="mt-4">
+        This pattern allows for result caching without modifying the original function's logic.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">🔄 Using <code>func.call</code> for Context</h2>
+      <p>
+        When decorating object methods, it's essential to preserve the correct <code>this</code> context. Using
+        <code>func.call(this, ...args)</code> ensures that the original context is maintained.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function cachingDecorator(func) {
+  let cache = new Map();
+
+  return function(...args) {
+    let key = args.join(',');
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+
+    let result = func.call(this, ...args);
+    cache.set(key, result);
+    return result;
+  };
+}</code></pre>
+      <p class="mt-4">
+        This approach is crucial when the original function relies on the object's internal state.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">📦 <code>func.apply</code> and Call Forwarding</h2>
+      <p>
+        The <code>apply</code> method allows functions to be called with a given <code>this</code> value and arguments
+        provided as an array. This is useful for forwarding calls and arguments.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let wrapper = function() {
+  return func.apply(this, arguments);
+};</code></pre>
+      <p class="mt-4">
+        This pattern is often used in decorators to pass through all arguments and context to the original function.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">🔧 Method Borrowing</h2>
+      <p>
+        In JavaScript, you can borrow methods from other objects. For example, using <code>Array.prototype.join</code>
+        on the <code>arguments</code> object:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function hash() {
+  alert([].join.call(arguments));
+}
+
+hash(1, 2); // Outputs: "1,2"</code></pre>
+      <p class="mt-4">
+        This technique allows the use of array methods on array-like objects.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4">🧠 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>Context Preservation:</strong> Ensure that decorators maintain the correct <code>this</code> context,
+          especially when dealing with object methods.
+        </li>
+        <li>
+          <strong>Reusability:</strong> Design decorators to be generic and reusable across different functions and use
+          cases.
+        </li>
+        <li>
+          <strong>Performance Considerations:</strong> Be cautious with caching strategies to avoid memory leaks,
+          especially when using unbounded caches.
+        </li>
+        <li>
+          <strong>Testing:</strong> Decorators can complicate testing. Ensure that decorated functions are tested both
+          with and without decorators applied.
+        </li>
+        <li>
+          <strong>Documentation:</strong> Clearly document the behavior of decorators to aid in maintenance and
+          onboarding.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
