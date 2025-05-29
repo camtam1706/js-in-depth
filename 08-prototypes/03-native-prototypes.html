@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Native Prototypes Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Native Prototypes</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Object.prototype</h2>
+      <p>
+        In JavaScript, every object has a prototype. For instance, an empty object <code>{}</code> is equivalent to
+        <code>new Object()</code>, which has its <code>[[Prototype]]</code> set to <code>Object.prototype</code>. This
+        prototype provides default methods like <code>toString()</code>.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let obj = {};
+console.log(obj.toString()); // "[object Object]"</code></pre>
+      <p>
+        The prototype chain ends with <code>Object.prototype</code>, whose own prototype is <code>null</code>.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Other Built-in Prototypes</h2>
+      <p>
+        Built-in objects like <code>Array</code>, <code>Date</code>, and <code>Function</code> have their own
+        prototypes, such as <code>Array.prototype</code>, which provide specific methods. These prototypes inherit from
+        <code>Object.prototype</code>.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let arr = [1, 2, 3];
+console.log(arr.toString()); // "1,2,3"</code></pre>
+      <p>
+        Here, <code>arr.toString()</code> uses the method from <code>Array.prototype</code>, which overrides the one
+        from <code>Object.prototype</code>.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔢 Primitives</h2>
+      <p>
+        Primitives like strings, numbers, and booleans are not objects. However, when accessing their properties or
+        methods, JavaScript temporarily wraps them with their corresponding object types (<code>String</code>,
+        <code>Number</code>, <code>Boolean</code>) to provide access to methods.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let str = "hello";
+console.log(str.toUpperCase()); // "HELLO"</code></pre>
+      <p>
+        Here, <code>str</code> is temporarily wrapped with a <code>String</code> object to access the
+        <code>toUpperCase()</code> method.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>Avoid Modifying Native Prototypes:</strong> Extending or modifying native prototypes like
+          <code>Array.prototype</code> can lead to conflicts and unexpected behaviors, especially when integrating
+          third-party libraries.
+        </li>
+        <li>
+          <strong>Use Utility Functions:</strong> Instead of modifying prototypes, consider using utility functions or
+          libraries to extend functionality.
+        </li>
+        <li>
+          <strong>Understand the Prototype Chain:</strong> A deep understanding of the prototype chain is essential for
+          debugging and optimizing code, especially when dealing with inheritance and method overriding.
+        </li>
+        <li>
+          <strong>Performance Implications:</strong> Be aware that deep prototype chains can have performance
+          implications. Keeping the prototype chain shallow can help in optimizing property lookups.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
