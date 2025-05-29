@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Prototype Methods Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧬 JavaScript Prototype Methods</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📚 Overview</h2>
+      <p>
+        JavaScript's prototype system allows objects to inherit properties and methods from other objects. Understanding
+        and effectively utilizing prototypes is crucial for efficient and maintainable code.
+      </p>
+    </section>
+
+    <!-- Section: Modern Prototype Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Modern Prototype Methods</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><code>Object.getPrototypeOf(obj)</code>: Returns the prototype of the specified object.</li>
+        <li><code>Object.setPrototypeOf(obj, proto)</code>: Sets the prototype of the specified object to another object
+          or null.</li>
+        <li><code>Object.create(proto, [descriptors])</code>: Creates a new object with the specified prototype and
+          optional property descriptors.</li>
+      </ul>
+      <p class="mt-4">
+        These methods are preferred over the deprecated <code>__proto__</code> property for setting and accessing
+        prototypes.
+      </p>
+    </section>
+
+    <!-- Section: Object.create with Descriptors -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧱 Object.create with Descriptors</h2>
+      <p>
+        The <code>Object.create</code> method can accept a second argument: property descriptors. This allows for the
+        creation of objects with specific property configurations.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let animal = {
+  eats: true
+};
+
+let rabbit = Object.create(animal, {
+  jumps: {
+    value: true
+  }
+});
+
+console.log(rabbit.eats); // true
+console.log(rabbit.jumps); // true</code></pre>
+    </section>
+
+    <!-- Section: Cloning Objects -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Cloning Objects</h2>
+      <p>
+        To create a deep clone of an object, including its prototype and property descriptors, use the following
+        approach:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let clone = Object.create(
+  Object.getPrototypeOf(obj),
+  Object.getOwnPropertyDescriptors(obj)
+);</code></pre>
+    </section>
+
+    <!-- Section: Performance Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Performance Considerations</h2>
+      <p>
+        Modifying an object's prototype at runtime using <code>Object.setPrototypeOf</code> or <code>__proto__</code> is
+        discouraged due to performance implications. Such operations can hinder JavaScript engine optimizations and
+        should be avoided in performance-critical code.
+      </p>
+    </section>
+
+    <!-- Section: Why __proto__ is Discouraged -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Why <code>__proto__</code> is Discouraged</h2>
+      <p>
+        The <code>__proto__</code> property was never part of the original ECMAScript specification. It was implemented
+        by browsers for compatibility reasons and later standardized in ECMAScript 2015 as a legacy feature. Despite its
+        availability, its use is discouraged for several reasons:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mt-4">
+        <li>
+          <strong>Performance Issues:</strong> Modifying an object's prototype at runtime using <code>__proto__</code>
+          is a slow operation and can degrade performance across the codebase.
+        </li>
+        <li>
+          <strong>Security Concerns:</strong> Direct manipulation of <code>__proto__</code> can lead to prototype
+          pollution vulnerabilities, where malicious code alters the prototype chain, affecting all objects.
+        </li>
+        <li>
+          <strong>Inconsistency:</strong> The behavior of <code>__proto__</code> can be inconsistent across different
+          environments, making code less predictable and harder to maintain.
+        </li>
+        <li>
+          <strong>Deprecated Feature:</strong> As a legacy feature, <code>__proto__</code> may not be supported in all
+          future JavaScript environments, posing a risk for long-term code stability.
+        </li>
+      </ul>
+      <p class="mt-4">
+        Instead of using <code>__proto__</code>, it's recommended to use the standard methods
+        <code>Object.getPrototypeOf()</code> and <code>Object.setPrototypeOf()</code> for interacting with an object's
+        prototype.
+      </p>
+    </section>
+
+    <!-- Section: Why Object.setPrototypeOf is Discouraged Compared to Object.create -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Why <code>Object.setPrototypeOf()</code> is Discouraged Compared to
+        <code>Object.create()</code></h2>
+      <p>
+        While both <code>Object.setPrototypeOf()</code> and <code>Object.create()</code> can be used to set an object's
+        prototype, there are important differences that make <code>Object.create()</code> the preferred choice in most
+        scenarios:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mt-4">
+        <li>
+          <strong>Performance Implications:</strong> Modifying an object's prototype at runtime using
+          <code>Object.setPrototypeOf()</code> is a slow operation. It can disrupt JavaScript engine optimizations,
+          leading to degraded performance across the application. :contentReference[oaicite:5]{index=5}
+        </li>
+        <li>
+          <strong>Engine Optimizations:</strong> JavaScript engines optimize property access based on the object's
+          prototype chain. Changing the prototype of an existing object invalidates these optimizations, forcing the
+          engine to deoptimize and recompile code paths. :contentReference[oaicite:6]{index=6}
+        </li>
+        <li>
+          <strong>Best Practice:</strong> It's recommended to set the prototype at the time of object creation.
+          <code>Object.create()</code> allows you to create a new object with the desired prototype, ensuring optimal
+          performance and predictable behavior. :contentReference[oaicite:7]{index=7}
+        </li>
+      </ul>
+      <p class="mt-4">
+        In summary, prefer using <code>Object.create()</code> to establish prototype chains during object creation, and
+        avoid modifying the prototype of existing objects with <code>Object.setPrototypeOf()</code> unless absolutely
+        necessary.
+      </p>
+    </section>
+
+    <!-- Section: Senior/Lead Developer Insights -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🎯 Senior/Lead Developer Insights</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Favor composition over inheritance to promote modular and reusable code structures.</li>
+        <li>Avoid modifying built-in prototypes (e.g., <code>Array.prototype</code>) to prevent unexpected behaviors
+          across the codebase.</li>
+        <li>Utilize modern class syntax (<code>class</code>, <code>extends</code>) for clearer and more maintainable
+          object-oriented code.</li>
+        <li>Be cautious with prototype chain manipulations, as they can introduce hard-to-debug issues and affect
+          performance.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
