@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript Property Accessors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔑 JavaScript Property Accessors</h1>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📘 Overview</h2>
+      <p>
+        JavaScript properties come in two forms: data properties and accessor properties. Accessor properties use getter
+        and setter functions to control access to an object's properties, allowing for encapsulation and computed
+        values.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Getters and Setters</h2>
+      <p>
+        Getters and setters are defined using the <code>get</code> and <code>set</code> keywords within object literals
+        or classes. They allow you to execute code when a property is accessed or assigned.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded">
+const user = {
+  firstName: "John",
+  lastName: "Doe",
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  set fullName(name) {
+    [this.firstName, this.lastName] = name.split(" ");
+  }
+};
+
+console.log(user.fullName); // "John Doe"
+user.fullName = "Jane Smith";
+console.log(user.firstName); // "Jane"
+console.log(user.lastName); // "Smith"
+        </pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Accessor Descriptors</h2>
+      <p>
+        Accessor properties can also be defined using <code>Object.defineProperty</code>, specifying <code>get</code>
+        and <code>set</code> functions along with <code>enumerable</code> and <code>configurable</code> attributes.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded">
+const user = {
+  firstName: "John",
+  lastName: "Doe"
+};
+
+Object.defineProperty(user, "fullName", {
+  get() {
+    return `${this.firstName} ${this.lastName}`;
+  },
+  set(name) {
+    [this.firstName, this.lastName] = name.split(" ");
+  },
+  enumerable: true,
+  configurable: true
+});
+
+console.log(user.fullName); // "John Doe"
+        </pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚀 Best Practices</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Use getters and setters to encapsulate internal property logic.</li>
+        <li>Avoid heavy computations or side effects within accessors.</li>
+        <li>Use clear and consistent naming conventions.</li>
+        <li>Document accessor behavior to aid maintainability.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Ensure accessors do not introduce unexpected side effects that can complicate debugging.</li>
+        <li>Be cautious with performance implications of accessors in performance-critical code paths.</li>
+        <li>Establish and enforce coding standards regarding the use of accessors within your team.</li>
+        <li>Consider the implications of accessors on serialization and cloning of objects.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
