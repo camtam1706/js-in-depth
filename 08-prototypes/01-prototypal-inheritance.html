@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Prototypal Inheritance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Prototypal Inheritance</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section 1: Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What is Prototypal Inheritance?</h2>
+      <p>
+        Prototypal inheritance is a feature in JavaScript that allows objects to inherit properties and methods from
+        other objects. This is achieved through the internal <code>[[Prototype]]</code> property, which forms a chain
+        known as the prototype chain.
+      </p>
+    </section>
+
+    <!-- Section 2: Setting Prototypes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔗 Setting and Accessing Prototypes</h2>
+      <p>
+        You can set an object's prototype using the <code>__proto__</code> property (deprecated) or the modern methods
+        <code>Object.setPrototypeOf()</code> and <code>Object.getPrototypeOf()</code>.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let animal = { eats: true };
+let rabbit = { jumps: true };
+
+rabbit.__proto__ = animal;
+
+console.log(rabbit.eats); // true
+console.log(rabbit.jumps); // true</code></pre>
+    </section>
+
+    <!-- Section 3: Prototype Chain -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 The Prototype Chain</h2>
+      <p>
+        When accessing a property, JavaScript first looks at the object itself. If not found, it traverses up the
+        prototype chain until it finds the property or reaches the end (<code>null</code>). This mechanism allows for
+        property and method sharing among objects.
+      </p>
+    </section>
+
+    <!-- Section 4: Limitations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Limitations of Prototypal Inheritance</h2>
+      <ul class="list-disc pl-6">
+        <li>An object can have only one prototype.</li>
+        <li>Circular references in the prototype chain are not allowed.</li>
+        <li>Modifying prototypes can lead to maintenance challenges and unexpected behaviors.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Overriding Methods in Prototypal Inheritance</h2>
+      <p>
+        In JavaScript, objects can inherit properties and methods from a prototype. However, an object can also override
+        inherited methods by defining its own methods with the same name. This allows for customized behavior while
+        still leveraging shared functionality.
+      </p>
+      <p class="mt-4">
+        Consider the following example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let animal = {
+  eats: true,
+  walk() {
+    // This method won't be used by rabbit
+  }
+};
+
+let rabbit = {
+  __proto__: animal
+};
+
+rabbit.walk = function() {
+  alert("Rabbit! Bounce-bounce!");
+};
+
+rabbit.walk(); // Rabbit! Bounce-bounce!</code></pre>
+      <p class="mt-4">
+        In this example:
+      </p>
+      <ul class="list-disc pl-6">
+        <li><code>rabbit</code> inherits from <code>animal</code>, gaining access to its properties and methods.</li>
+        <li>By defining its own <code>walk</code> method, <code>rabbit</code> overrides the inherited <code>walk</code>
+          method from <code>animal</code>.</li>
+        <li>When <code>rabbit.walk()</code> is called, JavaScript uses the method defined directly on
+          <code>rabbit</code>, not the one from <code>animal</code>.</li>
+      </ul>
+      <p class="mt-4">
+        This behavior demonstrates how objects can customize or extend functionality by overriding methods from their
+        prototypes.
+      </p>
+    </section>
+
+    <!-- Section: Property Overriding in Prototypal Inheritance -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Property Overriding in Prototypal Inheritance</h2>
+      <p>
+        In JavaScript, when an object inherits from another via the prototype chain, it can override inherited
+        properties or methods by defining them directly on itself. This allows for customized behavior while still
+        leveraging shared functionality.
+      </p>
+      <p class="mt-4">
+        Consider the following example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>let animal = {
+  walk() {
+    if (!this.isSleeping) {
+      alert("I walk");
+    }
+  },
+  sleep() {
+    this.isSleeping = true;
+  }
+};
+
+let rabbit = {
+  name: "White Rabbit",
+  __proto__: animal
+};
+
+rabbit.sleep();
+
+alert(rabbit.isSleeping); // true
+alert(animal.isSleeping); // undefined</code></pre>
+      <p class="mt-4">
+        In this example:
+      </p>
+      <ul class="list-disc pl-6">
+        <li><code>rabbit</code> inherits from <code>animal</code>, gaining access to its methods.</li>
+        <li>When <code>rabbit.sleep()</code> is called, it sets <code>this.isSleeping = true</code>. Here,
+          <code>this</code> refers to <code>rabbit</code>, so <code>isSleeping</code> is set on <code>rabbit</code>, not
+          on <code>animal</code>.
+        </li>
+        <li>As a result, <code>rabbit.isSleeping</code> is <code>true</code>, while <code>animal.isSleeping</code>
+          remains <code>undefined</code>.</li>
+      </ul>
+      <p class="mt-4">
+        This behavior demonstrates how objects can override inherited properties, allowing for specific customization
+        without affecting the prototype.
+      </p>
+    </section>
+
+    <!-- Section 5: Best Practices for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6">
+        <li>Favor composition over inheritance to promote code reuse and flexibility.</li>
+        <li>Use <code>Object.create(null)</code> when creating objects meant to be pure dictionaries, avoiding inherited
+          properties.</li>
+        <li>Be cautious when extending native prototypes, as it can lead to conflicts and maintenance issues.</li>
+        <li>Understand the implications of the prototype chain on performance and memory usage.</li>
+        <li>Educate team members about the nuances of prototypal inheritance to ensure consistent and error-free
+          codebases.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
