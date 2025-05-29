@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Property Descriptors</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📜 JavaScript Property Descriptors</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 What Are Property Descriptors?</h2>
+      <p>
+        In JavaScript, every object property has associated metadata known as a property descriptor. This descriptor
+        defines characteristics of the property, such as whether it's writable, enumerable, or configurable.
+        Understanding and manipulating these descriptors allows for fine-grained control over object properties.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Core Descriptor Attributes</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>writable</strong>: Determines if the property's value can be changed.</li>
+        <li><strong>enumerable</strong>: Specifies if the property appears during enumeration of the object's
+          properties.</li>
+        <li><strong>configurable</strong>: Indicates if the property descriptor can be changed and if the property can
+          be deleted from the object.</li>
+        <li><strong>value</strong>: The actual value of the property.</li>
+        <li><strong>get</strong>: A function that serves as a getter for the property.</li>
+        <li><strong>set</strong>: A function that serves as a setter for the property.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Defining and Retrieving Descriptors</h2>
+      <p>
+        JavaScript provides methods to define and retrieve property descriptors:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>// Define a property with specific descriptors
+Object.defineProperty(obj, 'prop', {
+  value: 42,
+  writable: true,
+  enumerable: true,
+  configurable: true
+});
+
+// Retrieve the descriptor of a property
+const descriptor = Object.getOwnPropertyDescriptor(obj, 'prop');
+console.log(descriptor);
+</code></pre>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Data vs. Accessor Descriptors</h2>
+      <p>
+        Property descriptors come in two forms:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Data Descriptors</strong>: Include a value and optional writable, enumerable, and configurable
+          attributes.</li>
+        <li><strong>Accessor Descriptors</strong>: Include get and set functions instead of a value and writable
+          attribute, along with optional enumerable and configurable attributes.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Practical Example</h2>
+      <pre class="bg-gray-100 p-4 rounded"><code>const user = {};
+Object.defineProperty(user, 'name', {
+  value: 'Alice',
+  writable: false,
+  enumerable: true,
+  configurable: false
+});
+
+console.log(user.name); // 'Alice'
+user.name = 'Bob'; // Fails silently or throws in strict mode
+</code></pre>
+      <p>
+        In this example, the 'name' property is read-only and cannot be reconfigured or deleted.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong>Immutable Data Structures</strong>: Use non-writable and non-configurable properties to create
+          immutable objects, enhancing reliability.</li>
+        <li><strong>Encapsulation</strong>: Employ accessor descriptors to control access and modification of property
+          values, enforcing encapsulation.</li>
+        <li><strong>Security</strong>: Restrict property configurability to prevent unauthorized modifications,
+          bolstering object security.</li>
+        <li><strong>Performance</strong>: Understand the implications of property descriptors on performance, especially
+          when defining numerous properties.</li>
+        <li><strong>Framework Design</strong>: Leverage property descriptors to create robust and flexible APIs within
+          libraries and frameworks.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
