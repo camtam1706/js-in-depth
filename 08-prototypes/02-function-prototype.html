@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Function Prototype in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧠 Function Prototype in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔧 What is <code>F.prototype</code>?</h2>
+      <p>
+        In JavaScript, every function has a <code>prototype</code> property. When a function is used as a constructor
+        (with the <code>new</code> keyword), the <code>prototype</code> property of that function is assigned as the
+        <code>[[Prototype]]</code> of the newly created object.
+      </p>
+      <p class="mt-4">
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function Rabbit(name) {
+  this.name = name;
+}
+Rabbit.prototype = { eats: true };
+
+let rabbit = new Rabbit("White Rabbit");
+console.log(rabbit.eats); // true
+</code></pre>
+      <p class="mt-4">
+        Here, <code>rabbit</code> inherits the <code>eats</code> property from <code>Rabbit.prototype</code>.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Key Concepts</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong><code>F.prototype</code></strong> is only used when <code>new F()</code> is called. It sets the
+          <code>[[Prototype]]</code> of the new object.</li>
+        <li>Changing <code>F.prototype</code> after creating an object does not affect the existing object’s prototype.
+        </li>
+        <li>Every function has a default <code>prototype</code> object with a <code>constructor</code> property pointing
+          back to the function itself.</li>
+        <li>Overwriting the default <code>prototype</code> object removes the <code>constructor</code> property unless
+          it is manually added back.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Practical Examples</h2>
+      <p>
+        Consider the following scenarios:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>function Rabbit() {}
+Rabbit.prototype = { eats: true };
+
+let rabbit = new Rabbit();
+console.log(rabbit.eats); // true
+
+Rabbit.prototype = {};
+console.log(rabbit.eats); // true (existing object not affected)
+
+Rabbit.prototype.eats = false;
+console.log(rabbit.eats); // true (still refers to old prototype)
+
+delete rabbit.eats;
+console.log(rabbit.eats); // true (property exists on prototype)
+
+delete Rabbit.prototype.eats;
+console.log(rabbit.eats); // undefined (property deleted from prototype)
+</code></pre>
+      <p class="mt-4">
+        These examples illustrate how changes to the prototype affect objects created before and after the change.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Be cautious when modifying the <code>prototype</code> of constructors, especially in shared or third-party
+          codebases, as it can lead to unexpected behaviors.</li>
+        <li>Always ensure that the <code>constructor</code> property is correctly set when overwriting the default
+          <code>prototype</code> object to maintain proper references.</li>
+        <li>Understand the distinction between <code>F.prototype</code> (a property on the constructor function) and
+          <code>[[Prototype]]</code> (an internal property of objects) to avoid confusion.</li>
+        <li>Use <code>Object.create</code> for creating objects with a specified prototype without invoking a
+          constructor function, providing more control over the object's structure.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
