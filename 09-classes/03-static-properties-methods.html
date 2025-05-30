@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Static Properties & Methods in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📘 Static Properties & Methods in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Static Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Static Methods</h2>
+      <p class="mb-4">Static methods are functions defined on the class itself, not on instances. They are useful for
+        utility functions, factory methods, or operations that don't require access to instance data.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class MathUtils {
+  static add(a, b) {
+    return a + b;
+  }
+}
+
+console.log(MathUtils.add(2, 3)); // Output: 5</code></pre>
+    </section>
+
+    <!-- Section: Static Properties -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🏷️ Static Properties</h2>
+      <p class="mb-4">Static properties are variables associated with the class itself. They are shared across all
+        instances and can be used to store class-level data.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class Counter {
+  static count = 0;
+
+  constructor() {
+    Counter.count++;
+  }
+}
+
+new Counter();
+new Counter();
+console.log(Counter.count); // Output: 2</code></pre>
+    </section>
+
+    <!-- Section: Inheritance of Static Members -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 Inheritance of Static Members</h2>
+      <p class="mb-4">Static properties and methods are inherited by subclasses. This allows for shared functionality
+        across a class hierarchy.</p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class Animal {
+  static kingdom = 'Animalia';
+}
+
+class Dog extends Animal {}
+
+console.log(Dog.kingdom); // Output: Animalia</code></pre>
+    </section>
+
+    <!-- Section: Senior/Lead Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Senior/Lead Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Use static methods for operations that don't rely on instance data to promote clarity and maintainability.
+        </li>
+        <li>Be cautious with static properties in concurrent environments, as they are shared across all instances.</li>
+        <li>Ensure that static members are not misused to store mutable state that could lead to unintended side
+          effects.</li>
+        <li>When designing class hierarchies, consider the implications of inherited static members to avoid unexpected
+          behaviors.</li>
+        <li>Document the purpose and usage of static members clearly to aid in team understanding and onboarding.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
