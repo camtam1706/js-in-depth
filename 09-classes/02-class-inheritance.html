@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Class Inheritance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📚 JavaScript Class Inheritance</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔑 Key Concepts</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>extends</strong>: Allows a class to inherit from another class.</li>
+        <li><strong>super()</strong>: Calls the constructor of the parent class.</li>
+        <li><strong>super.method()</strong>: Calls a method from the parent class.</li>
+        <li>Inheritance uses the prototype chain under the hood.</li>
+        <li>Overriding methods allows customization of inherited behavior.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Example: Animal and Rabbit</h2>
+      <pre class="bg-gray-100 p-4 rounded"><code>class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(`${this.name} makes a noise.`);
+  }
+}
+
+class Rabbit extends Animal {
+  speak() {
+    super.speak();
+    console.log(`${this.name} squeaks.`);
+  }
+}
+
+const rabbit = new Rabbit('Thumper');
+rabbit.speak();
+// Output:
+// Thumper makes a noise.
+// Thumper squeaks.</code></pre>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Notes on Overriding</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>When overriding a method, you can still call the original method using <code>super.method()</code>.</li>
+        <li>Be cautious with the order of operations when using <code>super()</code> in constructors.</li>
+        <li>Fields in subclasses can shadow those in parent classes; initialization order matters.</li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧭 Why Use <code>super</code>?</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Code reuse:</strong> Call methods from the parent class to avoid duplicating logic.</li>
+        <li><strong>Constructor requirement:</strong> In derived classes, <code>super()</code> must be called before
+          using <code>this</code>.</li>
+        <li><strong>Extend, not replace:</strong> Combine parent and child behavior instead of completely overriding it.
+        </li>
+        <li><strong>Polymorphism:</strong> Enables objects to behave like their parent type, preserving OOP principles.
+        </li>
+        <li><strong>Maintainability:</strong> Updates in the base class automatically reflect in derived classes when
+          using <code>super</code>.</li>
+      </ul>
+
+      <div class="mt-4 bg-gray-100 p-4 rounded">
+        <p class="mb-2 font-semibold">Example:</p>
+        <pre><code>class Logger {
+  log(msg) {
+    console.log("LOG:", msg);
+  }
+}
+
+class TimestampLogger extends Logger {
+  log(msg) {
+    super.log(`[${Date.now()}] ${msg}`);
+  }
+}</code></pre>
+        <p class="mt-2 text-sm text-gray-700">
+          <strong>Result:</strong> Combines base logging logic with new timestamp behavior.
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 <code>super</code>: Internals & <code>[[HomeObject]]</code></h2>
+      <p class="mb-4">
+        In JavaScript, the behavior of <code>super</code> is linked to a hidden internal property called
+        <code>[[HomeObject]]</code>. This property is what allows <code>super</code> to find the right method in the
+        prototype chain.
+      </p>
+
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>[[HomeObject]]:</strong> Is an internal reference that gets assigned when a method is defined inside
+          an object or class. It tells <code>super</code> where to look.</li>
+        <li><strong>super.method()</strong> doesn’t just mean "go to parent prototype" — it uses
+          <code>[[HomeObject]]</code> to determine the correct lookup path.</li>
+        <li>If a method loses its context (e.g., extracted into a variable), <code>super</code> may no longer work
+          correctly because <code>[[HomeObject]]</code> is lost.</li>
+      </ul>
+
+      <div class="mt-4 bg-gray-100 p-4 rounded">
+        <p class="mb-2 font-semibold">Example:</p>
+        <pre><code>let animal = {
+  say() {
+    console.log("animal");
+  }
+};
+
+let rabbit = {
+  __proto__: animal,
+  say() {
+    super.say(); // needs [[HomeObject]]
+    }
+};
+
+rabbit.say(); // "animal"</code></pre>
+        <p class="mt-2 text-sm text-gray-700">
+          If <code>rabbit.say</code> is copied elsewhere (e.g. <code>let f = rabbit.say</code>), <code>super</code> will
+          not work because the method is detached from its <code>[[HomeObject]]</code>.
+        </p>
+      </div>
+
+      <p class="mt-4">
+        This is why <code>super</code> only works inside class methods or object methods defined with proper syntax.
+        Arrow functions or copied methods don't carry <code>[[HomeObject]]</code>.
+      </p>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Senior/Lead Developer Considerations</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Understand the prototype chain to debug inheritance issues effectively.</li>
+        <li>Use composition over inheritance when appropriate to reduce complexity.</li>
+        <li>Be aware of the implications of method overriding on maintainability.</li>
+        <li>Ensure that subclass constructors call <code>super()</code> before accessing <code>this</code>.</li>
+        <li>Document class hierarchies clearly to aid team understanding.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
