@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Class Summary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📘 JavaScript Class Summary</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Class Basic Syntax -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔤 Class Basic Syntax</h2>
+      <p>
+        Classes in JavaScript are syntactic sugar over the existing prototype-based inheritance. They provide a clearer
+        and more concise syntax for creating objects and dealing with inheritance.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class User {
+  constructor(name) {
+    this.name = name;
+  }
+  sayHi() {
+    alert(this.name);
+  }
+}
+
+let user = new User("John");
+user.sayHi();</code></pre>
+    </section>
+
+    <!-- Section: Class Inheritance -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 Class Inheritance</h2>
+      <p>
+        JavaScript classes support inheritance through the <code>extends</code> keyword. A subclass can override methods
+        from its superclass and use <code>super</code> to call the superclass's constructor or methods.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    alert(`${this.name} makes a noise.`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    super.speak();
+    alert(`${this.name} barks.`);
+  }
+}
+
+let dog = new Dog("Rex");
+dog.speak();</code></pre>
+    </section>
+
+    <!-- Section: Static Methods and Properties -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ Static Methods and Properties</h2>
+      <p>
+        Static members are defined on the class itself, not on instances. They are useful for utility functions.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class MathHelper {
+  static square(x) {
+    return x * x;
+  }
+}
+
+console.log(MathHelper.square(4)); // 16</code></pre>
+    </section>
+
+    <!-- Section: Private and Protected Members -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔒 Private and Protected Members</h2>
+      <p>
+        JavaScript supports private fields using the <code>#</code> syntax. These fields are only accessible within the
+        class.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class Counter {
+  #count = 0;
+  increment() {
+    this.#count++;
+    console.log(this.#count);
+  }
+}
+
+let counter = new Counter();
+counter.increment(); // 1
+// counter.#count; // SyntaxError</code></pre>
+    </section>
+
+    <!-- Section: Extending Built-in Classes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧱 Extending Built-in Classes</h2>
+      <p>
+        You can extend built-in classes like <code>Array</code> to create custom classes with additional functionality.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class MyArray extends Array {
+  sum() {
+    return this.reduce((a, b) => a + b, 0);
+  }
+}
+
+let arr = new MyArray(1, 2, 3);
+console.log(arr.sum()); // 6</code></pre>
+    </section>
+
+    <!-- Section: Class Checking with instanceof -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 Class Checking with instanceof</h2>
+      <p>
+        The <code>instanceof</code> operator checks if an object is an instance of a class or its subclasses.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class Person {}
+let person = new Person();
+
+console.log(person instanceof Person); // true</code></pre>
+    </section>
+
+    <!-- Section: Mixins -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Mixins</h2>
+      <p>
+        Mixins allow objects to share functionality without using inheritance.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>let sayHiMixin = {
+  sayHi() {
+    alert("Hello");
+  }
+};
+
+class User {}
+Object.assign(User.prototype, sayHiMixin);
+
+let user = new User();
+user.sayHi(); // Hello</code></pre>
+    </section>
+
+    <!-- Section: Notes for Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Design Patterns:</strong> Encourage the use of composition over inheritance where appropriate to
+          promote code reuse and flexibility.</li>
+        <li><strong>Encapsulation:</strong> Utilize private fields to encapsulate internal implementation details and
+          expose only necessary interfaces.</li>
+        <li><strong>Performance:</strong> Be cautious with extending built-in classes, as it may have performance
+          implications in some JavaScript engines.</li>
+        <li><strong>Consistency:</strong> Maintain consistent coding standards and practices across the codebase to
+          improve readability and maintainability.</li>
+        <li><strong>Tooling:</strong> Leverage TypeScript or JSDoc for better type safety and developer experience.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
