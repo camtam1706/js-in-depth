@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private & Protected in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔒 Private & Protected in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📦 Encapsulation in OOP</h2>
+      <p>
+        Encapsulation is the practice of separating an object's internal implementation from its external interface.
+        This ensures that internal details are hidden and protected from external access, promoting modularity and
+        maintainability.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔓 Public Properties</h2>
+      <p>
+        Public properties are accessible from anywhere. They form the external interface of a class and can be freely
+        read or modified.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class CoffeeMachine {
+  waterAmount = 0; // public
+}</code></pre>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛡️ Protected Properties (Convention)</h2>
+      <p>
+        JavaScript does not natively support protected properties. However, by convention, properties prefixed with an
+        underscore (_) are treated as protected, indicating they should not be accessed outside the class or its
+        subclasses.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class CoffeeMachine {
+  _waterAmount = 0;
+
+  set waterAmount(value) {
+    if (value < 0) throw new Error("Negative water");
+    this._waterAmount = value;
+  }
+
+  get waterAmount() {
+    return this._waterAmount;
+  }
+}</code></pre>
+    </section>
+
+    <!-- Section 4 -->
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔐 Private Properties (#)</h2>
+      <p>
+        Private properties are denoted by a hash (#) and are only accessible within the class they are defined. This is
+        enforced by the language, providing true encapsulation.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class CoffeeMachine {
+  #waterLimit = 200;
+
+  #fixWaterAmount(value) {
+    if (value < 0) return 0;
+    if (value > this.#waterLimit) return this.#waterLimit;
+    return value;
+  }
+
+  setWaterAmount(value) {
+    this.#waterLimit = this.#fixWaterAmount(value);
+  }
+}</code></pre>
+      <p class="mt-4">
+        Attempting to access <code>#waterLimit</code> or <code>#fixWaterAmount</code> from outside the class will result
+        in an error.
+      </p>
+      <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+        <h3 class="text-lg font-semibold mb-2">⚠️ Limitation in Inheritance</h3>
+        <p>
+          Private fields are not accessible in subclasses. Each class has its own separate set of private fields, and
+          attempting to access a superclass's private field in a subclass will result in a syntax error.
+        </p>
+        <pre class="bg-gray-100 p-4 rounded mt-2"><code>class Parent {
+  #secret = 'hidden';
+}
+
+class Child extends Parent {
+  revealSecret() {
+    console.log(this.#secret); // SyntaxError
+  }
+}</code></pre>
+        <p class="mt-2">
+          This behavior enforces strict encapsulation but limits the ability to share internal state between parent and
+          child classes. If shared access is needed, consider using protected-like conventions or public methods to
+          expose necessary functionality.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- Section 5 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Summary</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Public:</strong> Accessible from anywhere.</li>
+        <li><strong>Protected (_):</strong> Conventionally treated as protected; accessible within the class and
+          subclasses.</li>
+        <li><strong>Private (#):</strong> Truly private; accessible only within the class.</li>
+      </ul>
+      <p class="mt-4">
+        Encapsulation helps in hiding complexity, protecting internal states, and creating a clear separation between
+        internal and external interfaces.
+      </p>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Encourage the use of private fields (<code>#</code>) for true encapsulation, especially in large codebases.
+        </li>
+        <li>Use protected conventions (<code>_</code>) judiciously, understanding they are not enforced by the language.
+        </li>
+        <li>Be cautious with inheritance; private fields are not accessible in subclasses.</li>
+        <li>Ensure code consistency by following established naming conventions and access patterns.</li>
+        <li>Stay updated with browser support for private fields and consider transpilation if necessary.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
