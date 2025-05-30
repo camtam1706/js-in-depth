@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>JavaScript instanceof Operator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔍 JavaScript instanceof Operator</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📌 Overview</h2>
+      <p>
+        The <code>instanceof</code> operator checks whether an object is an instance of a specific class or constructor
+        function, considering the inheritance chain.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4">
+<code>object instanceof Constructor</code>
+        </pre>
+      <p class="mt-4">
+        Returns <code>true</code> if <code>Constructor.prototype</code> exists in the object's prototype chain.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 How It Works</h2>
+      <p>
+        The <code>instanceof</code> operator determines whether an object is an instance of a constructor by checking
+        the object's prototype chain.
+      </p>
+      <p class="mt-4">
+        The evaluation process follows these steps:
+      </p>
+      <ol class="list-decimal pl-6 mt-2 space-y-2">
+        <li>
+          If the constructor has a static <code>Symbol.hasInstance</code> method, it is called with the object as an
+          argument. The result of this method determines the outcome of the <code>instanceof</code> check.
+        </li>
+        <li>
+          If the constructor does not have a <code>Symbol.hasInstance</code> method, the standard logic is used: the
+          operator checks whether <code>constructor.prototype</code> exists in the object's prototype chain.
+        </li>
+      </ol>
+      <p class="mt-4">
+        Most classes do not define a custom <code>Symbol.hasInstance</code> method. In such cases, the default behavior
+        is to traverse the object's prototype chain to see if <code>constructor.prototype</code> is present.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4">
+<code>function Person(name) {
+  this.name = name;
+}
+    
+const alice = new Person('Alice');
+    
+console.log(alice instanceof Person); // true</code>
+      </pre>
+      <p class="mt-4">
+        In this example:
+      </p>
+      <ul class="list-disc pl-6 mt-2 space-y-2">
+        <li><code>alice</code> is created using the <code>Person</code> constructor.</li>
+        <li>The prototype chain of <code>alice</code> includes <code>Person.prototype</code>.</li>
+        <li>Therefore, <code>alice instanceof Person</code> returns <code>true</code>.</li>
+      </ul>
+      <p class="mt-4">
+        This behavior is consistent across most objects and constructors in JavaScript unless a custom
+        <code>Symbol.hasInstance</code> method is defined.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Examples</h2>
+      <pre class="bg-gray-100 p-4 rounded mt-4">
+<code>class Animal {}
+class Dog extends Animal {}
+
+const pet = new Dog();
+
+console.log(pet instanceof Dog); // true
+console.log(pet instanceof Animal); // true
+console.log(pet instanceof Object); // true</code>
+        </pre>
+      <p class="mt-4">
+        Even though <code>pet</code> is an instance of <code>Dog</code>, it's also an instance of <code>Animal</code>
+        and <code>Object</code> due to the prototype chain.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Important Considerations</h2>
+      <ul class="list-disc pl-6 mt-2 space-y-2">
+        <li>
+          <strong>Primitive Types:</strong> <code>instanceof</code> returns <code>false</code> for primitives. For
+          example, <code>'hello' instanceof String</code> is <code>false</code>.
+        </li>
+        <li>
+          <strong>Multiple Realms:</strong> Objects from different JavaScript contexts (e.g., iframes) may not share the
+          same constructors, leading to unexpected <code>false</code> results.
+        </li>
+        <li>
+          <strong>Prototype Changes:</strong> Altering a constructor's prototype after object creation can affect
+          <code>instanceof</code> checks.
+        </li>
+        <li>
+          <strong>Custom Behavior:</strong> You can define custom logic by implementing <code>Symbol.hasInstance</code>
+          in your class.
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 Changing Constructor.prototype</h2>
+      <p>
+        Reassigning a constructor's <code>prototype</code> property to a new object affects the behavior of the
+        <code>instanceof</code> operator. Objects created before the reassignment retain references to the original
+        prototype, leading to potentially unexpected results.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4">
+<code>function MyClass() {}
+const instance = new MyClass();
+      
+console.log(instance instanceof MyClass); // true
+      
+// Reassign prototype
+MyClass.prototype = {};
+      
+console.log(instance instanceof MyClass); // false
+      
+const newInstance = new MyClass();
+console.log(newInstance instanceof MyClass); // true</code>
+        </pre>
+      <p class="mt-4">
+        In this example:
+      </p>
+      <ul class="list-disc pl-6 mt-2 space-y-2">
+        <li><code>instance</code> was created before <code>MyClass.prototype</code> was reassigned, so its internal
+          [[Prototype]] still points to the original prototype object.</li>
+        <li><code>newInstance</code> was created after the reassignment, so its internal [[Prototype]] points to the new
+          <code>MyClass.prototype</code>.
+        </li>
+      </ul>
+      <p class="mt-4">
+        Therefore, <code>instance instanceof MyClass</code> returns <code>false</code>, while
+        <code>newInstance instanceof MyClass</code> returns <code>true</code>.
+      </p>
+      <p class="mt-4">
+        This behavior underscores the importance of understanding how changes to a constructor's <code>prototype</code>
+        property can impact type checking and inheritance in JavaScript.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔗 Shared Prototype Between Constructors</h2>
+      <p>
+        When two constructor functions share the same prototype object, instances created from one constructor can be
+        recognized as instances of the other. This is because the <code>instanceof</code> operator checks whether the
+        prototype property of a constructor appears anywhere in the prototype chain of an object.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4">
+<code>function A() {}
+function B() {}
+    
+A.prototype = B.prototype = {};
+    
+const a = new A();
+    
+console.log(a instanceof B); // true</code>
+      </pre>
+      <p class="mt-4">
+        In this example:
+      </p>
+      <ul class="list-disc pl-6 mt-2 space-y-2">
+        <li><code>A.prototype</code> and <code>B.prototype</code> both reference the same object.</li>
+        <li><code>a</code> is created using <code>new A()</code>, so its internal [[Prototype]] is set to
+          <code>A.prototype</code>.
+        </li>
+        <li>Since <code>A.prototype</code> and <code>B.prototype</code> are the same object, <code>a</code>'s prototype
+          chain includes <code>B.prototype</code>.</li>
+      </ul>
+      <p class="mt-4">
+        Therefore, <code>a instanceof B</code> returns <code>true</code>.
+      </p>
+      <p class="mt-4">
+        This behavior can lead to unexpected results if constructors are assumed to be independent. It's important to be
+        cautious when assigning prototypes to ensure that each constructor has its own distinct prototype object.
+      </p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">👨‍💼 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 mt-2 space-y-2">
+        <li>
+          <strong>Type Checking:</strong> For reliable type checks, especially across different realms, consider using
+          <code>Object.prototype.toString.call(obj)</code>.
+        </li>
+        <li>
+          <strong>Symbol.hasInstance:</strong> Utilize <code>Symbol.hasInstance</code> to customize
+          <code>instanceof</code> behavior for your classes.
+        </li>
+        <li>
+          <strong>Alternative Methods:</strong> In some cases,
+          <code>Object.getPrototypeOf(obj) === Constructor.prototype</code> might be a more precise check.
+        </li>
+        <li>
+          <strong>Constructor Property:</strong> Relying on the <code>constructor</code> property can be misleading, as
+          it can be overwritten or may not point to the expected function.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
