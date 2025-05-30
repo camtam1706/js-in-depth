@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extending Native Classes in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧬 Extending Native Classes in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📚 Overview</h2>
+      <p>
+        JavaScript allows extending built-in classes like <code>Array</code>, <code>Map</code>, and <code>Set</code>
+        using class inheritance. This enables adding custom methods to these classes, enhancing their functionality.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚙️ How It Works</h2>
+      <p>
+        When a class extends a built-in class, methods like <code>map</code> and <code>filter</code> return instances of
+        the derived class. This behavior is controlled by the <code>Symbol.species</code> property, which can be
+        overridden to change the constructor used for these methods.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code class="language-js">class PowerArray extends Array {
+  isEmpty() {
+    return this.length === 0;
+  }
+
+  static get [Symbol.species]() {
+    return Array;
+  }
+}</code></pre>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚫 Static Inheritance Limitations</h2>
+      <p>
+        Built-in classes do not inherit static methods from their parent classes. For example, <code>Array</code>
+        inherits from <code>Object</code>, but <code>Array</code> does not have static methods like
+        <code>Object.keys()</code>.
+      </p>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">⚠️ Cautions and Best Practices</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Global Pollution:</strong> Extending native prototypes affects all instances, which can lead to
+          conflicts, especially when using third-party libraries.</li>
+        <li><strong>Future Compatibility:</strong> Future versions of JavaScript may introduce methods with the same
+          names, causing unexpected behavior.</li>
+        <li><strong>Maintenance Challenges:</strong> Custom extensions can make code harder to maintain and understand
+          for other developers.</li>
+      </ul>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">✅ Safe Alternatives</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Utility Functions:</strong> Create standalone functions instead of extending prototypes.</li>
+        <li><strong>Subclassing:</strong> Extend built-in classes in a controlled manner without modifying the original
+          prototypes.</li>
+        <li><strong>Composition:</strong> Use composition to add functionality to objects without altering their
+          prototypes.</li>
+      </ul>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Real-world Use Cases & When to Use</h2>
+      <p>
+        Extending native classes is powerful but should be applied wisely:
+      </p>
+      <ul class="list-disc list-inside space-y-2 mt-2">
+        <li>✅ Use <code>class CustomArray extends Array</code> when building domain-specific collections (e.g. a
+          <code>ValidUsersList</code> with special methods).</li>
+        <li>❌ Avoid if only adding simple utilities — prefer standalone utility functions instead.</li>
+      </ul>
+      <p class="mt-4 font-semibold">Senior/Lead Note:</p>
+      <p>Prioritize maintainability. Avoid overengineering via subclassing unless abstraction clearly benefits
+        reusability or clarity.</p>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Deep Dive: Symbol.species</h2>
+      <p>
+        By default, methods like <code>.map()</code> and <code>.filter()</code> on a subclass of <code>Array</code>
+        return the subclass instance.
+        You can override this behavior with <code>Symbol.species</code>:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code class="language-js">class PowerArray extends Array {
+  static get [Symbol.species]() {
+    return Array; // use base Array for derived methods
+  }
+}</code></pre>
+      <p class="mt-4 font-semibold">Senior/Lead Note:</p>
+      <p>Use <code>Symbol.species</code> to decouple result types from subclassed chains — prevents API surprises in
+        large codebases.</p>
+    </section>
+
+    <!-- Section 9 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧱 Subclassing for Custom Errors</h2>
+      <p>
+        One of the most common and valid subclassing use cases is custom error handling:
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code class="language-js">class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}</code></pre>
+      <p class="mt-4 font-semibold">Senior/Lead Note:</p>
+      <p>Use subclassing to build consistent, semantically meaningful error types. This enhances debuggability and
+        simplifies error-boundary logic.</p>
+    </section>
+
+    <!-- Section 10 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔐 Pitfalls of Mutable Inheritance</h2>
+      <p>
+        Subclassing mutable structures (like <code>Array</code>) introduces side effects and reduces predictability in
+        large-scale apps.
+      </p>
+      <ul class="list-disc list-inside space-y-2 mt-2">
+        <li>❌ <code>push</code>, <code>splice</code> mutate state — problematic in functional or state-driven apps (e.g.
+          Redux).</li>
+        <li>✅ Prefer <code>Object.freeze</code>, <code>immer</code>, or libraries like Immutable.js for safer data flow.
+        </li>
+      </ul>
+      <p class="mt-4 font-semibold">Senior/Lead Note:</p>
+      <p>Balance extensibility with immutability. When building critical logic (e.g. reducers, derived state), use
+        immutable patterns to ensure traceability.</p>
+    </section>
+
+
+    <!-- Section 6 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Considerations for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Codebase Consistency:</strong> Establish guidelines on extending native objects to maintain
+          consistency across the codebase.</li>
+        <li><strong>Team Education:</strong> Ensure team members understand the implications of modifying native
+          prototypes.</li>
+        <li><strong>Library Usage:</strong> Evaluate third-party libraries for potential conflicts arising from
+          prototype modifications.</li>
+        <li><strong>Performance Monitoring:</strong> Monitor the performance impact of custom extensions, especially in
+          large applications.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
