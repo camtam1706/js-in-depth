@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Errors in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚠️ Custom Errors in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧱 Why Create Custom Errors?</h2>
+      <p>
+        Custom errors allow developers to represent specific error conditions in their applications, such as
+        <code>HttpError</code> for network issues or <code>ValidationError</code> for data validation problems. This
+        approach enhances error handling by providing more context and enabling targeted responses to different error
+        types.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧬 Extending the Error Class</h2>
+      <p>
+        Inheriting from the built-in <code>Error</code> class ensures that custom errors have standard properties like
+        <code>message</code>, <code>name</code>, and <code>stack</code>. This inheritance also allows the use of
+        <code>instanceof</code> checks to identify error types.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}</code></pre>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧪 Practical Example: JSON Validation</h2>
+      <p>
+        Consider a function <code>readUser(json)</code> that parses JSON data and validates required fields. If
+        essential fields are missing, it throws a <code>ValidationError</code>.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-4"><code>function readUser(json) {
+  let user = JSON.parse(json);
+
+  if (!user.name) {
+    throw new ValidationError("No field: name");
+  }
+  if (!user.age) {
+    throw new ValidationError("No field: age");
+  }
+
+  return user;
+}</code></pre>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧠 Tips for Senior/Lead Developers</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Establish an Error Hierarchy:</strong> Create a structured hierarchy of error classes to represent
+          different error domains, facilitating organized and maintainable error handling.
+        </li>
+        <li>
+          <strong>Preserve Original Errors:</strong> When wrapping errors, retain the original error information using
+          properties like <code>cause</code> to aid in debugging and logging.
+        </li>
+        <li>
+          <strong>Consistent Error Handling:</strong> Implement uniform error handling strategies across the application
+          to ensure predictable behavior and easier maintenance.
+        </li>
+        <li>
+          <strong>Documentation and Training:</strong> Document custom error classes and educate team members on their
+          usage to promote consistent and effective error handling practices.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
