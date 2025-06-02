@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Error Handling in JavaScript</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚠️ Error Handling in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🧩 Introduction to try...catch</h2>
+      <p>
+        The <code>try...catch</code> statement allows you to test a block of code for errors (try), and handle the error
+        (catch) without stopping the entire script.
+      </p>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔍 How try...catch Works</h2>
+      <ul class="list-disc list-inside">
+        <li>The code inside <code>try</code> is executed.</li>
+        <li>If no error occurs, <code>catch</code> is skipped.</li>
+        <li>If an error occurs, control is passed to <code>catch</code>.</li>
+      </ul>
+      <p class="mt-4">
+        Note: <code>try...catch</code> only handles runtime errors, not syntax errors.
+      </p>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">📦 Error Object</h2>
+      <p>
+        When an error occurs, an error object is created with properties:
+      </p>
+      <ul class="list-disc list-inside">
+        <li><code>name</code>: Error name (e.g., ReferenceError)</li>
+        <li><code>message</code>: Error message</li>
+        <li><code>stack</code>: Stack trace (non-standard)</li>
+      </ul>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔄 The finally Block</h2>
+      <p>
+        The <code>finally</code> block executes after <code>try</code> and <code>catch</code>, regardless of the result.
+        It's useful for cleanup operations.
+      </p>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Custom Errors</h2>
+      <p>
+        You can create custom error types by extending the <code>Error</code> class. This allows for more precise error
+        handling.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded"><code>class ValidationError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+    }
+}</code></pre>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🚨 Principles of Using <code>throw</code> in JavaScript</h2>
+      <p>
+        The <code>throw</code> statement is used to generate custom exceptions. Understanding its proper use is crucial
+        for effective error handling.
+      </p>
+      <ul class="list-disc list-inside mt-4 space-y-2">
+        <li><strong>Syntax:</strong> <code>throw expression;</code></li>
+        <li><strong>Expression Types:</strong> Can be a string, number, boolean, object, or an instance of
+          <code>Error</code>. However, it's recommended to throw <code>Error</code> objects for consistency.
+        </li>
+        <li><strong>Execution Flow:</strong> Once a <code>throw</code> statement is executed, the current function's
+          execution stops, and control is passed to the nearest <code>catch</code> block.</li>
+        <li><strong>Custom Errors:</strong> Creating custom error types by extending the <code>Error</code> class allows
+          for more precise error identification and handling.</li>
+        <li><strong>Re-throwing Errors:</strong> Errors can be re-thrown within a <code>catch</code> block to be handled
+          by higher-level error handlers.</li>
+        <li><strong>Best Practices:</strong> Always provide meaningful error messages and avoid throwing primitive
+          values like strings or numbers directly.</li>
+      </ul>
+      <p class="mt-4">
+        <strong>Example:</strong>
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-2"><code>function divide(a, b) {
+  if (b === 0) {
+      throw new Error('Division by zero is not allowed.');
+  }
+  return a / b;
+}
+
+try {
+  console.log(divide(10, 0));
+} catch (error) {
+  console.error(error.message);
+}</code></pre>
+    </section>
+
+    <!-- Section: Principles of Rethrowing Errors in JavaScript -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🔁 Principles of Rethrowing Errors in JavaScript</h2>
+      <p>
+        Rethrowing errors allows a function to catch an exception, perform necessary actions (like logging), and then
+        pass the error up the call stack for further handling. This is particularly useful when the current function
+        cannot fully handle the error or when centralized error handling is desired.
+      </p>
+      <ul class="list-disc list-inside mt-4 space-y-2">
+        <li><strong>Preserve Original Error:</strong> When rethrowing, it's best to throw the original error object to
+          maintain the original stack trace, aiding in debugging.
+          <pre class="bg-gray-100 p-4 rounded mt-2"><code>try {
+  someFunction();
+} catch (error) {
+  console.error('Error occurred:', error);
+  throw error; // Rethrow the original error
+}</code></pre>
+        </li>
+        <li><strong>Use Cases:</strong> Rethrowing is beneficial when a function needs to log an error but not suppress
+          it, allowing higher-level functions to handle it appropriately.
+          <p class="mt-2">
+            🔁 <strong>Example:</strong> A service function logs the error but rethrows it so the controller can show a
+            user-friendly message.
+          </p>
+          <pre class="bg-gray-100 p-4 rounded mt-2"><code>function fetchUserData() {
+        try {
+            // Simulate an API error
+            throw new Error("Failed to fetch user data from API");
+        } catch (error) {
+            console.warn("[fetchUserData] Logging error:", error.message);
+            throw error; // Don't suppress, rethrow it
+        }
+    }
+    
+    function handleRequest() {
+        try {
+            fetchUserData(); // Calling lower-level function
+        } catch (error) {
+            console.error("[handleRequest] Showing error to user:", error.message);
+            // Handle gracefully (e.g. show toast, retry, fallback)
+        }
+    }</code></pre>
+        </li>
+        <li><strong>Avoid Swallowing Errors:</strong> Catching an error without rethrowing or handling it can lead to
+          silent failures, making bugs harder to detect.
+          <pre class="bg-gray-100 p-4 rounded mt-2"><code>try {
+  riskyOperation();
+} catch (error) {
+  // Error is caught but not handled or rethrown
+  // This can lead to silent failures
+}</code></pre>
+        </li>
+        <li><strong>Maintain Stack Trace:</strong> Throwing a new error without preserving the original can obscure the
+          source of the error. If wrapping is necessary, include the original error as a cause.
+          <pre class="bg-gray-100 p-4 rounded mt-2"><code>try {
+  performTask();
+} catch (error) {
+  throw new Error('Task failed', { cause: error });
+}</code></pre>
+        </li>
+      </ul>
+    </section>
+
+
+
+    <!-- Section 6 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4">🎯 Notes for Senior/Lead Developers</h2>
+      <ul class="list-disc list-inside">
+        <li>Ensure consistent error handling across the application.</li>
+        <li>Use custom error classes to represent different error types.</li>
+        <li>Implement global error handlers for uncaught exceptions.</li>
+        <li>Document error handling strategies for the development team.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
