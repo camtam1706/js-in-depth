@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Promise API Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔗 JavaScript Promise API</h1>
+    <p class="text-lg font-medium">Summary and Best Practices</p>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        📚 <span>Introduction to Promise API</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          The Promise API provides static methods attached to the <code class="bg-gray-100 px-1 rounded">Promise</code>
+          class, allowing advanced promise manipulations.
+        </li>
+        <li>
+          These methods help with composing, synchronizing, or racing multiple promises and handling different async
+          scenarios.
+        </li>
+        <li>
+          Most important static methods:
+          <ul class="list-[circle] pl-6 mt-1">
+            <li><code>Promise.all</code></li>
+            <li><code>Promise.allSettled</code></li>
+            <li><code>Promise.race</code></li>
+            <li><code>Promise.any</code></li>
+            <li><code>Promise.resolve</code></li>
+            <li><code>Promise.reject</code></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 2: Promise.all -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        🧩 <span>Promise.all</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Usage:</strong> <code>Promise.all(iterable)</code>
+        </li>
+        <li>
+          Takes an array (or any iterable) of promises and returns a new promise:
+          <ul class="list-[circle] pl-6 mt-1">
+            <li>
+              Resolves when <strong>all</strong> promises resolve. Result is an array of results (order preserved).
+            </li>
+            <li>
+              Rejects immediately if <strong>any</strong> promise rejects, with that rejection reason.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.all([
+  fetch('/api/user'),
+  fetch('/api/products')
+]).then(([userResponse, productsResponse]) => {
+  // Both requests succeeded
+});
+          </code></pre>
+        </li>
+        <li>
+          <strong>Notes:</strong>
+          <ul class="list-[circle] pl-6 mt-1">
+            <li>If any promise rejects, <code>Promise.all</code> rejects immediately (short-circuit), no further results
+              are processed.</li>
+            <li>If iterable is empty, resolves immediately to an empty array <code>[]</code>.</li>
+            <li>Non-promise values are treated as <code>Promise.resolve(value)</code>.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Promise.allSettled -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        📦 <span>Promise.allSettled</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Usage:</strong> <code>Promise.allSettled(iterable)</code>
+        </li>
+        <li>
+          Waits for <strong>all</strong> promises to settle (either fulfilled or rejected).
+        </li>
+        <li>
+          Returns a promise that resolves to an array of result objects for each input promise:
+          <ul class="list-[circle] pl-6 mt-1">
+            <li>
+              Each object is:<br>
+              <code>{status: "fulfilled", value: ...}</code><br>
+              or<br>
+              <code>{status: "rejected", reason: ...}</code>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.allSettled([
+  Promise.resolve(1),
+  Promise.reject(new Error("oops"))
+])
+.then(results => {
+  // [
+  //   {status: "fulfilled", value: 1},
+  //   {status: "rejected", reason: Error: "oops"}
+  // ]
+});
+          </code></pre>
+        </li>
+        <li>
+          Useful when you want the result of <strong>all</strong> promises, regardless of errors.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 4: Promise.race -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        🏁 <span>Promise.race</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Usage:</strong> <code>Promise.race(iterable)</code>
+        </li>
+        <li>
+          Returns a promise that settles as soon as the <strong>first</strong> promise in the iterable settles
+          (fulfilled or rejected).
+        </li>
+        <li>
+          The result or error of the first settled promise is used as the outcome.
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.race([
+  fetch('/slow'),
+  fetch('/fast')
+]).then(response => {
+  // response from the fastest request
+});
+          </code></pre>
+        </li>
+        <li>
+          Useful for implementing timeouts, racing multiple async tasks, etc.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Promise.any -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        🎯 <span>Promise.any</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Usage:</strong> <code>Promise.any(iterable)</code>
+        </li>
+        <li>
+          Returns a promise that resolves as soon as <strong>any</strong> input promise resolves.
+        </li>
+        <li>
+          If <strong>all</strong> promises reject, it rejects with an <code>AggregateError</code> (an array of all
+          errors).
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.any([
+  Promise.reject("Error"),
+  Promise.resolve(42),
+  Promise.resolve(7)
+]).then(result => {
+  // result === 42 (first fulfilled)
+});
+          </code></pre>
+        </li>
+        <li>
+          <strong>Difference:</strong> <code>Promise.race</code> settles on the first settled (even if rejected),
+          <code>Promise.any</code> only resolves when any promise fulfills.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 6: Promise.resolve & Promise.reject -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        ⚡ <span>Promise.resolve & Promise.reject</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <code>Promise.resolve(value)</code> returns a promise that resolves with the given value.
+        </li>
+        <li>
+          <code>Promise.reject(error)</code> returns a promise that rejects with the given error.
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.resolve("done").then(alert); // alerts "done"
+Promise.reject(new Error("fail")).catch(alert); // alerts Error
+          </code></pre>
+        </li>
+        <li>
+          These are useful for wrapping non-promise values or quickly creating settled promises for API consistency.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 7: Advanced - AggregateError -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        🛑 <span>AggregateError</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>AggregateError</strong> is a special error used by <code>Promise.any</code> to represent multiple
+          errors.
+        </li>
+        <li>
+          Structure: <code>new AggregateError(errors, message)</code>
+        </li>
+        <li>
+          Useful for error handling when multiple async operations can fail, and you want to examine all failures.
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 text-sm overflow-x-auto"><code>
+Promise.any([
+  Promise.reject(new Error("A")),
+  Promise.reject(new Error("B"))
+]).catch(error => {
+  if (error instanceof AggregateError) {
+    for (const individualError of error.errors) {
+      console.log(individualError.message);
+    }
+  }
+});
+          </code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 8: When to Use Which API -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        🧠 <span>When to Use Each Promise API</span>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Promise.all</strong>: When you need all promises to succeed (fail fast if any fail).</li>
+        <li><strong>Promise.allSettled</strong>: When you want to know the result of all promises, regardless of success
+          or failure.</li>
+        <li><strong>Promise.race</strong>: When you need the result of the first completed promise, no matter if
+          fulfilled or rejected (e.g., timeouts).</li>
+        <li><strong>Promise.any</strong>: When you need the <em>first successful</em> result and don't care about
+          failures unless all fail.</li>
+        <li><strong>Promise.resolve / Promise.reject</strong>: When you want to create already settled promises, useful
+          for composing APIs.</li>
+      </ul>
+    </section>
+
+    <!-- Section 9: Senior/Lead - Key Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow border-2 border-indigo-400">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4 text-indigo-700">
+        🏆 <span>Senior/Lead: What to Watch Out For</span>
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>Fail-fast vs Fail-safe:</strong> Understand when to use <code>Promise.all</code> (fail-fast, may mask
+          other errors) vs <code>Promise.allSettled</code> (fail-safe, reveals all outcomes).
+        </li>
+        <li>
+          <strong>Error Handling:</strong> Never leave promise rejections unhandled. Aggregate errors for
+          logging/auditing when working with <code>Promise.any</code> or batch operations.
+        </li>
+        <li>
+          <strong>Resource Management:</strong> If running many async operations, consider concurrency limits (not
+          natively supported by these APIs). Implement pooling if needed.
+        </li>
+        <li>
+          <strong>Order of Results:</strong> <code>Promise.all</code> and <code>Promise.allSettled</code> preserve order
+          of input, even if completion order differs. This matters for data consistency.
+        </li>
+        <li>
+          <strong>Race Conditions & Timeouts:</strong> <code>Promise.race</code> is not a "cancellation" mechanism.
+          Manually implement abort logic for real-world timeouts.
+        </li>
+        <li>
+          <strong>Compatibility:</strong> <code>Promise.any</code> and <code>AggregateError</code> require ES2021+ or
+          polyfills for older browsers/environments.
+        </li>
+        <li>
+          <strong>Readability & Maintainability:</strong> Prefer clear, documented usage. Always comment on why a
+          specific Promise API is chosen in complex flows.
+        </li>
+        <li>
+          <strong>Testing:</strong> Always test both resolved and rejected flows in unit/integration tests for robust
+          async code.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
