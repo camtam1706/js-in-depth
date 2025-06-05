@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Promise Chaining</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔗 Promise Chaining</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: What is Promise Chaining -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🔍</span>
+        <span>What is Promise Chaining?</span>
+      </h2>
+      <p>
+        Promise chaining allows you to perform a sequence of asynchronous operations one after another, where
+        each
+        operation starts when the previous one finishes. It helps to avoid deeply nested callbacks and makes the
+        code
+        more readable and maintainable.
+      </p>
+    </section>
+
+    <!-- Section: How does Promise Chaining work -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>⚙️</span>
+        <span>How does Promise Chaining work?</span>
+      </h2>
+      <p>
+        When you return a value from a <code>then()</code> callback, it becomes the result of the next
+        <code>then()</code>.
+        If you return another promise, the next <code>then()</code> waits until that promise settles and gets
+        its result.
+        This allows chaining multiple asynchronous tasks.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>
+// Example of Promise chaining
+new Promise(function(resolve, reject) {
+  setTimeout(() => resolve(1), 1000); // (*)
+})
+.then(function(result) {
+  console.log(result); // 1
+  return result * 2;
+})
+.then(function(result) {
+  console.log(result); // 2
+  return result * 3;
+})
+.then(function(result) {
+  console.log(result); // 6
+});
+      </code></pre>
+      <p>
+        The output is 1, 2, 6 printed after each asynchronous step.
+      </p>
+    </section>
+
+    <!-- Section: Returning Promises -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🔄</span>
+        <span>Returning Promises in the Chain</span>
+      </h2>
+      <p>
+        If a <code>then()</code> returns a promise, the next <code>then()</code> waits for it to settle before
+        running.
+        This allows sequencing asynchronous operations that depend on each other.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>
+new Promise(function(resolve, reject) {
+  setTimeout(() => resolve(1), 1000);
+})
+.then(function(result) {
+  console.log(result); // 1
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(result * 2), 1000);
+  });
+})
+.then(function(result) {
+  console.log(result); // 2
+});
+      </code></pre>
+      <p>
+        Here, the second <code>then</code> waits 1 second for the inner promise before logging 2.
+      </p>
+    </section>
+
+    <!-- Section: Errors in Promise Chains -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>⚠️</span>
+        <span>Errors in Promise Chains</span>
+      </h2>
+      <p>
+        Errors or rejections in any step of the chain skip all subsequent <code>then()</code> handlers until
+        a <code>catch()</code> or rejection handler is encountered.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded overflow-x-auto"><code>
+new Promise((resolve, reject) => {
+  throw new Error("Error happened");
+})
+.then(result => {
+  // skipped
+})
+.catch(error => {
+  console.log("Caught:", error.message);
+});
+      </code></pre>
+      <p>
+        The <code>catch()</code> receives the error and handles it.
+      </p>
+    </section>
+
+    <!-- Section: Advantages of Promise Chaining -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>✅</span>
+        <span>Advantages of Promise Chaining</span>
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>Improves readability compared to nested callbacks ("callback hell").</li>
+        <li>Allows easy sequencing of asynchronous operations.</li>
+        <li>Errors are propagated down the chain, enabling centralized error handling.</li>
+        <li>Supports returning promises or immediate values seamlessly.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Best Practices -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🛠️</span>
+        <span>Best Practices for Promise Chaining</span>
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>Always return from each <code>then()</code> to maintain the chain.</li>
+        <li>Use <code>catch()</code> at the end to handle errors globally.</li>
+        <li>Avoid mixing promise chains with callbacks to keep code consistent.</li>
+        <li>Prefer async/await syntax for cleaner async flow in complex cases.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Senior/Lead need to pay attention -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🚀</span>
+        <span>Senior/Lead Need to Pay Attention</span>
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>Proper error handling strategy:</strong> Ensure every promise chain has a
+          <code>catch()</code> to avoid
+          unhandled rejections that crash the app or cause silent failures.
+        </li>
+        <li>
+          <strong>Maintainability:</strong> Avoid overly long chains; split logic into smaller reusable
+          functions to
+          improve readability and testability.
+        </li>
+        <li>
+          <strong>Performance implications:</strong> Beware of chaining dependent async calls sequentially
+          when they could
+          run in parallel for better performance.
+        </li>
+        <li>
+          <strong>Legacy code handling:</strong> Integrate Promise chains carefully when refactoring old
+          callback-based
+          code to prevent breaking behavior.
+        </li>
+        <li>
+          <strong>Code consistency:</strong> Lead the team to prefer a consistent style, such as using
+          async/await where
+          possible, and educate on Promise chaining fundamentals.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
