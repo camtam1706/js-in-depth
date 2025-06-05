@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript: async/await Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⏳ JavaScript: <span class="font-extrabold">async/await</span></h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- 1. Introduction to async/await -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">⚡</span>1. What is async/await?</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>async/await</strong> is syntactic sugar built on top of <code>Promise</code> that allows you to write
+          asynchronous code that looks synchronous.
+        </li>
+        <li>
+          <strong>async</strong> functions always return a promise, even if you return a non-promise value inside.
+        </li>
+        <li>
+          <strong>await</strong> can only be used inside <code>async</code> functions and pauses execution until the
+          promise resolves or rejects.
+        </li>
+        <li>
+          Makes asynchronous code more readable, maintainable, and easier to debug.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2. Syntax and Basic Usage -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">💡</span>2. Syntax and Basic Usage
+      </h2>
+      <div class="space-y-3">
+        <p>
+          To declare an asynchronous function, prefix it with <code>async</code>:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function f() {
+  return 1;
+}
+// f() returns a Promise that resolves to 1
+f().then(alert); // 1</code></pre>
+
+        <p>
+          <span class="font-bold">await</span> makes JavaScript wait until a Promise settles and returns its result:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function f() {
+  let promise = new Promise((resolve) => {
+    setTimeout(() => resolve("done!"), 1000)
+  });
+  let result = await promise; // wait until the promise resolves (*)
+  alert(result); // "done!"
+}
+f();</code></pre>
+        <p>
+          While <code>await</code> pauses the execution of the function, it does NOT block the event loop – other code
+          continues to run.
+        </p>
+      </div>
+    </section>
+
+    <!-- 3. Error Handling in async/await -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🚨</span>3. Error Handling</h2>
+      <div class="space-y-3">
+        <p>
+          <strong>await</strong> throws if the promise rejects. Use <code>try...catch</code> to handle errors:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function f() {
+  try {
+    let response = await fetch('http://no-such-url');
+    let user = await response.json();
+  } catch(err) {
+    alert(err); // TypeError: failed to fetch
+  }
+}
+f();</code></pre>
+        <p>
+          You can handle errors globally with <code>.catch()</code>:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>f().catch(alert);</code></pre>
+      </div>
+    </section>
+
+    <!-- 4. Returning values -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">📤</span>4. Returning Values</h2>
+      <div class="space-y-3">
+        <p>
+          An <strong>async</strong> function always returns a promise. The value you return is wrapped into a resolved
+          promise.
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function f() {
+  return 42;
+}
+f().then(alert); // 42
+</code></pre>
+        <p>
+          If you throw inside an async function, the returned promise rejects:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function f() {
+  throw new Error("Whoops!");
+}
+f().catch(alert); // Error: Whoops!
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 5. Awaiting multiple Promises -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🔗</span>5. Awaiting Multiple
+        Promises</h2>
+      <div class="space-y-3">
+        <p>
+          If you need to wait for several promises, use <code>Promise.all</code>:
+        </p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>let results = await Promise.all([
+  fetch(url1),
+  fetch(url2)
+]);
+// results[0] and results[1] are the resolved values</code></pre>
+        <p>
+          This runs all asynchronous operations in parallel, not sequentially, making your code more efficient.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6. Using await outside async -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🛑</span>6. Can you use await outside
+        async?</h2>
+      <div class="space-y-3">
+        <ul class="list-disc list-inside">
+          <li><code>await</code> can only be used inside <strong>async</strong> functions (except in top-level modules
+            with modern JavaScript, e.g., ES2022+ with top-level await).</li>
+          <li>If used outside an async function, it will cause a syntax error.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. Real-world Example: Fetching Data -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🌐</span>7. Real-world Example:
+        Fetching Data</h2>
+      <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function getUserData(username) {
+  let response = await fetch(`https://api.github.com/users/${username}`);
+  if (!response.ok) throw new Error('User not found');
+  let user = await response.json();
+  return user;
+}
+getUserData('octocat')
+  .then(user => console.log(user))
+  .catch(error => console.error(error));</code></pre>
+    </section>
+
+    <!-- 8. Advanced: Rewriting Promise Chains with async/await -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🔄</span>8. Rewriting Promise Chains
+      </h2>
+      <div class="space-y-3">
+        <p>Promise chains can be rewritten with <code>async/await</code> for better readability.</p>
+        <p><strong>Promise Chain Example:</strong></p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>loadUser(user)
+  .then(user => loadAvatar(user))
+  .then(avatar => showAvatar(avatar))
+  .catch(err => handleError(err));</code></pre>
+        <p><strong>Equivalent async/await:</strong></p>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>async function showUserAvatar(user) {
+  try {
+    let loadedUser = await loadUser(user);
+    let avatar = await loadAvatar(loadedUser);
+    await showAvatar(avatar);
+  } catch(err) {
+    handleError(err);
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- 9. Common Pitfalls -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">⚠️</span>9. Common Pitfalls</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Forgetting await:</strong> If you forget to <code>await</code> a promise, your variable will be a
+          pending promise instead of the resolved value.</li>
+        <li>
+          <strong>Sequential vs. Parallel:</strong> Placing multiple <code>await</code> statements one after another
+          runs them sequentially (slower).
+          Use <code>Promise.all</code> for parallel execution when possible.
+        </li>
+        <li>
+          <strong>Error propagation:</strong> Unhandled promise rejections in async functions can crash the process
+          (Node.js) or be swallowed (browsers). Always use <code>try...catch</code> or <code>.catch()</code>.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 10. Senior/Lead Takeaways -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-3">🧑‍💼</span>10. Senior/Lead Notes &
+        Best Practices</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>Code Readability:</strong> Encourage the use of <code>async/await</code> for improved clarity over
+          nested <code>.then()</code> chains.
+        </li>
+        <li>
+          <strong>Error Handling:</strong> Enforce consistent error handling (with <code>try...catch</code> and
+          centralized error reporting).
+        </li>
+        <li>
+          <strong>Parallelism:</strong> Identify when to use <code>Promise.all</code> or <code>Promise.allSettled</code>
+          for maximum performance, especially for batch async operations.
+        </li>
+        <li>
+          <strong>Testing:</strong> Always test both success and failure paths, especially when handling asynchronous
+          data (e.g., failed API, timeouts).
+        </li>
+        <li>
+          <strong>Legacy Compatibility:</strong> When migrating from callbacks/promises to async/await, review code for
+          subtle behavior changes (e.g., stack traces, error propagation).
+        </li>
+        <li>
+          <strong>Microtask Queue:</strong> Remember that <code>await</code> resumes execution in a microtask, which can
+          have subtle implications for UI updates and event handling.
+        </li>
+        <li>
+          <strong>Async in Loops:</strong> Avoid using <code>await</code> directly in <code>forEach</code>; prefer
+          <code>for...of</code> or collect promises and <code>await Promise.all</code>.
+        </li>
+        <li>
+          <strong>Cancellation & Timeouts:</strong> For complex flows, consider implementing cancellation (with
+          <code>AbortController</code>) and timeouts for long-running async tasks.
+        </li>
+        <li>
+          <strong>Linting & Conventions:</strong> Adopt linters and conventions to prevent "floating promises"
+          (unhandled async calls) and enforce best async practices.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
