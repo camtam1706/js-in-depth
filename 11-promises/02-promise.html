@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JavaScript Promise Basics</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⏳ JavaScript Promise Basics</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: What is a Promise? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>📝</span>
+        <span>What is a Promise?</span>
+      </h2>
+      <p>
+        A Promise is an object representing the eventual completion or failure of an asynchronous operation. It
+        allows
+        us to write cleaner asynchronous code than callbacks, providing a better way to handle async flows.
+      </p>
+      <p class="mt-2">
+        A Promise has three states:
+      <ul class="list-disc list-inside ml-6 mt-1">
+        <li><strong>Pending:</strong> Initial state, neither fulfilled nor rejected.</li>
+        <li><strong>Fulfilled:</strong> Operation completed successfully.</li>
+        <li><strong>Rejected:</strong> Operation failed.</li>
+      </ul>
+      </p>
+    </section>
+
+    <!-- Section: Creating a Promise -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>⚙️</span>
+        <span>Creating a Promise</span>
+      </h2>
+      <p>
+        You create a promise by using the <code>new Promise(executor)</code> constructor, where the
+        <code>executor</code> is a function
+        with two arguments: <code>resolve</code> and <code>reject</code>.
+      </p>
+      <p>
+        The <code>executor</code> function should perform an asynchronous operation, then call:
+      <ul class="list-disc list-inside ml-6 mt-1">
+        <li><code>resolve(value)</code> to mark the promise as fulfilled with the given <code>value</code>.</li>
+        <li><code>reject(error)</code> to mark the promise as rejected with the given <code>error</code>.</li>
+      </ul>
+      </p>
+      <p>Here is a complete example simulating an asynchronous operation:</p>
+      <pre class="bg-gray-100 p-4 rounded mt-3 overflow-x-auto"><code>
+const wait = (ms) => new Promise((resolve, reject) => {
+  if (ms < 0) {
+    reject(new Error("Delay must not be negative"));
+  } else {
+    setTimeout(() => {
+      resolve(`Resolved after ${ms} ms`);
+    }, ms);
+  }
+});
+
+// Usage
+wait(1500)
+  .then(result => {
+    console.log(result); // "Resolved after 1500 ms"
+  })
+  .catch(error => {
+    console.error("Error:", error);
+  });
+    </code></pre>
+    </section>
+
+    <!-- Section: Consuming Promises -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>▶️</span>
+        <span>Consuming Promises: then, catch, finally</span>
+      </h2>
+      <p>
+        To handle the result of a promise, use:
+      </p>
+      <ul class="list-disc list-inside ml-6 mt-1">
+        <li><code>then(onFulfilled, onRejected)</code>: handles fulfillment or rejection.</li>
+        <li><code>catch(onRejected)</code>: shorthand for <code>then(null, onRejected)</code> to catch errors.
+        </li>
+        <li><code>finally(onFinally)</code>: runs code regardless of the outcome (fulfilled or rejected).</li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-3 overflow-x-auto"><code>
+promise
+  .then(result => {
+    // handle result
+  })
+  .catch(error => {
+    // handle error
+  })
+  .finally(() => {
+    // always runs
+  });
+      </code></pre>
+    </section>
+
+    <!-- Section: Promise Chaining -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🔗</span>
+        <span>Promise Chaining</span>
+      </h2>
+      <p>
+        <code>then</code> returns a new promise, so calls can be chained for sequential async operations.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-3 overflow-x-auto"><code>
+new Promise(function(resolve, reject) {
+  setTimeout(() => resolve(1), 1000); // resolve after 1 sec
+})
+.then(result => {
+  alert(result); // 1
+  return result * 2;
+})
+.then(result => {
+  alert(result); // 2
+  return result * 3;
+})
+.then(result => {
+  alert(result); // 6
+});
+      </code></pre>
+      <p class="mt-2">
+        Each <code>then</code> receives the value from the previous one, allowing to transform the result
+        step-by-step.
+      </p>
+    </section>
+
+    <!-- Section: Error Handling -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>❗</span>
+        <span>Error Handling in Promises</span>
+      </h2>
+      <p>
+        Errors (exceptions or rejections) propagate through the chain until caught by <code>catch</code>. If not
+        handled,
+        they trigger an unhandled promise rejection.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-3 overflow-x-auto"><code>
+new Promise((resolve, reject) => {
+  throw new Error("Error!"); // automatically rejects
+})
+.catch(error => {
+  alert(error); // catches error here
+});
+      </code></pre>
+    </section>
+
+    <!-- Section: Promise.resolve and Promise.reject -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🎯</span>
+        <span>Promise.resolve and Promise.reject</span>
+      </h2>
+      <p>
+        These static methods create already settled promises:
+      </p>
+      <ul class="list-disc list-inside ml-6 mt-1">
+        <li><code>Promise.resolve(value)</code>: returns a fulfilled promise with the given value.</li>
+        <li><code>Promise.reject(error)</code>: returns a rejected promise with the given error.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Promises are Always Asynchronous -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>⏱️</span>
+        <span>Promises Are Always Asynchronous</span>
+      </h2>
+      <p>
+        Even if a promise is already resolved, <code>then</code> handlers are called asynchronously, after the
+        current
+        call stack is empty. This ensures consistent behavior.
+      </p>
+      <pre class="bg-gray-100 p-4 rounded mt-3 overflow-x-auto"><code>
+Promise.resolve(123).then(console.log);
+console.log("Sync log");
+// Output:
+// Sync log
+// 123
+      </code></pre>
+    </section>
+
+    <!-- Section: Senior/Lead Attention -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🚀</span>
+        <span>Senior/Lead Must-Know Points</span>
+      </h2>
+      <ul class="list-disc list-inside ml-6 space-y-2">
+        <li>
+          <strong>Promise States & Transitions:</strong> Understand the promise lifecycle and how resolving or
+          rejecting
+          affects chain behavior.
+        </li>
+        <li>
+          <strong>Chaining and Error Propagation:</strong> Properly handle chaining to avoid silent errors and
+          unhandled
+          rejections.
+        </li>
+        <li>
+          <strong>Asynchronous Consistency:</strong> Remember that all handlers are asynchronous—even for
+          immediately
+          resolved promises.
+        </li>
+        <li>
+          <strong>Integration with Async/Await:</strong> Promises form the basis for <code>async/await</code>,
+          so mastering
+          promise basics is essential for writing clean asynchronous code.
+        </li>
+        <li>
+          <strong>Performance Considerations:</strong> Avoid creating unnecessary promises or long chains
+          which might
+          add overhead.
+        </li>
+        <li>
+          <strong>Debugging:</strong> Use tools and techniques to trace promise chains and diagnose issues,
+          especially in
+          complex flows.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
