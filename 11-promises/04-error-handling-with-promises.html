@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Promise Error Handling</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚠️ Promise Error Handling</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>📝</span><span>Introduction to Promise Error Handling</span>
+      </h2>
+      <p>
+        When working with Promises in JavaScript, error handling is essential to ensure the program behaves
+        correctly
+        even when asynchronous operations fail. Promises provide built-in mechanisms for error catching and
+        propagation,
+        enabling structured and readable asynchronous code.
+      </p>
+    </section>
+
+    <!-- Section: Error Handling Basics -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🔍</span><span>Error Handling Basics</span>
+      </h2>
+      <p>
+        Errors in Promises propagate through the chain until caught. If a promise is rejected and no handler is
+        attached,
+        it causes an unhandled rejection error. Proper usage of <code>.catch()</code> or the second argument of
+        <code>.then()</code> is necessary to handle these errors.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+new Promise((resolve, reject) => {
+  throw new Error("Error occurred");
+}).catch(alert);
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> Alerts "Error occurred"
+      </p>
+    </section>
+
+    <!-- Section: catch vs then(null, error) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>⚖️</span><span>Using <code>.catch()</code> vs <code>.then(null, errorHandler)</code></span>
+      </h2>
+      <p>
+        Both <code>.catch(onRejected)</code> and <code>.then(null, onRejected)</code> handle errors, but
+        <code>.catch()</code> is preferred for readability and chaining.
+      </p>
+      <p>
+        The <code>.catch()</code> method also catches errors thrown in previous <code>.then()</code> handlers,
+        making it more versatile.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+Promise.resolve()
+  .then(() => {
+    throw new Error("Error inside then");
+  })
+  .catch(err => {
+    console.log("Caught by catch:", err.message);
+  });
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> Caught by catch: Error inside then
+      </p>
+    </section>
+
+    <!-- Section: Propagation of Errors -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🚦</span><span>Error Propagation in Promise Chains</span>
+      </h2>
+      <p>
+        If an error occurs anywhere in a promise chain, it propagates down the chain until it reaches a
+        <code>.catch()</code> handler.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+new Promise((resolve, reject) => {
+  throw new Error("Whoops!");
+}).catch(err => {
+  alert("Error handled: " + err);
+});
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> Alerts "Error handled: Error: Whoops!"
+      </p>
+    </section>
+
+    <!-- Section: Errors in Handlers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>❗</span><span>Handling Errors Inside Handlers</span>
+      </h2>
+      <p>
+        Errors thrown inside <code>.then()</code> or <code>.catch()</code> handlers also propagate down the
+        chain.
+        This behavior allows catching any error occurring during the processing stages.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+Promise.resolve("Start")
+  .then(result => {
+    throw new Error("Error in handler");
+  })
+  .catch(err => {
+    alert("Caught: " + err.message);
+  });
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> Alerts "Caught: Error in handler"
+      </p>
+    </section>
+
+    <!-- Section: Rethrowing Errors -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>♻️</span><span>Rethrowing Errors</span>
+      </h2>
+      <p>
+        You can rethrow errors in a <code>.catch()</code> to pass them further down the chain if needed.
+        This is useful for centralized error handling or logging.
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+promise
+  .catch(err => {
+    if (!canHandle(err)) {
+      throw err; // Rethrow
+    }
+    // handle error here
+  })
+  .catch(err => {
+    console.log("Second handler", err);
+  });
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output (if rethrown):</strong> Second handler Error object logged
+      </p>
+    </section>
+
+    <!-- Section: .finally() -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>✅</span><span>Using <code>.finally()</code></span>
+      </h2>
+      <p>
+        The <code>.finally()</code> method allows executing code after a promise is settled (either fulfilled or
+        rejected).
+        It’s ideal for cleanup actions, such as hiding loading indicators.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+doSomething()
+  .finally(() => {
+    stopLoading();
+  });
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> <br>The <code>stopLoading()</code> function runs regardless of success or
+        failure.
+      </p>
+      <p><em>Note: This is conceptual; actual output depends on implementation of <code>doSomething()</code> and
+          <code>stopLoading()</code>.</em></p>
+    </section>
+
+    <!-- Section: Unhandled Rejections -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🚨</span><span>Unhandled Promise Rejections</span>
+      </h2>
+      <p>
+        If a promise is rejected but no <code>.catch()</code> handler is attached, it results in an unhandled
+        rejection warning or error in the runtime environment.
+      </p>
+      <p>
+        Modern JavaScript environments offer events to detect such cases, e.g., <code>unhandledrejection</code>
+        event in browsers.
+        It is important to always handle promise rejections to avoid unexpected application failures.
+      </p>
+      <p>
+        Example:
+      </p>
+      <pre class="bg-gray-100 p-3 rounded overflow-x-auto"><code>
+new Promise((resolve, reject) => {
+  throw new Error("Unhandled rejection");
+});
+// No catch here
+      </code></pre>
+      <p class="bg-gray-50 border border-gray-200 p-3 rounded mt-2">
+        <strong>Output:</strong> <br>Runtime warning or error: Unhandled promise rejection
+      </p>
+    </section>
+
+    <!-- Section: Senior/Lead - Key Points to Watch -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-xl font-semibold mb-4 flex items-center space-x-2">
+        <span>🚀</span><span>Senior/Lead Considerations in Promise Error Handling</span>
+      </h2>
+      <ul class="list-disc pl-5 space-y-2">
+        <li>
+          <strong>Consistent Error Handling Strategy:</strong> Define and enforce a consistent pattern for
+          error handling across the codebase,
+          e.g., always using <code>.catch()</code> or <code>async/await try-catch</code>.
+        </li>
+        <li>
+          <strong>Centralized Logging & Monitoring:</strong> Ensure errors are logged properly and monitored,
+          enabling quicker debugging
+          and incident response.
+        </li>
+        <li>
+          <strong>Proper Error Propagation:</strong> Avoid swallowing errors silently; always propagate errors
+          to a meaningful handler.
+        </li>
+        <li>
+          <strong>Use of <code>.finally()</code> for Cleanup:</strong> Make use of <code>.finally()</code> or
+          equivalent to handle cleanup
+          tasks regardless of success or failure.
+        </li>
+        <li>
+          <strong>Handle Unhandled Rejections:</strong> Configure runtime to catch unhandled promise
+          rejections and prevent app crashes.
+        </li>
+        <li>
+          <strong>Educate Team on Async Patterns:</strong> Ensure the team understands how promise chaining
+          and async/await handle errors,
+          reducing bugs and improving code quality.
+        </li>
+        <li>
+          <strong>Testing Error Paths:</strong> Promote rigorous testing of failure scenarios to catch edge
+          cases and improve reliability.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
