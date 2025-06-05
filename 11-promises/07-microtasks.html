@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Microtask Queue</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚡ Microtask Queue in JavaScript</h1>
+    <p class="text-base font-medium">Event Loop, Microtasks, and Execution Order Explained</p>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- What is a Microtask Queue -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🌀</span>
+        What is a Microtask Queue?
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          The <strong>microtask queue</strong> (a.k.a. "job queue") is a part of the JavaScript event loop mechanism,
+          dedicated for tasks that should be executed after the current script and before any other events.
+        </li>
+        <li>
+          <b>Microtasks</b> are most commonly created by:
+          <ul class="list-disc ml-8 mt-1">
+            <li>Promise handlers: <code>.then</code>, <code>.catch</code>, <code>.finally</code></li>
+            <li>MutationObserver callbacks</li>
+            <li>queueMicrotask()</li>
+          </ul>
+        </li>
+        <li>
+          The microtask queue has a higher priority than the macrotask/event queue (e.g. setTimeout, UI events).
+        </li>
+      </ul>
+    </section>
+
+    <!-- Microtask Queue vs. Macrotask Queue -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚖️</span>
+        Microtask Queue vs. Macrotask Queue
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Macrotasks</b> include: script execution, setTimeout, setInterval, I/O, UI rendering, etc.
+        </li>
+        <li>
+          After a script or a macrotask finishes, the engine will execute all microtasks in the queue before continuing
+          to process any further macrotasks or rendering updates.
+        </li>
+        <li>
+          This ensures that microtasks (such as Promise reactions) are handled as soon as possible after the current
+          script, before UI rendering or other events.
+        </li>
+        <li>
+          <b>Example:</b>
+          <pre class="bg-gray-100 rounded p-3 text-sm mt-2 overflow-auto">
+console.log("script start");
+
+setTimeout(() => {
+  console.log("setTimeout");
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log("promise1");
+}).then(() => {
+  console.log("promise2");
+});
+
+console.log("script end");
+          </pre>
+          <div class="mt-2">
+            <strong>Output:</strong>
+            <pre class="bg-gray-50 rounded p-2 text-sm">script start
+script end
+promise1
+promise2
+setTimeout</pre>
+          </div>
+          <p>
+            <b>Explanation:</b> Both microtasks from <code>Promise</code> run before <code>setTimeout</code>.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- How Microtasks Work in the Event Loop -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔄</span>
+        How Microtasks Work in the Event Loop
+      </h2>
+      <ol class="list-decimal ml-6 space-y-2">
+        <li>Run the script (or a macrotask).</li>
+        <li>After completion, execute all microtasks in the queue:
+          <ul class="list-disc ml-8 mt-1">
+            <li>If a microtask adds more microtasks, those are processed too, before moving on.</li>
+          </ul>
+        </li>
+        <li>After all microtasks are finished, browser may render UI changes.</li>
+        <li>Then, the event loop moves to the next macrotask, and repeats the process.</li>
+      </ol>
+      <p class="mt-4">
+        <strong>Note:</strong> Microtasks can delay rendering if the queue is large or has recursive additions,
+        potentially causing UI jank.
+      </p>
+    </section>
+
+    <!-- Creating Microtasks -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">✨</span>
+        Creating Microtasks
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <b>Promise handlers:</b> The most common way to queue a microtask is by using <code>Promise.then</code>,
+          <code>catch</code>, or <code>finally</code>.
+        </li>
+        <li>
+          <b>queueMicrotask(fn):</b> This built-in function allows you to add a function to the microtask queue
+          directly.
+          <pre class="bg-gray-100 rounded p-3 text-sm mt-2 overflow-auto">
+queueMicrotask(() => {
+  console.log('Microtask executed!');
+});
+          </pre>
+        </li>
+        <li>
+          <b>MutationObserver:</b> Its callbacks also run as microtasks (rare in general usage).
+        </li>
+      </ul>
+    </section>
+
+    <!-- Practical Example: Microtask Queue in Action -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧪</span>
+        Practical Example: Microtask Queue in Action
+      </h2>
+      <pre class="bg-gray-100 rounded p-3 text-sm overflow-auto">
+console.log("Start");
+
+setTimeout(() => {
+  console.log("setTimeout");
+}, 0);
+
+queueMicrotask(() => {
+  console.log("Microtask 1");
+  queueMicrotask(() => {
+    console.log("Microtask 2");
+  });
+});
+
+console.log("End");
+      </pre>
+      <div class="mt-2">
+        <strong>Output:</strong>
+        <pre class="bg-gray-50 rounded p-2 text-sm">Start
+End
+Microtask 1
+Microtask 2
+setTimeout</pre>
+      </div>
+      <p>
+        <b>Explanation:</b> Microtasks always run before the next macrotask, and can chain recursively.
+      </p>
+    </section>
+
+    <!-- Best Practices & Gotchas -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🚨</span>
+        Best Practices & Gotchas
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>Microtasks are executed before any rendering. Overusing or infinitely chaining microtasks may delay UI
+          updates and degrade performance.</li>
+        <li>Nested microtasks (microtasks scheduling more microtasks) can create a never-ending loop, blocking the event
+          loop and freezing the page.</li>
+        <li>Always make sure that your microtask logic is efficient and avoids long recursive chains.</li>
+      </ul>
+    </section>
+
+    <!-- Senior/Lead Focus Points -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧑‍💼</span>
+        Senior/Lead: What Should You Pay Attention To?
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <b>UI Responsiveness:</b> Ensure your team is aware that excessive microtasks (especially recursive ones) can
+          delay rendering and cause unresponsive UIs. Code reviews should check for potential microtask queue overflows.
+        </li>
+        <li>
+          <b>Debugging async behavior:</b> Teach devs to use devtools to distinguish between microtasks and macrotasks,
+          and understand why certain logs or updates appear in their order.
+        </li>
+        <li>
+          <b>Promise Best Practices:</b> Avoid anti-patterns like unintentional promise chains inside loops or recursive
+          microtask creation.
+        </li>
+        <li>
+          <b>Performance Profiling:</b> In performance-critical apps, profile how long microtasks take and their impact
+          on the render cycle, especially if using many promises or <code>queueMicrotask</code>.
+        </li>
+        <li>
+          <b>Team Training:</b> Regularly educate about the event loop, microtask queue, and pitfalls in modern async
+          JavaScript, especially for onboarding or junior devs.
+        </li>
+      </ul>
+    </section>
+
+    <!-- References -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span>
+        References
+      </h2>
+      <ul class="list-disc ml-6">
+        <li>
+          <a href="https://javascript.info/microtask-queue" target="_blank"
+            class="text-blue-600 hover:underline">javascript.info – Microtasks and the event loop</a>
+        </li>
+        <li>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop" target="_blank"
+            class="text-blue-600 hover:underline">MDN – Concurrency model and Event Loop</a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
