@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promisify in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔄 Promisify in JavaScript</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- 1. What is Promisify? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">❓</span>
+        What is "Promisify"?
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Promisify</strong> is the process of converting functions that use the <span class="italic">callback
+            pattern</span> (usually <code>callback(error, result)</code>) into functions that return
+          <strong>Promises</strong>.
+        </li>
+        <li>
+          This allows using <code>async/await</code> and Promise chaining with legacy or callback-based APIs.
+        </li>
+        <li>
+          It's especially useful for integrating older Node.js code or libraries into modern Promise-based codebases.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2. The Typical Callback Style -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📞</span>
+        Typical Callback-based Function
+      </h2>
+      <div class="mb-2">Many Node.js style APIs follow this pattern:</div>
+      <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>function loadScript(src, callback) {
+  let script = document.createElement('script');
+  script.src = src;
+
+  script.onload = () => callback(null, script);
+  script.onerror = () => callback(new Error(`Script load error for ${src}`));
+
+  document.head.append(script);
+}
+
+// Usage:
+loadScript('path/script.js', function(error, script) {
+  if (error) {
+    // handle error
+  } else {
+    // script loaded
+  }
+});
+</code></pre>
+      <p>
+        The callback receives <code>error</code> as the first argument (if any), and the <code>result</code> as the
+        second.
+      </p>
+    </section>
+
+    <!-- 3. Manual Promisification Example -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔧</span>
+        Manual Promisification
+      </h2>
+      <p>
+        We can wrap such functions to return a Promise:
+      </p>
+      <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>function loadScriptPromise(src) {
+  return new Promise((resolve, reject) => {
+    loadScript(src, (err, script) => {
+      if (err) reject(err);
+      else resolve(script);
+    });
+  });
+}
+
+// Usage:
+loadScriptPromise('path/script.js')
+  .then(script => {
+    // script loaded
+  })
+  .catch(err => {
+    // handle error
+  });
+</code></pre>
+      <ul class="list-disc pl-6 mt-2">
+        <li>No changes to the original <code>loadScript</code> needed.</li>
+        <li>Allows using <code>async/await</code> syntax.</li>
+      </ul>
+    </section>
+
+    <!-- 4. Generic Promisify Function -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">💡</span>
+        Writing a Generic <code>promisify</code> Utility
+      </h2>
+      <p>
+        To avoid repeating the same pattern, you can create a general-purpose <code>promisify</code> function:
+      </p>
+      <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>function promisify(fn) {
+  return function (...args) {
+    return new Promise((resolve, reject) => {
+      fn.call(this, ...args, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  };
+}
+
+// Usage:
+const loadScriptPromise = promisify(loadScript);
+
+loadScriptPromise('path/script.js')
+  .then(...)
+  .catch(...);
+</code></pre>
+      <ul class="list-disc pl-6 mt-2">
+        <li>
+          <code>promisify</code> adds a wrapper: it expects the last argument to be a Node.js style callback.
+        </li>
+        <li>
+          <code>this</code> context is preserved for methods.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 5. Multiple Result Values -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📦</span>
+        Dealing with Multiple Callback Results
+      </h2>
+      <p>
+        Some callbacks provide multiple results (<code>callback(err, res1, res2...)</code>). By default, promisify only
+        returns the second argument.
+      </p>
+      <p>
+        To handle multiple results, you can enhance <code>promisify</code> by adding a <code>multiArgs</code> option:
+      </p>
+      <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>function promisify(fn, multiArgs = false) {
+  return function (...args) {
+    return new Promise((resolve, reject) => {
+      fn.call(this, ...args, (err, ...results) => {
+        if (err) reject(err);
+        else resolve(multiArgs ? results : results[0]);
+      });
+    });
+  };
+}
+
+// Usage:
+const someAsync = (a, b, cb) => cb(null, a, b);
+
+const promisified = promisify(someAsync, true);
+
+promisified(1, 2).then(results => {
+  // results is [1, 2]
+});
+</code></pre>
+    </section>
+
+    <!-- 6. Built-in promisify in Node.js -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛠️</span>
+        Built-in <code>util.promisify</code> in Node.js
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Node.js provides a built-in <code>util.promisify</code> method for this purpose.
+        </li>
+        <li>
+          <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>const util = require('util');
+const readFile = util.promisify(fs.readFile);
+
+// Usage:
+readFile('file.txt', 'utf8').then(...);
+</code></pre>
+        </li>
+        <li>
+          The built-in method is battle-tested and supports edge cases.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 7. Practical Use Cases -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🚀</span>
+        When and Why to Promisify
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Modernizes callback-based APIs for use with <code>async/await</code>.</li>
+        <li>Simplifies chaining of asynchronous tasks.</li>
+        <li>Integrates legacy code with modern Promise-based codebases.</li>
+        <li>Makes error handling and code structure clearer.</li>
+      </ul>
+    </section>
+
+    <!-- 8. Senior/Lead Focus: Key Considerations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🎯</span>
+        Senior/Lead: Key Considerations
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Evaluate Need:</strong> Only promisify functions that strictly follow Node.js callback convention
+          <code>(err, result)</code>. Others may not work as expected.
+        </li>
+        <li>
+          <strong>Testing:</strong> Ensure that your promisified functions are tested for all edge cases, especially
+          error propagation.
+        </li>
+        <li>
+          <strong>Performance:</strong> Excessive promisification in hot code paths may have a performance impact; batch
+          or optimize where needed.
+        </li>
+        <li>
+          <strong>Readability:</strong> For team readability, prefer built-in <code>util.promisify</code> when possible;
+          document custom promisify wrappers.
+        </li>
+        <li>
+          <strong>Error Handling:</strong> Always double-check how errors propagate through your promise chain.
+          Wrap/standardize error objects if integrating multiple callback sources.
+        </li>
+        <li>
+          <strong>Legacy Integration:</strong> Promisify is a bridge—where possible, migrate old callback APIs to native
+          Promise APIs for long-term maintainability.
+        </li>
+        <li>
+          <strong>Third-party Libraries:</strong> Many libraries offer both callback and Promise versions—prefer the
+          official Promise version for future-proofing.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
