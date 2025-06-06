@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unicode in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🌐 Unicode in JavaScript</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Introduction to Unicode -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>📖</span>
+        Introduction to Unicode
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Unicode is a universal character encoding standard that assigns a code to every character and symbol in every
+          language in the world.
+        </li>
+        <li>
+          JavaScript strings are sequences of UTF-16 code units. Each character is represented by one or two 16-bit code
+          units.
+        </li>
+        <li>
+          Most common characters (Latin, Cyrillic, etc.) are in the Basic Multilingual Plane (BMP) and fit in a single
+          16-bit code unit.
+        </li>
+        <li>
+          Characters outside the BMP (e.g., emoji, many historic scripts) use two code units, known as a surrogate pair.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 2: String Length and Code Units -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔢</span>
+        String Length and Code Units
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          The <code>length</code> property of a string in JavaScript returns the number of UTF-16 code units,
+          <strong>not</strong> the number of actual characters.
+        </li>
+        <li>
+          Example:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">alert('𝒳'.length); // 2 (uses a surrogate pair)</pre>
+        </li>
+        <li>
+          Accessing characters with <code>str[0]</code> may return only part of a surrogate pair, leading to unexpected
+          results with characters outside the BMP.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Iterating Over Characters -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔄</span>
+        Iterating Over Characters
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Using a regular <code>for</code> loop or <code>for...of</code>:
+          <ul class="list-disc pl-6 mt-1">
+            <li>
+              <code>for (let char of str)</code> iterates over Unicode characters correctly, including those that are
+              surrogate pairs.
+            </li>
+            <li>
+              <code>for (let i = 0; i &lt; str.length; i++)</code> iterates over code units, so a character outside the
+              BMP will be split into two iterations.
+            </li>
+          </ul>
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+// Correct iteration
+for (let char of '𝒳') {
+  alert(char); // 𝒳
+}
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 4: String Methods and Surrogate Pairs -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔍</span>
+        String Methods and Surrogate Pairs
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Many string methods work with code units, not full Unicode characters. For example:
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>str.slice()</code>, <code>str.substring()</code>, <code>str.substr()</code> work with code units.
+            </li>
+            <li>
+              If you slice through a surrogate pair, you may get broken characters.
+              <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+let str = '𝒳';
+alert(str.slice(0, 1)); // Broken output
+              </pre>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Some methods like <code>String.fromCodePoint()</code> and <code>str.codePointAt()</code> work correctly with
+          code points (full Unicode characters).
+          <ul class="list-disc pl-6 mt-1">
+            <li>
+              <code>String.fromCharCode()</code> and <code>str.charCodeAt()</code> only work correctly for BMP
+              characters (code points below 0x10000).
+            </li>
+            <li>
+              <code>String.fromCodePoint()</code> and <code>str.codePointAt()</code> handle full Unicode range.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Example:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+let s = '𝒳';
+alert(s.codePointAt(0).toString(16)); // "1d4b3"
+alert(String.fromCodePoint(0x1d4b3)); // "𝒳"
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Searching for Characters -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔎</span>
+        Searching for Characters
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          String methods like <code>indexOf</code>, <code>includes</code>, <code>startsWith</code>,
+          <code>endsWith</code> generally work fine because they compare by string content, not code units.
+        </li>
+        <li>
+          When using regular expressions, be aware that <code>.</code> matches a single code unit, not necessarily a
+          full Unicode character. Use the <code>u</code> (Unicode) flag for full Unicode support:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+// Without "u" flag
+alert('𝒳'.match(/./g)); // ["\uD835", "\uDCB3"]
+// With "u" flag
+alert('𝒳'.match(/./gu)); // ["𝒳"]
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 6: Normalization -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🛠️</span>
+        Unicode Normalization
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Some characters can be represented in multiple ways (composed vs. decomposed forms).
+        </li>
+        <li>
+          JavaScript provides <code>str.normalize()</code> to convert strings to a canonical form, which is essential
+          for comparing visually identical strings that may have different binary representations.
+        </li>
+        <li>
+          Example:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+let s1 = 'S\u0307\u0323'; // S with dot above and dot below (decomposed)
+let s2 = '\u1e68';       // S with both dots (composed)
+alert(s1 == s2); // false
+alert(s1.normalize() == s2.normalize()); // true
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 7: Creating and Displaying Unicode Characters -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>✨</span>
+        Creating and Displaying Unicode Characters
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Unicode characters can be represented in strings using escape sequences:
+          <ul class="list-disc pl-6 mt-1">
+            <li>
+              <code>\uXXXX</code> – for code points up to 0xFFFF (BMP only)
+            </li>
+            <li>
+              <code>\u{X...X}</code> – for any code point, use curly braces (ES6)
+            </li>
+          </ul>
+        </li>
+        <li>
+          Example:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm">
+alert('\u{1F60D}'); // 😍
+alert('\u2764\uFE0F'); // ❤️
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 8: Best Practices & Gotchas -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>⚡</span>
+        Best Practices & Gotchas
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          Be aware of the difference between string length and character count.
+        </li>
+        <li>
+          Use <code>for...of</code> to iterate over characters, especially if working with user input or potentially
+          non-BMP symbols.
+        </li>
+        <li>
+          When working with substrings, slicing, or indexing, check if you are breaking surrogate pairs.
+        </li>
+        <li>
+          For code point-safe string manipulation, use <code>codePointAt</code> and <code>fromCodePoint</code>.
+        </li>
+        <li>
+          Normalize strings when comparing user input (e.g., accented characters, combined marks).
+        </li>
+        <li>
+          Always use the <code>u</code> flag in regexps if you intend to match full Unicode characters, especially
+          emojis and rare symbols.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 9: For Senior/Lead Developers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🚀</span>
+        Senior/Lead Developer Notes
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>Internationalization (i18n):</strong> Be mindful of Unicode normalization, locale-sensitive string
+          operations, and the challenges of user input validation in global applications.
+        </li>
+        <li>
+          <strong>Performance:</strong> Manipulating large Unicode strings can be less performant due to surrogate pair
+          handling and normalization. Profile and optimize if handling high-throughput or real-time text processing.
+        </li>
+        <li>
+          <strong>Security:</strong> Unicode spoofing and visually-similar characters can pose security risks (e.g., in
+          usernames or URLs). Consider normalization and canonicalization in sensitive flows.
+        </li>
+        <li>
+          <strong>Testing:</strong> Always include Unicode and emoji edge cases in unit/integration tests, especially
+          for form input, storage, and rendering.
+        </li>
+        <li>
+          <strong>Legacy Systems:</strong> Some libraries or systems may not fully support Unicode or may expect UTF-8
+          rather than UTF-16 (the internal representation in JS). Be careful when interfacing with such systems.
+        </li>
+        <li>
+          <strong>Tooling:</strong> Use libraries like <a href="https://github.com/mathiasbynens/emoji-regex"
+            class="text-blue-600 underline" target="_blank">emoji-regex</a> for robust emoji handling, and consider
+          polyfills for code point methods if targeting old browsers.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
