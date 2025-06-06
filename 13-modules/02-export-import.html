@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Modules: Import & Export</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 JavaScript Modules: Import & Export</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>📝</span> Introduction to Modules
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Modules</b> are separate files that export and import functionality to organize code and reuse components.
+        </li>
+        <li>
+          Each module is executed only once; its exported variables and functions are shared.
+        </li>
+        <li>
+          Modules always use <b>strict mode</b> by default.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 2: Export Syntax -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>📤</span> Exporting in JavaScript Modules
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Named Exports</b>: Export multiple things per module (variables, functions, classes).
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">export let name = "John";
+export function sayHi(user) { alert(`Hello, ${user}!`); }
+export class User { /* ... */ }</pre>
+        </li>
+        <li>
+          <b>Export List</b>: Export previously declared items.
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">function sayBye(user) { alert(`Bye, ${user}!`); }
+export { sayBye };</pre>
+        </li>
+        <li>
+          <b>Default Export</b>: Export a single main value from the module.
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">export default function() { ... }
+export default class { ... }
+export default value;</pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 3: Import Syntax -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>📥</span> Importing from Modules
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Importing Named Exports</b>:
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import { sayHi, sayBye } from './say.js';
+sayHi('John');</pre>
+        </li>
+        <li>
+          <b>Renaming Imports</b>:
+          <pre
+            class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import { sayHi as hi, sayBye as bye } from './say.js';</pre>
+        </li>
+        <li>
+          <b>Import Everything (Namespace)</b>:
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import * as say from './say.js';
+say.sayHi('John');</pre>
+        </li>
+        <li>
+          <b>Import Default Export</b>:
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import User from './user.js';</pre>
+        </li>
+        <li>
+          <b>Import Default + Named</b>:
+          <pre
+            class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import User, { sayHi } from './user.js';</pre>
+        </li>
+        <li>
+          <b>Import Without Assigning</b> (run module code only):
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">import './module.js';</pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 4: Module Features & Rules -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🧩</span> Module Features & Restrictions
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          Imports and exports must be at the top-level (not inside functions, conditions, or blocks).
+        </li>
+        <li>
+          Imports are <b>static</b>, resolved at compile time, not dynamically.
+        </li>
+        <li>
+          The imported bindings are live-connected to the original values.
+        </li>
+        <li>
+          Module code runs only once, even if imported multiple times.
+        </li>
+        <li>
+          <b>File Extension</b>: Usually must include the file extension (.js).
+        </li>
+        <li>
+          <b>Type="module"</b>: Script tags or bundlers must indicate that files are ES modules.
+          <pre
+            class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">&lt;script type="module" src="main.js"&gt;&lt;/script&gt;</pre>
+        </li>
+        <li>
+          Modules are deferred by default (like defer attribute).
+        </li>
+        <li>
+          Module scripts have their own scope (variables don’t leak to global).
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Dynamic Imports -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>⚡</span> Dynamic Imports
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          You can import modules dynamically using <code>import()</code> as a function, returning a promise.
+          <pre class="bg-gray-100 rounded p-3 mt-2 text-sm overflow-x-auto">
+let module = await import('./path/to/module.js');
+module.hello();
+          </pre>
+        </li>
+        <li>
+          Dynamic import enables loading code on demand, conditional loading, or loading modules by variable path.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 6: Common Pitfalls -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>⚠️</span> Common Pitfalls & Gotchas
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Top-level Only:</b> All import/export statements must be at the root, not inside if, for, or functions.
+        </li>
+        <li>
+          <b>Cannot Import Conditionally:</b> Use <code>import()</code> for conditional/dynamic loading.
+        </li>
+        <li>
+          <b>Circular Dependencies:</b> Modules can import each other, but only what’s been exported so far is available
+          (undefined for later exports).
+        </li>
+        <li>
+          <b>Extension Required:</b> When importing, specify the exact file extension in browsers (./file.js, not
+          ./file).
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 7: Best Practices & Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🚀</span> Senior/Lead Considerations & Best Practices
+      </h2>
+      <ul class="list-decimal ml-6 space-y-2">
+        <li>
+          <b>Design for Maintainability:</b> Use named exports for clarity; default exports are useful for
+          one-main-purpose modules. Avoid mixing too many exports in a single file.
+        </li>
+        <li>
+          <b>Structure Modules Logically:</b> Organize codebase by domain, feature, or responsibility. Keep modules
+          small, focused, and reusable.
+        </li>
+        <li>
+          <b>Leverage Dynamic Imports:</b> For code splitting, lazy loading, and optimizing initial load time
+          (especially in large SPA projects).
+        </li>
+        <li>
+          <b>Handle Circular Dependencies:</b> Refactor or use intermediate modules to break cycles. Keep dependency
+          graph as flat as possible.
+        </li>
+        <li>
+          <b>Code Review Focus:</b> Ensure that module boundaries are respected, exports/imports are clean, and there
+          are no “hidden” side effects.
+        </li>
+        <li>
+          <b>TypeScript/ESLint:</b> Use tools for enforcing import/export style, module boundaries, and to catch
+          accidental mistakes or import cycles.
+        </li>
+        <li>
+          <b>Tree Shaking:</b> Prefer named exports for better tree-shaking with modern bundlers.
+        </li>
+        <li>
+          <b>Explicit File Extensions:</b> Always specify extensions to avoid runtime issues, especially in ESM-aware
+          environments and browsers.
+        </li>
+        <li>
+          <b>Secure Imports:</b> Avoid importing from untrusted sources, and watch out for supply chain attacks.
+        </li>
+        <li>
+          <b>Documentation:</b> Document module APIs and usage, especially for shared utility or core business logic
+          modules.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 8: References & Useful Links -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔗</span> References & Further Reading
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <a href="https://javascript.info/import-export" class="text-blue-700 underline"
+            target="_blank">JavaScript.info: Import, export</a>
+        </li>
+        <li>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules"
+            class="text-blue-700 underline" target="_blank">MDN: JavaScript modules</a>
+        </li>
+        <li>
+          <a href="https://exploringjs.com/es6/ch_modules.html" class="text-blue-700 underline"
+            target="_blank">Exploring ES6: Modules</a>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
