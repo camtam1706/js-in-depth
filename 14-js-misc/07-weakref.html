@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeakRef & FinalizationRegistry in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧹 WeakRef & FinalizationRegistry</h1>
+    <div class="text-base opacity-80">Advanced Memory Management in JavaScript</div>
+  </header>
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- 1. Weak References: WeakRef -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+        🔗 Weak References (<code>WeakRef</code>)
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>What is a Weak Reference?</strong>
+          <br />
+          A <b>weak reference</b> is a reference to an object that does not prevent it from being garbage-collected. If
+          the only remaining references to an object are weak, the garbage collector may reclaim the object at any time.
+        </li>
+        <li>
+          <strong>Syntax:</strong>
+          <br />
+          <code>let weakRef = new WeakRef(obj);</code>
+          <br />
+          - <code>weakRef</code> is an object that "weakly" references <code>obj</code>.
+        </li>
+        <li>
+          <strong>Accessing the Value:</strong>
+          <br />
+          Use <code>weakRef.deref()</code> to get the referenced object. If the object has been garbage-collected, it
+          returns <code>undefined</code>.
+        </li>
+        <li>
+          <strong>Example:</strong>
+          <pre class="bg-gray-100 rounded p-3 overflow-x-auto"><code>let obj = { data: 123 };
+let weakRef = new WeakRef(obj);
+
+console.log(weakRef.deref()); // { data: 123 }
+
+obj = null; // Now the object can be garbage-collected
+
+// ...After GC...
+console.log(weakRef.deref()); // likely undefined</code></pre>
+        </li>
+        <li>
+          <strong>Use Cases:</strong>
+          <ul class="list-disc pl-6">
+            <li>Caching with automatic clean-up</li>
+            <li>Storing metadata for objects without preventing their garbage collection</li>
+            <li>Referencing objects from frameworks or engines, without memory leaks</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Notes:</strong>
+          <ul class="list-disc pl-6">
+            <li>You cannot force or predict exactly when garbage collection happens.</li>
+            <li>Never rely on <code>WeakRef</code> for critical logic; only use for optional features (like caches).
+            </li>
+            <li>Not all environments support <code>WeakRef</code> (check browser compatibility).</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2. FinalizationRegistry -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+        🏁 FinalizationRegistry
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>What is FinalizationRegistry?</strong>
+          <br />
+          A <code>FinalizationRegistry</code> lets you register a callback to be called after an object is
+          garbage-collected.
+          <span class="italic text-sm text-gray-500">(Think of it as a way to "know" when an object is deleted from
+            memory.)</span>
+        </li>
+        <li>
+          <strong>Syntax:</strong>
+          <pre class="bg-gray-100 rounded p-3 overflow-x-auto"><code>let registry = new FinalizationRegistry((heldValue) => {
+  // This function is called after the object is garbage-collected
+  console.log('Object with value', heldValue, 'was removed');
+});
+
+registry.register(obj, "some info");
+// Optionally: registry.register(obj, "some info", unregisterToken);
+</code></pre>
+        </li>
+        <li>
+          <strong>Parameters:</strong>
+          <ul class="list-disc pl-6">
+            <li>
+              <code>obj</code>: The object to watch for GC.
+            </li>
+            <li>
+              <code>heldValue</code>: Any value/info passed to your callback.
+            </li>
+            <li>
+              <code>unregisterToken</code> (optional): Used for explicit unregistration.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Unregister:</strong>
+          <br />
+          You can stop monitoring by calling <code>registry.unregister(token)</code>.
+        </li>
+        <li>
+          <strong>Important Notes:</strong>
+          <ul class="list-disc pl-6">
+            <li>Callback timing is not guaranteed; may happen long after GC or never (e.g., if the process exits early).
+            </li>
+            <li>
+              Use only for side tasks (e.g., cleanup, resource tracking), never for critical logic.
+            </li>
+            <li>
+              <code>FinalizationRegistry</code> is designed for advanced cases; use sparingly.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3. Typical Use Cases -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+        📦 Typical Use Cases
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>Memory-efficient caches:</strong>
+          <br />
+          Store data related to objects, without preventing their GC. When the object is deleted, the cache entry is
+          cleaned up automatically.
+        </li>
+        <li>
+          <strong>Resource cleanup:</strong>
+          <br />
+          Release associated resources (e.g., close file handles, sockets) when objects are collected.
+        </li>
+        <li>
+          <strong>Frameworks/libraries:</strong>
+          <br />
+          Track and clean up internal data, or trigger hooks when components are destroyed.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4. Limitations & Warnings -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+        ⚠️ Limitations & Warnings
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>Never rely on GC timing:</strong>
+          <br />
+          There is no guarantee when or even if the callback will run.
+        </li>
+        <li>
+          <strong>No critical business logic:</strong>
+          <br />
+          Weak references and finalizers are for optional enhancements only, not for program correctness.
+        </li>
+        <li>
+          <strong>Environment support:</strong>
+          <br />
+          Not all browsers/environments support <code>WeakRef</code> and <code>FinalizationRegistry</code>. Always check
+          compatibility.
+        </li>
+        <li>
+          <strong>Security:</strong>
+          <br />
+          Do not use for security-sensitive code. GC is not deterministic.
+        </li>
+        <li>
+          <strong>Potential for memory leaks:</strong>
+          <br />
+          Incorrect use may still cause leaks if objects are referenced elsewhere.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 5. Senior/Lead Need to Know -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold mb-4 flex items-center gap-2">
+        🧑‍💼 Senior/Lead Need to Know
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>
+          <strong>Assess Real Needs:</strong>
+          <br />
+          <code>WeakRef</code> and <code>FinalizationRegistry</code> are advanced tools; only use when <b>necessary</b>
+          for things like cache eviction or resource cleanup that can't be achieved otherwise.
+        </li>
+        <li>
+          <strong>Design for Unpredictability:</strong>
+          <br />
+          Plan for scenarios where finalization callbacks may never run (e.g., on process exit), and avoid putting
+          important logic inside.
+        </li>
+        <li>
+          <strong>Monitor Memory Leaks:</strong>
+          <br />
+          Make sure to profile and monitor for leaks, as misuse of these APIs may still cause unintended strong
+          references or logic errors.
+        </li>
+        <li>
+          <strong>Cross-Platform Concerns:</strong>
+          <br />
+          Validate support across target environments, especially for critical web/mobile applications.
+        </li>
+        <li>
+          <strong>Documentation & Team Awareness:</strong>
+          <br />
+          Clearly document any use of <code>WeakRef</code> or <code>FinalizationRegistry</code> in the codebase and
+          ensure all team members understand their pitfalls and limitations.
+        </li>
+        <li>
+          <strong>Alternatives First:</strong>
+          <br />
+          Favor standard structures (e.g., <code>Map</code>, <code>Set</code>, explicit lifecycle management) before
+          reaching for weak references and finalizers.
+        </li>
+        <li>
+          <strong>Security Audit:</strong>
+          <br />
+          Be cautious of subtle bugs or data leaks that could be introduced via unpredictable GC behavior.
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
