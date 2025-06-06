@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Dynamic Imports</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📦 JavaScript Dynamic Imports</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- What is Dynamic Import? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🔀</span>
+        What is Dynamic Import?
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Dynamic import</strong> lets you load modules on demand, not just at script load time.
+        </li>
+        <li>
+          Instead of <code>import ... from ...</code> (which is static and must be at the top level), dynamic import
+          uses <code>import()</code> as a function you can call anywhere.
+        </li>
+        <li>
+          Syntax: <code>let module = await import('./path/to/module.js');</code>
+        </li>
+        <li>
+          Returns a promise that resolves to a module object with its exports as properties.
+        </li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm overflow-x-auto"><code>// Example:
+let module = await import('./say.js');
+module.hello(); // calls exported function hello
+</code></pre>
+    </section>
+
+    <!-- Use Cases for Dynamic Imports -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>💡</span>
+        Use Cases for Dynamic Imports
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Conditional loading:</strong> Load modules only when needed (e.g. on-demand features, based on user
+          action or environment).
+        </li>
+        <li>
+          <strong>Code splitting:</strong> Split your app into multiple bundles to optimize loading performance.
+        </li>
+        <li>
+          <strong>Lazy-loading:</strong> Only load expensive dependencies when their features are actually used.
+        </li>
+        <li>
+          <strong>Third-party integrations:</strong> Load third-party modules (analytics, payment, etc.) only on certain
+          routes/pages.
+        </li>
+        <li>
+          <strong>Reducing initial bundle size:</strong> Critical for performance in large applications.
+        </li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm overflow-x-auto"><code>// Example: Load module on user action
+button.addEventListener('click', async () =&gt; {
+  let module = await import('./dialog.js');
+  module.showDialog();
+});
+</code></pre>
+    </section>
+
+    <!-- Syntax and Details -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>📚</span>
+        Syntax and Details
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Returns a promise:</strong> <code>import()</code> always returns a promise resolving to the module
+          object.
+        </li>
+        <li>
+          <strong>Works anywhere:</strong> Can be called conditionally, inside functions, after events, etc.
+        </li>
+        <li>
+          <strong>Destructuring:</strong> Use destructuring to access exports:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm overflow-x-auto"><code>let { hello, bye } = await import('./say.js');
+hello();
+bye();
+</code></pre>
+        </li>
+        <li>
+          <strong>Computed module path:</strong> You can compute the path dynamically:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm overflow-x-auto"><code>let path = prompt("Which module?");
+let module = await import(`./modules/${path}.js`);
+</code></pre>
+        </li>
+        <li>
+          <strong>Error handling:</strong> Use <code>catch</code> for errors:
+          <pre class="bg-gray-100 p-2 rounded mt-2 text-sm overflow-x-auto"><code>import('./no-such-module.js')
+  .catch(err =&gt; alert(err));
+</code></pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Top-level Await with Dynamic Import -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>⏳</span>
+        Top-level Await with Dynamic Import
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          In modules, you can use <code>await import(...)</code> directly at the top level (if your environment supports
+          top-level await).
+        </li>
+        <li>
+          This is especially handy for conditional and lazy loading right inside module code.
+        </li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm overflow-x-auto"><code>// Top-level await
+let module = await import('./say.js');
+module.hello();
+</code></pre>
+    </section>
+
+    <!-- Importing Non-JS Assets -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🖼️</span>
+        Importing Non-JS Assets
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          With build tools (Webpack, Vite, etc.), you can also dynamically import non-JS assets like images or
+          stylesheets.
+        </li>
+        <li>
+          This is especially useful in component-driven frameworks (React, Vue, etc.) to load assets alongside
+          components.
+        </li>
+        <li>
+          Syntax is similar: <code>const image = await import('./image.png');</code>
+        </li>
+      </ul>
+      <pre class="bg-gray-100 p-4 rounded mt-4 text-sm overflow-x-auto"><code>// Example with a build tool:
+const { default: logoUrl } = await import('./logo.svg');
+img.src = logoUrl;
+</code></pre>
+    </section>
+
+    <!-- Dynamic Import Limitations -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>⚠️</span>
+        Limitations and Notes
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Module must be CORS-accessible:</strong> For browser imports, the module file must be served with
+          proper CORS headers.
+        </li>
+        <li>
+          <strong>Cannot import CommonJS from ESM:</strong> Dynamic import can only load ES modules, not CommonJS
+          modules in browser environments.
+        </li>
+        <li>
+          <strong>Not supported everywhere:</strong> Some older browsers may not support dynamic import natively.
+        </li>
+        <li>
+          <strong>Bundler configuration:</strong> In complex apps, dynamic imports may require configuration in your
+          build tool to enable code splitting.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Senior/Lead: What to Pay Attention To -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center gap-2 mb-4">
+        <span>🧑‍💼</span>
+        Senior/Lead: What to Pay Attention To
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Performance strategy:</strong> Use dynamic imports as a critical part of your code splitting and lazy
+          loading strategy. Analyze real usage patterns and measure bundle impact.
+        </li>
+        <li>
+          <strong>Bundle analysis:</strong> Regularly analyze build output to ensure dynamic imports are chunking code
+          as expected, not introducing regressions or unintentional large chunks.
+        </li>
+        <li>
+          <strong>Error boundaries:</strong> Handle errors gracefully in dynamic imports, especially for non-critical
+          features or third-party modules.
+        </li>
+        <li>
+          <strong>Security:</strong> Be cautious with dynamic import paths. Never pass unchecked user input directly to
+          <code>import()</code>—always validate or restrict possible values.
+        </li>
+        <li>
+          <strong>SSR considerations:</strong> Dynamic imports behave differently in server-side rendering. Be aware of
+          framework-specific mechanisms (e.g., Next.js <code>next/dynamic</code>).
+        </li>
+        <li>
+          <strong>Testing:</strong> Ensure dynamic-imported code is covered by tests and does not break CI/CD pipelines.
+        </li>
+        <li>
+          <strong>Maintainability:</strong> Document where and why dynamic imports are used, as debugging chunk loading
+          issues can be tricky in large codebases.
+        </li>
+        <li>
+          <strong>Build tools:</strong> Be aware of your build tool’s capabilities and configuration regarding dynamic
+          imports (Vite, Webpack, Rollup, etc.).
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
