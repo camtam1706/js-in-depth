@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript: eval()</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧩 JavaScript: eval()</h1>
+    <p class="text-lg opacity-90">Understanding the <code>eval()</code> function in JavaScript</p>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- 1. Introduction -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔎</span> Introduction to <code>eval()</code>
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b><code>eval()</code> is a built-in JavaScript function that executes a string as code.</b>
+          <br />
+          Example: <code>eval("alert(1 + 1)")</code> will show an alert with <code>2</code>.
+        </li>
+        <li>
+          It can evaluate expressions, run statements, or even define new functions/variables at runtime.
+        </li>
+        <li>
+          Usage: <code>eval(str)</code> where <code>str</code> is a string containing valid JavaScript code.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 2. When and How eval() Executes Code -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🚦</span> How <code>eval()</code> Works
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Direct Call:</b> When called as <code>eval(...)</code>, it runs code in the current lexical scope.<br />
+          Example:
+          <pre class="bg-gray-100 p-2 rounded text-sm overflow-x-auto">let a = 1;
+eval("a = 2");
+alert(a); // 2</pre>
+        </li>
+        <li>
+          <b>Indirect Call:</b> If <code>eval</code> is called indirectly (e.g. via assignment or as a method), it runs
+          code in the global scope.<br />
+          Example:
+          <pre class="bg-gray-100 p-2 rounded text-sm overflow-x-auto">let a = 1;
+let f = eval;
+f("a = 2");
+alert(a); // 1, modifies global (window.a), not local
+          </pre>
+        </li>
+        <li>
+          <b>Returns Value:</b> <code>eval()</code> evaluates and returns the result of the last expression in the
+          string.
+          <br />
+          Example: <code>let result = eval("1 + 2"); // result = 3</code>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 3. Variable and Function Declarations Inside eval() -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📦</span> Variables & Functions Inside <code>eval()</code>
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Local Declarations:</b> <br />
+          Variables and functions declared inside a direct <code>eval()</code> are created in the current scope.
+          <pre class="bg-gray-100 p-2 rounded text-sm overflow-x-auto">eval("var x = 5; function test() { return x * 2; }");
+alert(x); // 5
+alert(test()); // 10</pre>
+        </li>
+        <li>
+          <b>Indirect eval():</b>
+          Declarations go to the global scope, not local.
+        </li>
+        <li>
+          <b>Strict Mode:</b>
+          In strict mode, variables/functions declared inside eval stay inside the eval and do not "leak" outside.
+          <pre class="bg-gray-100 p-2 rounded text-sm overflow-x-auto">'use strict';
+eval("var y = 10;");
+alert(typeof y); // "undefined"
+          </pre>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 4. Security and Performance Risks -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚠️</span> Security & Performance Risks
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Security Risk:</b> <code>eval()</code> can run arbitrary code. Never use with untrusted input (risk of code
+          injection, XSS).
+        </li>
+        <li>
+          <b>Performance Issues:</b> Code using <code>eval()</code> can’t be optimized by JavaScript engines
+          (deoptimization).
+        </li>
+        <li>
+          <b>Debugging Difficulty:</b> Errors inside <code>eval()</code> are harder to trace and debug.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 5. Use Cases -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛠️</span> Practical Use Cases (and Better Alternatives)
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Rarely Needed:</b> <code>eval()</code> is almost never required in modern JavaScript.
+        </li>
+        <li>
+          <b>Common Wrong Use:</b> Parsing/processing JSON via <code>eval()</code>. <b>Never do this!</b> Use
+          <code>JSON.parse()</code> instead.
+        </li>
+        <li>
+          <b>Alternative APIs:</b>
+          <ul class="list-disc ml-6">
+            <li>Dynamic object property access: use <code>[]</code> notation, e.g. <code>obj[propName]</code></li>
+            <li>Dynamic functions: use <code>new Function(...)</code> for isolated code execution</li>
+            <li>JSON manipulation: use <code>JSON.parse</code> and <code>JSON.stringify</code></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 6. Summary -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📋</span> Summary
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <code>eval()</code> runs a string of JavaScript code in the current or global scope.
+        </li>
+        <li>
+          Using <code>eval()</code> opens up serious security and performance risks.
+        </li>
+        <li>
+          In almost all cases, there are safer and better alternatives to using <code>eval()</code>.
+        </li>
+        <li>
+          Avoid <code>eval()</code> unless you have a compelling, reviewed reason and know exactly what you’re doing.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 7. Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧠</span> Senior/Lead – What to Watch Out For
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Code Reviews:</b> Disallow or flag any use of <code>eval()</code> in code reviews. Justify exceptional
+          cases with security audits.
+        </li>
+        <li>
+          <b>Security Policy:</b> Establish company coding standards that strictly prohibit <code>eval()</code> unless
+          audited.
+        </li>
+        <li>
+          <b>Legacy Code:</b> When maintaining legacy code that uses <code>eval()</code>, prioritize refactoring to
+          safer alternatives.
+        </li>
+        <li>
+          <b>Third-party Libraries:</b> Audit third-party code for hidden use of <code>eval()</code>, especially in
+          minified/untrusted codebases.
+        </li>
+        <li>
+          <b>Developer Training:</b> Educate teams on <code>eval()</code> dangers, and best practices for dynamic code.
+        </li>
+        <li>
+          <b>Security Testing:</b> Always include dynamic code execution points in your security testing and threat
+          modeling.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
