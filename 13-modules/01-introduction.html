@@ -188,6 +188,56 @@ import myFunc from './lib.js';</code></pre>
       </ul>
     </section>
 
+    <!-- Module Caching: Imported by Multiple Modules -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">♻️</span> 10. Module Caching: Imported by Multiple Modules
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          When the same module is imported into multiple other modules, its code is only executed once—the first time
+          it’s imported.
+        </li>
+        <li>
+          All subsequent imports from other modules receive the <strong>same instance</strong> of the exported bindings
+          (values, functions, classes, etc).
+        </li>
+        <li>
+          This means that exported objects, functions, or variables share state across all modules that import them.
+        </li>
+        <li>
+          <strong>Practical implication:</strong> If an imported module modifies an exported object or variable, that
+          change will be visible in all modules that import it.
+        </li>
+      </ul>
+      <div class="bg-gray-100 p-4 rounded mt-4">
+        <span class="font-semibold">Example:</span>
+        <pre><code>export let count = 0;
+export function increment() { count++; }
+    
+// a.js
+import { count, increment } from './counter.js';
+increment();
+console.log('A:', count); // 1
+    
+// b.js
+import { count, increment } from './counter.js';
+increment();
+console.log('B:', count); // 2
+    
+// main.js
+import './a.js';
+import './b.js';
+// 'counter.js' code runs only once!
+// 'count' is shared among all imports.
+    </code></pre>
+      </div>
+      <div class="mt-4 text-blue-800">
+        <strong>Note:</strong> This caching behavior makes modules suitable for singleton patterns, but you should be
+        careful with shared mutable state.
+      </div>
+    </section>
+
     <!-- Senior/Lead: Key Points & Best Practices -->
     <section class="bg-white p-6 rounded-lg shadow">
       <h2 class="text-2xl font-semibold flex items-center mb-4">
