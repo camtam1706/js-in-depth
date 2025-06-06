@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Currying & Partial Application</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🥕 JavaScript Currying & Partial Application</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- What is Currying? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔄</span> What is Currying?
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Definition:</b> Currying is a technique of transforming a function that takes multiple arguments into a
+          sequence of functions, each taking a single argument.
+        </li>
+        <li>
+          <b>Classic Example:</b> Instead of calling <code>f(a, b, c)</code>, you call <code>f(a)(b)(c)</code>.
+        </li>
+        <li>
+          <b>Usage:</b> Currying helps create more reusable and composable functions. It allows you to fix some
+          arguments and create new functions on the fly.
+        </li>
+      </ul>
+      <div class="mt-4">
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+// Simple currying example
+function curry(f) {
+  return function(a) {
+    return function(b) {
+      return f(a, b);
+    };
+  };
+}
+
+function sum(a, b) {
+  return a + b;
+}
+
+let curriedSum = curry(sum);
+
+console.log( curriedSum(1)(2) ); // 3
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Currying Implementation -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚙️</span> Currying Implementation
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <b>General-purpose curry function:</b> Can work with functions of any number of arguments.
+        </li>
+        <li>
+          <b>How it works:</b> It checks the number of received arguments. If enough arguments are provided, it calls
+          the original function; otherwise, it returns a partial function to collect more arguments.
+        </li>
+      </ul>
+      <div class="mt-4">
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+function curry(func) {
+  return function curried(...args) {
+    if (args.length >= func.length) {
+      return func.apply(this, args);
+    } else {
+      return function(...args2) {
+        return curried.apply(this, args.concat(args2));
+      }
+    }
+  };
+}
+
+// Usage
+function sum(a, b, c) {
+  return a + b + c;
+}
+
+let curriedSum = curry(sum);
+
+console.log( curriedSum(1)(2)(3) ); // 6
+console.log( curriedSum(1, 2)(3) ); // 6
+console.log( curriedSum(1, 2, 3) ); // 6
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Partial Application -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🥧</span> Partial Application
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Definition:</b> Partial application is a technique of fixing a number of arguments to a function, producing
+          another function of smaller arity (fewer arguments).
+        </li>
+        <li>
+          <b>Example:</b> A function <code>f(a, b, c)</code> can be partially applied as
+          <code>let g = f.bind(null, a, b)</code> where <code>g(c)</code> will call <code>f(a, b, c)</code>.
+        </li>
+      </ul>
+      <div class="mt-4">
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+// Partial application using bind
+function multiply(a, b) {
+  return a * b;
+}
+
+let double = multiply.bind(null, 2);
+
+console.log(double(5)); // 10
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Currying vs Partial Application -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚖️</span> Currying vs Partial Application
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <b>Currying:</b> Always transforms a function into a sequence of unary functions (one argument at a time).
+        </li>
+        <li>
+          <b>Partial Application:</b> Allows you to fix one or more arguments, returning a new function that takes the
+          rest.
+        </li>
+        <li>
+          <b>Example:</b>
+          <ul class="ml-6 list-disc">
+            <li>
+              Currying: <code>f(a, b, c) → f(a)(b)(c)</code>
+            </li>
+            <li>
+              Partial: <code>f(a, b, c) → g(c)</code> where <code>g = f.bind(null, a, b)</code>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Real-world Use Cases -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🌍</span> Real-world Use Cases
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Event Handlers:</b> Pre-fill arguments for event handlers in React, Vue, or vanilla JS.
+        </li>
+        <li>
+          <b>Logging Functions:</b> Create specialized loggers (e.g.,
+          <code>logWithPrefix = log.bind(null, '[INFO]')</code>).
+        </li>
+        <li>
+          <b>Functional Programming:</b> Enable more composable and readable code.
+        </li>
+        <li>
+          <b>Configurable Factories:</b> Generate factory functions with fixed parameters.
+        </li>
+      </ul>
+    </section>
+
+    <!-- For Senior/Lead: What to Pay Attention To -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">👑</span> For Senior/Lead: What to Pay Attention To
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <b>Performance Impact:</b> Overuse of currying/partials in hot code paths may add unnecessary function calls
+          and memory allocations. Profile before optimizing.
+        </li>
+        <li>
+          <b>Readability vs. Magic:</b> Excessive currying or partials can reduce code clarity, especially for
+          newcomers. Consider code maintainability and team familiarity.
+        </li>
+        <li>
+          <b>Library Ecosystem:</b> Many functional libraries (like Lodash, Ramda) provide their own curry/partial
+          utilities—prefer those for consistency and reliability.
+        </li>
+        <li>
+          <b>Debugging:</b> Errors may be harder to trace due to extra wrapper functions. Ensure stack traces are
+          understandable.
+        </li>
+        <li>
+          <b>Use Case Suitability:</b> Not all scenarios benefit from currying/partial application. Use judiciously for
+          configuration, code reuse, or functional composition patterns.
+        </li>
+        <li>
+          <b>Type Safety (TypeScript):</b> Currying complex functions can make type inference tricky. Consider explicit
+          type definitions if needed.
+        </li>
+      </ul>
+    </section>
+
+    <!-- References & Further Reading -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📚</span> References & Further Reading
+      </h2>
+      <ul class="list-inside list-disc">
+        <li>
+          <a href="https://javascript.info/currying-partials" class="text-blue-600 underline" target="_blank">Currying
+            and partials – JavaScript.info</a>
+        </li>
+        <li>
+          <a href="https://lodash.com/docs/#curry" class="text-blue-600 underline" target="_blank">Lodash curry</a>
+        </li>
+        <li>
+          <a href="https://ramdajs.com/docs/#curry" class="text-blue-600 underline" target="_blank">Ramda curry</a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
