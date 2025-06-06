@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Generators</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">⚡ JavaScript Generators</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+    <!-- 1. What is a Generator? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔍</span> 1. What is a Generator?
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          A <strong>generator</strong> is a special type of function that can be paused and resumed, producing a
+          sequence of results over time, instead of returning a single value.
+        </li>
+        <li>
+          Declared with <code>function*</code> syntax.<br>
+          <code>function* gen() { ... }</code>
+        </li>
+        <li>
+          Calling a generator function does not execute its body. Instead, it returns a special <strong>generator
+            object</strong> that manages the execution.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>// Example
+function* generateSequence() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+let generator = generateSequence();
+console.log(generator.next()); // {value: 1, done: false}
+console.log(generator.next()); // {value: 2, done: false}
+console.log(generator.next()); // {value: 3, done: true}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 2. The yield Operator -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⏸️</span> 2. The yield Operator
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>yield</strong> pauses the function, returning the value to the outer code, and resumes on the next
+          call to <code>.next()</code>.
+        </li>
+        <li>
+          Each <code>yield</code> can be seen as a “pause point” in the function execution.
+        </li>
+        <li>
+          After the generator is “done”, further calls to <code>.next()</code> return
+          <code>{value: undefined, done: true}</code>.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen() {
+  yield "Hello";
+  yield "World";
+}
+
+let g = gen();
+console.log(g.next()); // {value: "Hello", done: false}
+console.log(g.next()); // {value: "World", done: false}
+console.log(g.next()); // {value: undefined, done: true}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 3. Iteration and for..of with Generators -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔄</span> 3. Iteration and <code>for..of</code> with Generators
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          Generators are iterable: they implement the <code>Symbol.iterator</code> method.
+        </li>
+        <li>
+          <code>for..of</code> loops over <strong>yielded values only</strong>, ignoring the value returned by
+          <code>return</code>.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen() {
+  yield 1;
+  yield 2;
+  return 3;
+}
+
+for (let value of gen()) {
+  console.log(value); // 1, then 2 (not 3)
+}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 4. Passing values to yield and generator.next(value) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📩</span> 4. Passing values to <code>yield</code> and <code>generator.next(value)</code>
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          You can pass a value into a generator using <code>generator.next(value)</code>. The value becomes the result
+          of the current <code>yield</code> expression inside the generator.
+        </li>
+        <li>
+          The first <code>next()</code> always starts the generator and can’t pass a value to <code>yield</code>.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen() {
+  let result = yield "2 + 2 = ?";
+  alert(result); // 4
+}
+
+let generator = gen();
+console.log(generator.next().value); // "2 + 2 = ?"
+generator.next(4); // Passes 4 into result
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 5. generator.throw(error) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚠️</span> 5. <code>generator.throw(error)</code>
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <code>generator.throw(error)</code> injects an error into the generator at the current <code>yield</code>
+          expression, causing it to throw.
+        </li>
+        <li>
+          If not caught inside the generator, the error will propagate to the outer code.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen() {
+  try {
+    yield "Start";
+  } catch (e) {
+    alert(e); // Error: Something went wrong
+  }
+}
+
+let g = gen();
+console.log(g.next()); // "Start"
+g.throw(new Error("Something went wrong")); // Caught inside generator
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 6. generator.return(value) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛑</span> 6. <code>generator.return(value)</code>
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <code>generator.return(value)</code> finishes the generator and sets the result of the current
+          <code>yield</code> to the provided value.
+        </li>
+        <li>
+          This method is rarely used directly, but can be useful for cleanup or early termination.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen() {
+  yield 1;
+  yield 2;
+}
+
+let g = gen();
+console.log(g.next()); // {value: 1, done: false}
+console.log(g.return("End")); // {value: "End", done: true}
+console.log(g.next()); // {value: undefined, done: true}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 7. Use Cases for Generators -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧰</span> 7. Use Cases for Generators
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          Creating custom iterable objects (e.g., data streams, infinite sequences, tree traversals).
+        </li>
+        <li>
+          Implementing lazy evaluation and on-demand data generation.
+        </li>
+        <li>
+          Complex asynchronous control flows (used in some libraries before <code>async/await</code>).
+        </li>
+        <li>
+          State machines and cooperative multitasking (e.g., Redux-Saga in React ecosystem).
+        </li>
+      </ul>
+    </section>
+
+    <!-- 8. Composing generators (yield*) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span> 8. Composing generators (<code>yield*</code>)
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          The <code>yield*</code> expression delegates execution to another generator or iterable, yielding all its
+          values as if they were part of the calling generator.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded">
+        <pre><code>function* gen1() {
+  yield 1;
+  yield 2;
+}
+
+function* gen2() {
+  yield* gen1();
+  yield 3;
+}
+
+for (let value of gen2()) {
+  console.log(value); // 1, 2, 3
+}
+</code></pre>
+      </div>
+    </section>
+
+    <!-- 9. Advanced: Generators vs. Iterators vs. Async Generators -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧠</span> 9. Advanced: Generators vs. Iterators vs. Async Generators
+      </h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li>
+          <strong>Iterator:</strong> Any object with a <code>next()</code> method returning <code>{value, done}</code>.
+        </li>
+        <li>
+          <strong>Generator:</strong> Special function that returns an iterator and manages internal state/pause.
+        </li>
+        <li>
+          <strong>Async Generator:</strong> Declared with <code>async function*</code>, works with
+          <code>for await...of</code> and yields <strong>Promises</strong> that resolve asynchronously.
+        </li>
+      </ul>
+    </section>
+
+    <!-- 10. Tips for Senior/Lead Engineers -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🚀</span> 10. Senior/Lead Tips: What to Watch Out For
+      </h2>
+      <ul class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Readability and Maintenance:</strong> Avoid overusing generators for simple cases—prefer them for
+          truly complex or iterative stateful logic.
+        </li>
+        <li>
+          <strong>Debugging:</strong> Stack traces can be less intuitive. Ensure code is well-documented, especially
+          with <code>yield*</code> or when mixing with async flows.
+        </li>
+        <li>
+          <strong>Testing:</strong> Generators can hide state between yields. Write thorough tests to cover edge cases
+          in state transitions.
+        </li>
+        <li>
+          <strong>Async Alternatives:</strong> For async operations, prefer <code>async/await</code> unless you need
+          advanced control (e.g., concurrency, pausable async flows).
+        </li>
+        <li>
+          <strong>Library Usage:</strong> Familiarize with Redux-Saga or similar tools, where generators are common.
+        </li>
+        <li>
+          <strong>Interop:</strong> If exposing generator-based APIs, ensure clear documentation for team members
+          unfamiliar with this pattern.
+        </li>
+        <li>
+          <strong>Performance:</strong> Generators are not designed for high-performance tight loops; don’t use them in
+          performance-critical hot paths.
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
