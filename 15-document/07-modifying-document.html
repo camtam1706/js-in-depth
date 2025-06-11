@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modifying the Document (DOM Manipulation)</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🛠️ Modifying the Document (DOM Manipulation)</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📑</span>Overview
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>DOM modification allows us to dynamically create, remove, or move HTML elements and content using
+          JavaScript.</li>
+        <li>Key DOM modification operations:
+          <ul class="list-decimal ml-6">
+            <li>Creating new elements</li>
+            <li>Inserting and moving elements</li>
+            <li>Removing elements</li>
+            <li>Cloning nodes</li>
+            <li>Manipulating text and HTML content</li>
+          </ul>
+        </li>
+        <li>These techniques are essential for creating dynamic and interactive web applications.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Creating and Inserting Elements -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🌱</span>Creating and Inserting Elements
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <span class="font-semibold">document.createElement(tag)</span> – creates a new element.
+        </li>
+        <li>
+          <span class="font-semibold">document.createTextNode(text)</span> – creates a new text node (rarely needed as
+          you can just assign <code>elem.textContent</code>).
+        </li>
+        <li>
+          Main methods for inserting nodes into the DOM:
+          <ul class="list-decimal ml-6">
+            <li>
+              <span class="font-semibold">node.append(...nodesOrStrings)</span>: Appends nodes or strings to the end of
+              the node (after its last child).
+            </li>
+            <li>
+              <span class="font-semibold">node.prepend(...nodesOrStrings)</span>: Inserts nodes or strings at the
+              beginning (before the first child).
+            </li>
+            <li>
+              <span class="font-semibold">node.before(...nodesOrStrings)</span>: Inserts right before the node (as a
+              sibling).
+            </li>
+            <li>
+              <span class="font-semibold">node.after(...nodesOrStrings)</span>: Inserts right after the node (as a
+              sibling).
+            </li>
+            <li>
+              <span class="font-semibold">node.replaceWith(...nodesOrStrings)</span>: Replaces the node with given nodes
+              or strings.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Older methods (still widely used for compatibility):
+          <ul class="list-decimal ml-6">
+            <li><span class="font-semibold">parent.appendChild(node)</span>: Appends <code>node</code> as the last
+              child.</li>
+            <li><span class="font-semibold">parent.insertBefore(node, nextSibling)</span>: Inserts <code>node</code>
+              before <code>nextSibling</code>.</li>
+            <li><span class="font-semibold">parent.replaceChild(newNode, oldNode)</span>: Replaces <code>oldNode</code>
+              with <code>newNode</code>.</li>
+            <li><span class="font-semibold">parent.removeChild(node)</span>: Removes <code>node</code> from parent.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <div class="font-semibold mb-2">Example:</div>
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+const div = document.createElement('div');
+div.className = "alert";
+div.innerHTML = "&lt;strong&gt;Hi there!&lt;/strong&gt; You've read an important message.";
+document.body.append(div);
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Section: Removing and Replacing Elements -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧹</span>Removing and Replacing Elements
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li><span class="font-semibold">elem.remove()</span> – removes the element from the DOM.</li>
+        <li>Can also use <code>parent.removeChild(elem)</code> for compatibility with old browsers.</li>
+        <li><span class="font-semibold">elem.replaceWith(newElem)</span> – replaces the current element with
+          <code>newElem</code>.</li>
+      </ul>
+      <div class="mt-4">
+        <div class="font-semibold mb-2">Example:</div>
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+const message = document.querySelector('.alert');
+message.remove();
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Section: Cloning Nodes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📋</span>Cloning Nodes
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <span class="font-semibold">elem.cloneNode(deep)</span> creates a copy of the element.
+          <ul class="list-decimal ml-6">
+            <li>
+              If <code>deep</code> is <code>true</code>, clones the element and all descendants.
+            </li>
+            <li>
+              If <code>deep</code> is <code>false</code>, clones only the element itself (without children).
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <div class="font-semibold mb-2">Example:</div>
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+let div2 = div.cloneNode(true);
+div2.querySelector('strong').textContent = 'Bye there!';
+div.after(div2);
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Section: Manipulating innerHTML, textContent, and insertAdjacentHTML -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔤</span>Manipulating innerHTML, textContent, and insertAdjacentHTML
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>
+          <span class="font-semibold">elem.innerHTML</span>: gets or sets the HTML inside the element (parses and
+          renders the string as HTML).
+        </li>
+        <li>
+          <span class="font-semibold">elem.outerHTML</span>: gets the HTML of the element plus its content (setting
+          replaces the element itself).
+        </li>
+        <li>
+          <span class="font-semibold">elem.textContent</span>: gets or sets the text inside the element (treats input as
+          plain text).
+        </li>
+        <li>
+          <span class="font-semibold">elem.insertAdjacentHTML(where, html)</span>: inserts HTML at a specified position
+          relative to the element.
+          <ul class="list-decimal ml-6">
+            <li><code>'beforebegin'</code> – before the element itself</li>
+            <li><code>'afterbegin'</code> – just inside the element, before its first child</li>
+            <li><code>'beforeend'</code> – just inside the element, after its last child</li>
+            <li><code>'afterend'</code> – after the element itself</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <div class="font-semibold mb-2">Example:</div>
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+div.insertAdjacentHTML('beforebegin', '&lt;p&gt;Before the div&lt;/p&gt;');
+div.insertAdjacentHTML('afterend', '&lt;p&gt;After the div&lt;/p&gt;');
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Section: textContent vs innerHTML -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🆚</span>textContent vs innerHTML
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li><span class="font-semibold">textContent</span> inserts plain text and escapes HTML.</li>
+        <li><span class="font-semibold">innerHTML</span> parses and renders HTML tags inside the string.</li>
+        <li>Always use <code>textContent</code> when inserting user input to avoid XSS vulnerabilities!</li>
+      </ul>
+      <div class="mt-4">
+        <div class="font-semibold mb-2">Example:</div>
+        <pre class="bg-gray-100 rounded p-4 overflow-x-auto text-sm"><code>
+elem.innerHTML = "&lt;b&gt;Hello&lt;/b&gt;"; // Renders bold Hello
+elem.textContent = "&lt;b&gt;Hello&lt;/b&gt;"; // Renders as plain text: &lt;b&gt;Hello&lt;/b&gt;
+        </code></pre>
+      </div>
+    </section>
+
+    <!-- Section: Best Practices and Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">✅</span>Best Practices and Notes
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li>Always use methods that do not reparse the entire DOM tree (e.g., <code>append</code>, <code>prepend</code>)
+          for better performance.</li>
+        <li>For large HTML insertions, <code>innerHTML</code> can be faster, but be mindful of security and losing
+          references to existing DOM nodes.</li>
+        <li>Never insert untrusted data with <code>innerHTML</code>.</li>
+        <li>After removing or replacing elements, any references in JavaScript variables will still point to the old
+          nodes until they are garbage collected.</li>
+        <li>When cloning, <code>cloneNode</code> does not copy event listeners or custom properties.</li>
+      </ul>
+    </section>
+
+    <!-- Section: Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow border-2 border-blue-500">
+      <h2 class="text-2xl font-semibold flex items-center mb-4 text-blue-600">
+        <span class="mr-2">🧑‍💼</span>Senior/Lead: What to Pay Attention To
+      </h2>
+      <ul class="list-disc ml-6 space-y-2">
+        <li><span class="font-semibold">Performance:</span> Manipulating the DOM in large amounts or inside loops can
+          cause reflows and repaints. Batch DOM operations (e.g., using DocumentFragment).</li>
+        <li><span class="font-semibold">Security:</span> Never insert untrusted user input using <code>innerHTML</code>;
+          always sanitize inputs or use <code>textContent</code>.</li>
+        <li><span class="font-semibold">Memory Leaks:</span> After removing nodes, ensure event listeners and references
+          are cleaned up to avoid leaks.</li>
+        <li><span class="font-semibold">Frameworks:</span> When using modern frameworks (React, Vue, Angular...), avoid
+          direct DOM manipulation outside of framework lifecycle; let the framework handle the DOM to ensure
+          consistency.</li>
+        <li><span class="font-semibold">Maintainability:</span> Encapsulate DOM logic in functions or components; avoid
+          “spaghetti” direct manipulation.</li>
+        <li><span class="font-semibold">Cross-browser Support:</span> Be mindful of older methods
+          (<code>appendChild</code>, <code>insertBefore</code>) for compatibility with legacy browsers.</li>
+        <li><span class="font-semibold">Accessibility:</span> When modifying the DOM, ensure that changes do not break
+          accessibility (screen readers, focus order, ARIA attributes).</li>
+      </ul>
+    </section>
+
+    <!-- Section: References -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span>References
+      </h2>
+      <ul class="list-disc ml-6">
+        <li>
+          <a class="text-blue-600 underline" href="https://javascript.info/modifying-document" target="_blank">
+            https://javascript.info/modifying-document
+          </a>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
