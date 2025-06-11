@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Working with Styles and Classes in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🎨 Working with Styles and Classes in JavaScript</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section: Intro -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">💡</span>
+        Introduction
+      </h2>
+      <p>
+        JavaScript can dynamically change the appearance of elements on the page by manipulating their CSS styles and
+        class attributes.
+        Understanding how to read, set, and manage styles/classes from scripts is key for building interactive and
+        dynamic UIs.
+      </p>
+    </section>
+
+    <!-- Section: Element.style -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🖌️</span>
+        The <code>element.style</code> Property
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          The <code>style</code> property allows you to read or set the **inline styles** of an element.
+        </li>
+        <li>
+          Example: <code>elem.style.backgroundColor = "red";</code>
+        </li>
+        <li>
+          <strong>Property names</strong> in JavaScript use camelCase, e.g., <code>backgroundColor</code> for
+          <code>background-color</code>.
+        </li>
+        <li>
+          <strong>Only inline styles</strong> can be read/set via <code>element.style</code>. Styles from CSS classes or
+          external stylesheets are not visible here.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded text-sm font-mono">
+        <span class="text-blue-600">// Example</span><br>
+        &lt;div id="myDiv" style="color: red"&gt;Hello&lt;/div&gt;<br>
+        <br>
+        let div = document.getElementById('myDiv');<br>
+        alert(div.style.color); <span class="text-green-600">// "red"</span>
+      </div>
+    </section>
+
+    <!-- Section: Getting Computed Styles -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔍</span>
+        Getting Computed Styles
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          To get the **actual computed style** of an element (from all sources: inline, classes, external CSS), use
+          <code>getComputedStyle(element)</code>.
+        </li>
+        <li>
+          Returns a read-only object with all CSS properties in dash-case (e.g., <code>background-color</code>).
+        </li>
+        <li>
+          Example:
+          <div class="bg-gray-50 p-2 rounded text-sm font-mono mt-2">
+            let style = getComputedStyle(element);<br>
+            alert(style.marginTop);
+          </div>
+        </li>
+        <li>
+          For pseudo-elements, pass a second argument, e.g., <code>getComputedStyle(element, '::before')</code>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Modifying Classes (className, classList) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🏷️</span>
+        Working with Classes: <code>className</code> vs <code>classList</code>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <code>element.className</code> gets/sets the full class attribute as a string.
+        </li>
+        <li>
+          <code>element.classList</code> provides methods to manage individual classes:
+          <ul class="list-disc pl-6">
+            <li><code>add</code>: Add a class</li>
+            <li><code>remove</code>: Remove a class</li>
+            <li><code>toggle</code>: Add if not present, remove if present</li>
+            <li><code>contains</code>: Check for presence</li>
+          </ul>
+        </li>
+        <li>
+          <code>classList</code> is the modern, safer way for class manipulation.
+        </li>
+      </ul>
+      <div class="mt-4 bg-gray-50 p-4 rounded text-sm font-mono">
+        elem.classList.add('highlight');<br>
+        elem.classList.remove('active');<br>
+        elem.classList.toggle('hidden');<br>
+        if (elem.classList.contains('active')) { /* ... */ }
+      </div>
+    </section>
+
+    <!-- Section: Setting Multiple Styles -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧩</span>
+        Setting Multiple Styles
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          You can assign a string to <code>element.style.cssText</code> to set multiple inline styles at once.
+        </li>
+        <li>
+          Example:
+          <div class="bg-gray-50 p-2 rounded text-sm font-mono mt-2">
+            element.style.cssText = "color: red; background-color: yellow";
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Custom Data Attributes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📦</span>
+        Custom Data Attributes and Styling
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          HTML5 data attributes (e.g., <code>data-color="blue"</code>) are accessible via <code>element.dataset</code>
+          and can be used for dynamic styling logic.
+        </li>
+        <li>
+          Not directly related to styles, but often used in scripts to store style-related information.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Best Practices -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛡️</span>
+        Best Practices & Notes
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Prefer using CSS classes for styling, and add/remove classes with JavaScript rather than setting styles
+          directly.
+        </li>
+        <li>
+          Direct style changes via <code>element.style</code> are best for small, one-off tweaks.
+        </li>
+        <li>
+          Always check for browser compatibility for advanced CSS properties and <code>classList</code> in older
+          environments.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: For Senior/Lead Engineers -->
+    <section class="bg-white p-6 rounded-lg shadow border-2 border-blue-400">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🦉</span>
+        Senior/Lead Notes
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Architectural Decisions:</strong> Define clear conventions for class and style management across the
+          codebase to avoid specificity conflicts and inline style bloat.
+        </li>
+        <li>
+          <strong>Performance:</strong> Excessive DOM style updates can trigger layout thrashing. Batch changes where
+          possible and avoid style recalculation inside animation frames or scroll events.
+        </li>
+        <li>
+          <strong>Maintainability:</strong> Relying on classes for UI state (e.g., <code>.is-active</code>,
+          <code>.is-hidden</code>) scales better and is easier to test than manipulating inline styles.
+        </li>
+        <li>
+          <strong>Framework Integration:</strong> When working with React, Vue, etc., prefer their mechanisms for
+          class/state management rather than direct DOM manipulation.
+        </li>
+        <li>
+          <strong>Security:</strong> If dynamic styles are based on user input, always sanitize values to prevent CSS
+          injection attacks.
+        </li>
+        <li>
+          <strong>Tooling:</strong> Consider CSS-in-JS solutions or utility frameworks (e.g., Tailwind, Emotion) for
+          large-scale projects to streamline dynamic styling.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section: Reference -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span>
+        Reference
+      </h2>
+      <p>
+        Source: <a class="text-blue-600 underline" href="https://javascript.info/styles-and-classes"
+          target="_blank">javascript.info/styles-and-classes</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+
+</body>
+
+</html>
