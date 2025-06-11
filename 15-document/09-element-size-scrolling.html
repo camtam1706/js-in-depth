@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript: Size and Scroll</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📏 JavaScript: Size and Scroll</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Element Size -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📐</span> Element Size: offsetWidth/offsetHeight, clientWidth/clientHeight,
+        scrollWidth/scrollHeight
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>offsetWidth/offsetHeight</strong>: <br>
+          - Returns the "outer" width/height of the element in pixels, including borders and padding, but NOT margins or
+          scrollbars. <br>
+          - <code>elem.offsetWidth</code> / <code>elem.offsetHeight</code>
+        </li>
+        <li>
+          <strong>clientWidth/clientHeight</strong>: <br>
+          - Returns the "inner" width/height of the element, including padding, but NOT the border, margin, or
+          scrollbars (except when the scrollbar is inside the element, in which case it's subtracted). <br>
+          - <code>elem.clientWidth</code> / <code>elem.clientHeight</code>
+        </li>
+        <li>
+          <strong>scrollWidth/scrollHeight</strong>: <br>
+          - Returns the entire width/height of the element content, including content not visible on the screen due to
+          overflow. <br>
+          - <code>elem.scrollWidth</code> / <code>elem.scrollHeight</code>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <strong>Example:</strong>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>console.log(elem.offsetWidth);    // outer width with padding + border
+console.log(elem.clientWidth);    // inner width with padding (no border, no scrollbar)
+console.log(elem.scrollWidth);    // full content width, even the hidden part</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 2: Getting Window Size -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🪟</span> Getting Window Size: window.innerWidth/innerHeight
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>window.innerWidth</strong> / <strong>window.innerHeight</strong>:
+          <ul class="list-disc pl-6">
+            <li>Width/height of the entire browser window’s content area, including the scrolled out parts (viewport
+              size).</li>
+          </ul>
+        </li>
+        <li>
+          <strong>document.documentElement.clientWidth/clientHeight</strong>:
+          <ul class="list-disc pl-6">
+            <li>Width/height of the HTML document’s visible part (viewport), excluding the scrollbar.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <strong>Example:</strong>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>console.log(window.innerWidth, window.innerHeight);
+console.log(document.documentElement.clientWidth, document.documentElement.clientHeight);</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 3: Scrolling: scrollTop/scrollLeft -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🖱️</span> Scrolling: scrollTop / scrollLeft
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>elem.scrollTop</strong> / <strong>elem.scrollLeft</strong>:
+          <ul class="list-disc pl-6">
+            <li>The number of pixels the element's content is scrolled vertically/horizontally.</li>
+            <li>Setting these properties scrolls the element.</li>
+            <li>For the <code>&lt;html&gt;</code> (or <code>document.documentElement</code>), these represent the scroll
+              position of the page.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <strong>Example:</strong>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>document.documentElement.scrollTop = 100; // scrolls page 100px down
+console.log(elem.scrollLeft); // get horizontal scroll position
+</code></pre>
+      </div>
+      <div class="mt-4">
+        <strong>Cross-browser Notes:</strong>
+        <ul class="list-disc pl-6">
+          <li>On some old browsers, <code>body</code> can also be used instead of <code>document.documentElement</code>,
+            but modern browsers standardize on <code>document.documentElement</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section 4: Getting Document Scroll Size -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📄</span> Getting the Full Document Scroll Size
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          The full size of the scrollable document can be accessed by taking the maximum value of several properties:
+          <ul class="list-disc pl-6">
+            <li><code>scrollWidth/scrollHeight</code> (on <code>document.documentElement</code> and
+              <code>document.body</code>)</li>
+            <li><code>offsetWidth/offsetHeight</code></li>
+            <li><code>clientWidth/clientHeight</code></li>
+          </ul>
+        </li>
+        <li>
+          To get the full scrollable width/height:
+          <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>
+let scrollHeight = Math.max(
+  document.body.scrollHeight, document.documentElement.scrollHeight,
+  document.body.offsetHeight, document.documentElement.offsetHeight,
+  document.body.clientHeight, document.documentElement.clientHeight
+);</code></pre>
+        </li>
+      </ul>
+      <div class="mt-4 text-gray-700">
+        <strong>Note:</strong> The document can be scrolled to this maximum value.
+      </div>
+    </section>
+
+    <!-- Section 5: Scrolling Methods -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">↕️</span> Scrolling Methods: scrollTo, scrollBy, scrollIntoView
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>window.scrollTo(x, y)</strong>: Scrolls the window to the given coordinates (relative to the whole
+          document).
+        </li>
+        <li>
+          <strong>window.scrollBy(x, y)</strong>: Scrolls by the given amount from the current scroll position.
+        </li>
+        <li>
+          <strong>elem.scrollIntoView(top/behavior)</strong>: Scrolls the page so that the element comes into view.
+          <ul class="list-disc pl-6">
+            <li><code>elem.scrollIntoView(true)</code> (or default): scrolls so that the element's top aligns with the
+              top of the scrollable ancestor.</li>
+            <li><code>elem.scrollIntoView({behavior: "smooth"})</code>: animates scrolling smoothly.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4">
+        <strong>Example:</strong>
+        <pre class="bg-gray-100 rounded p-4 text-sm overflow-x-auto"><code>window.scrollTo(0, 0); // scroll to top
+window.scrollBy(0, 100); // scroll down by 100px
+elem.scrollIntoView({ behavior: "smooth", block: "center" }); // smoothly center element in viewport
+</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 6: Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-400">
+      <h2 class="text-2xl font-semibold flex items-center mb-4 text-blue-700">
+        <span class="mr-2">🧑‍💼</span> Senior/Lead Notes
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Performance Considerations:</strong> Excessive or continuous DOM reads/writes for size and scroll
+          properties can trigger layout thrashing, which severely impacts performance. Batch DOM reads and writes
+          separately.
+        </li>
+        <li>
+          <strong>Cross-browser Compatibility:</strong> Always test scroll and size behaviors on all major browsers.
+          Some old browsers differ in their use of <code>body</code> vs <code>documentElement</code>.
+        </li>
+        <li>
+          <strong>Responsive Layouts:</strong> Be mindful that window and element sizes may change due to dynamic
+          content, viewport resizing, or device orientation changes. Use ResizeObserver for modern reactive UI.
+        </li>
+        <li>
+          <strong>Accessibility:</strong> When using scrollIntoView, consider using options like
+          <code>behavior: "smooth"</code> to improve UX, but test with screen readers and keyboard navigation.
+        </li>
+        <li>
+          <strong>Scroll Restoration:</strong> On SPA (Single Page Application) or in custom navigation, manually handle
+          scroll position restoration for consistent UX.
+        </li>
+        <li>
+          <strong>Virtual Scrolling:</strong> For large lists/tables, consider using virtual scrolling to render only
+          visible elements, improving performance.
+        </li>
+        <li>
+          <strong>Mobile Browsers:</strong> Scrollbar widths, appearance, and insets (like iOS safe areas) may differ.
+          Always test on real devices.
+        </li>
+        <li>
+          <strong>Mutation Observers & Resize Observers:</strong> Use <code>MutationObserver</code> or
+          <code>ResizeObserver</code> to respond to changes in DOM size or structure efficiently.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
