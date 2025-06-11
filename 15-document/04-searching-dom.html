@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Searching Elements in the DOM - JavaScript Info Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🔍 DOM Searching: getElement*, querySelector*</h1>
+    <div class="text-base font-medium">Summary of <a class="underline text-yellow-200 hover:text-white"
+        href="https://javascript.info/searching-elements-dom" target="_blank"
+        rel="noopener">javascript.info/searching-elements-dom</a></div>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🗺️</span> Overview</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>To find elements in the DOM, use <b>getElementById</b>, <b>getElementsBy*</b>, <b>querySelector</b>, and
+          <b>querySelectorAll</b>.</li>
+        <li>Methods work on <code>document</code> or any DOM element (to search within a subtree).</li>
+        <li>All searching methods return “live” collections except <code>querySelectorAll</code> (which returns a static
+          NodeList).</li>
+      </ul>
+    </section>
+
+    <!-- getElementById -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🆔</span> getElementById</h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>Searches for an element by its <code>id</code> attribute. Returns the element or <code>null</code> if not
+          found.</li>
+        <li>Syntax: <code>let elem = document.getElementById('id');</code></li>
+        <li>Only available on the <code>document</code> object.</li>
+      </ul>
+    </section>
+
+    <!-- getElementsByTagName -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🏷️</span> getElementsByTagName</h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>Searches for elements by tag name (e.g., <code>'div'</code>, <code>'input'</code>).</li>
+        <li>Returns a <b>live HTMLCollection</b> of found elements.</li>
+        <li>Can be called on <code>document</code> or any DOM element.</li>
+        <li>Syntax: <code>let elems = document.getElementsByTagName('tag')</code></li>
+        <li>Special case: <code>*</code> returns all elements in the subtree.</li>
+      </ul>
+    </section>
+
+    <!-- getElementsByClassName -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🏷️</span> getElementsByClassName
+      </h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li>Searches for elements by their <code>class</code> name.</li>
+        <li>Returns a <b>live HTMLCollection</b>.</li>
+        <li>Syntax: <code>let elems = document.getElementsByClassName('class')</code></li>
+        <li>Can specify multiple classes separated by spaces.</li>
+      </ul>
+    </section>
+
+    <!-- querySelector / querySelectorAll -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🔗</span> querySelector &
+        querySelectorAll</h2>
+      <ul class="list-decimal pl-6 space-y-2">
+        <li><b>querySelector</b>: Returns the first element matching a CSS selector.
+          <ul class="list-disc pl-6">
+            <li>Syntax: <code>let elem = document.querySelector('selector')</code></li>
+          </ul>
+        </li>
+        <li><b>querySelectorAll</b>: Returns <b>all</b> elements matching a CSS selector as a <b>static NodeList</b>.
+          <ul class="list-disc pl-6">
+            <li>Syntax: <code>let elems = document.querySelectorAll('selector')</code></li>
+          </ul>
+        </li>
+        <li>Selectors can be any valid CSS selector, including complex ones (e.g.,
+          <code>div.menu > .item.selected</code>).</li>
+        <li>You can loop through the NodeList with <code>forEach</code> or <code>for..of</code>.</li>
+        <li>These methods are available on both <code>document</code> and any DOM element.</li>
+      </ul>
+    </section>
+
+    <!-- Live vs. Static Collections -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">⚡</span> Live vs. Static Collections
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><b>Live collections</b> (HTMLCollection from <code>getElementsBy*</code>) reflect the current DOM state and
+          update automatically.</li>
+        <li><b>Static collections</b> (NodeList from <code>querySelectorAll</code>) do <u>not</u> update when the DOM
+          changes.</li>
+        <li>Choose static collections if you want a snapshot, live collections if you want auto-updates.</li>
+      </ul>
+    </section>
+
+    <!-- Looping Through Results -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🔁</span> Looping Through Results
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>HTMLCollection and NodeList can be iterated using <code>for..of</code>, but only NodeList (from
+          <code>querySelectorAll</code>) supports <code>forEach</code> directly.</li>
+        <li>For HTMLCollection, convert to array: <code>Array.from(collection).forEach(...)</code></li>
+      </ul>
+    </section>
+
+    <!-- Search within Element -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">📦</span> Searching within a Subtree
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>All methods except <code>getElementById</code> can be called on elements, not just <code>document</code>.
+        </li>
+        <li>This allows searching within a specific section of the DOM tree (e.g.,
+          <code>menu.querySelectorAll('.item')</code>).</li>
+      </ul>
+    </section>
+
+    <!-- Practice Example -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4"><span class="mr-2">🧑‍💻</span> Example</h2>
+      <pre class="bg-gray-100 p-4 rounded text-sm overflow-x-auto mb-2"><code>&lt;ul id="ul"&gt;
+  &lt;li&gt;First&lt;/li&gt;
+  &lt;li class="special"&gt;Second&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script&gt;
+  let ul = document.getElementById('ul');
+  let firstLi = ul.getElementsByTagName('li')[0];
+  let special = ul.getElementsByClassName('special')[0];
+  let firstLiQuery = ul.querySelector('li');
+  let allLis = ul.querySelectorAll('li');
+&lt;/script&gt;
+</code></pre>
+      <div class="text-sm text-gray-600">You can search for elements in a subtree for scoped DOM queries.</div>
+    </section>
+
+    <!-- Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow border-2 border-yellow-300">
+      <h2 class="text-2xl font-semibold flex items-center mb-4 text-yellow-700"><span class="mr-2">🚦</span>
+        Senior/Lead: Key Considerations</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><b>Performance:</b> Prefer specific selectors and scoped queries to minimize the search space and improve
+          performance, especially in large DOM trees.</li>
+        <li><b>Maintainability:</b> Use <code>querySelector/querySelectorAll</code> for flexibility and clarity with
+          complex selectors, but avoid overcomplicated selectors that are fragile to DOM changes.</li>
+        <li><b>Live Collections Caution:</b> <b>Avoid relying on live HTMLCollections</b> for state-sensitive UI logic,
+          as mutations can create subtle bugs. Favor static NodeLists when possible for predictable behavior.</li>
+        <li><b>Encapsulation:</b> Always scope queries to components or containers to prevent side-effects and
+          accidental selection of unintended nodes, especially in large apps or component-based architectures.</li>
+        <li><b>Testing:</b> Consistently use data attributes (e.g., <code>data-testid</code>) for reliable element
+          targeting in automated tests instead of relying solely on CSS classes or tag names.</li>
+        <li><b>Frameworks:</b> Understand that most modern frameworks (React, Vue, Angular, etc.) abstract direct DOM
+          searches, but knowing these methods is still critical for low-level manipulation, custom components, or
+          performance tuning.</li>
+        <li><b>Browser Support:</b> <code>querySelector*</code> is widely supported, but legacy codebases might use
+          older methods; plan refactors carefully.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
