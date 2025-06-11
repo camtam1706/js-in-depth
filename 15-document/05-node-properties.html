@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic DOM Node Properties - Summary</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🧩 Basic DOM Node Properties</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📑</span>
+        Node Types Overview
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          The DOM represents every part of an HTML document as a node. Main node types:
+          <ul class="ml-6 list-decimal">
+            <li><b>Element</b>: represents an HTML element, e.g., <code>&lt;body&gt;</code> (<code>nodeType == 1</code>)
+            </li>
+            <li><b>Text</b>: represents text inside elements (<code>nodeType == 3</code>)</li>
+            <li><b>Comment</b>: represents a comment (<code>nodeType == 8</code>)</li>
+            <li>Other: document, documentType, processingInstruction (rarely used in everyday work)</li>
+          </ul>
+        </li>
+        <li>
+          All nodes inherit from the base <code>Node</code> class.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛠️</span>
+        nodeType, nodeName, and tagName
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          <b>nodeType</b>: a numeric code for node type. E.g., 1 for Element, 3 for Text, 8 for Comment.
+        </li>
+        <li>
+          <b>nodeName</b> (for all nodes): Returns the name of the node, e.g., <code>'DIV'</code>, <code>'#text'</code>,
+          <code>'#comment'</code>.
+        </li>
+        <li>
+          <b>tagName</b> (only for Element nodes): Returns the element's tag in uppercase, e.g., <code>'DIV'</code>.
+        </li>
+        <li>
+          For elements, <code>nodeName === tagName</code>.
+        </li>
+        <li>
+          <b>Best practice</b>: Prefer <code>nodeType</code> for type checks (since <code>nodeName</code> can be
+          different for XML/XHTML).
+        </li>
+      </ul>
+      <div class="bg-gray-50 rounded p-4 mt-4 text-sm">
+        <b>Example:</b><br />
+        <code>
+          alert( document.body.nodeType ); // 1<br/>
+          alert( document.body.nodeName ); // BODY<br/>
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📝</span>
+        innerHTML, outerHTML, and nodeValue/data
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          <b>innerHTML</b>: Gets/sets the HTML inside an element (string).
+        </li>
+        <li>
+          <b>outerHTML</b>: Gets/sets the HTML of the element itself (string). Assigning to outerHTML replaces the
+          element.
+        </li>
+        <li>
+          <b>nodeValue/data</b>:
+          <ul class="ml-6 list-decimal">
+            <li>For Text or Comment nodes, <code>nodeValue</code> or <code>data</code> gives the text content.</li>
+            <li>For Element nodes, <code>nodeValue</code> is always <code>null</code>.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bg-gray-50 rounded p-4 mt-4 text-sm">
+        <b>Example:</b><br />
+        <code>
+          let comment = document.createComment("Hello");<br/>
+          alert(comment.nodeValue); // "Hello"<br/>
+          alert(comment.data);      // "Hello"
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔄</span>
+        textContent and hidden Properties
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          <b>textContent</b>: Gets/sets the text inside the node and all descendants.
+          <ul class="ml-6 list-decimal">
+            <li>Ignores any HTML tags (treats everything as plain text).</li>
+            <li>Setting <code>textContent</code> removes all child nodes and replaces them with a single text node.</li>
+          </ul>
+        </li>
+        <li>
+          <b>hidden</b>: Boolean property. If set to <code>true</code>, the element is not visible (CSS
+          <code>display: none</code>).
+        </li>
+      </ul>
+      <div class="bg-gray-50 rounded p-4 mt-4 text-sm">
+        <b>Example:</b><br />
+        <code>
+          document.body.textContent = "Hello!"; // replaces all HTML with plain text "Hello!"
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🧮</span>
+        Special Properties for Different Node Types
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          <b>Element</b>: has <code>tagName</code>, <code>innerHTML</code>, <code>outerHTML</code>, <code>hidden</code>,
+          <code>textContent</code>, and more.
+        </li>
+        <li>
+          <b>Text/Comment</b>: has <code>nodeValue</code> and <code>data</code> for content.
+        </li>
+        <li>
+          <b>Document</b>: has special properties for the root of the DOM tree.
+        </li>
+        <li>
+          <b>Best Practice</b>: Check <code>nodeType</code> before accessing these properties.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚡</span>
+        Senior/Lead: Key Takeaways & Pitfalls
+      </h2>
+      <ul class="list-disc list-inside space-y-1">
+        <li>
+          <b>Performance:</b> Frequent use of <code>innerHTML</code> or <code>outerHTML</code> for updates can cause
+          reflows and repainting. Prefer DOM methods (like <code>appendChild</code>, <code>removeChild</code>, etc.) for
+          performance-sensitive code.
+        </li>
+        <li>
+          <b>Security:</b> Assigning unsanitized HTML to <code>innerHTML</code>/<code>outerHTML</code> can open the door
+          for XSS attacks. Always sanitize or validate content.
+        </li>
+        <li>
+          <b>NodeType Checks:</b> Rely on <code>nodeType</code> for robust type checking across XML/HTML/XHTML.
+        </li>
+        <li>
+          <b>Replacing vs. Updating:</b> Replacing elements via <code>outerHTML</code> removes all event listeners and
+          data associated with the original node. Use with caution.
+        </li>
+        <li>
+          <b>textContent vs. innerHTML:</b> <code>textContent</code> is safer for inserting plain text, as it does not
+          parse HTML.
+        </li>
+        <li>
+          <b>Hidden Property:</b> Using <code>hidden</code> is cleaner than toggling <code>display</code> styles
+          directly.
+        </li>
+        <li>
+          <b>Debugging:</b> Be aware that <code>nodeName</code> may vary in XML vs. HTML documents (case sensitivity).
+        </li>
+        <li>
+          <b>Team Onboarding:</b> Educate team members on the risks and differences between manipulating via
+          <code>innerHTML</code>, <code>textContent</code>, and direct DOM APIs.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 7 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📚</span>
+        Quick Reference Table
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-left text-sm border border-gray-300 rounded">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="py-2 px-3 border-b font-semibold">Property</th>
+              <th class="py-2 px-3 border-b font-semibold">Element</th>
+              <th class="py-2 px-3 border-b font-semibold">Text/Comment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2 px-3 border-b">nodeType</td>
+              <td class="py-2 px-3 border-b">1</td>
+              <td class="py-2 px-3 border-b">3 / 8</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 border-b">nodeName</td>
+              <td class="py-2 px-3 border-b">TAGNAME</td>
+              <td class="py-2 px-3 border-b">#text / #comment</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 border-b">tagName</td>
+              <td class="py-2 px-3 border-b">TAGNAME</td>
+              <td class="py-2 px-3 border-b">-</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 border-b">innerHTML / outerHTML</td>
+              <td class="py-2 px-3 border-b">✓</td>
+              <td class="py-2 px-3 border-b">-</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 border-b">textContent</td>
+              <td class="py-2 px-3 border-b">✓</td>
+              <td class="py-2 px-3 border-b">✓</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3 border-b">nodeValue / data</td>
+              <td class="py-2 px-3 border-b">null</td>
+              <td class="py-2 px-3 border-b">✓</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-3">hidden</td>
+              <td class="py-2 px-3">✓</td>
+              <td class="py-2 px-3">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 8 -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span>
+        References & Further Reading
+      </h2>
+      <ul class="list-disc list-inside">
+        <li>
+          <a href="https://javascript.info/basic-dom-node-properties" class="text-blue-600 underline"
+            target="_blank">javascript.info - Basic DOM Node Properties</a>
+        </li>
+        <li>
+          <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node" class="text-blue-600 underline"
+            target="_blank">MDN Web Docs - Node</a>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
