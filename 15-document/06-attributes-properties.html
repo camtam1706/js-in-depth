@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOM Attributes and Properties in JavaScript</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">📝 DOM Attributes and Properties</h1>
+  </header>
+
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: Overview -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📚</span> Overview
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>DOM elements are objects, so they have properties. For example, <code>input.value</code> and
+          <code>div.id</code> are properties.</li>
+        <li>HTML attributes (what you write in HTML) and DOM properties (what you use in JavaScript) are *not* always
+          the same, but are often connected.</li>
+        <li>Attribute: An HTML attribute is written in the HTML markup.</li>
+        <li>Property: A DOM property is available on the element object in JavaScript.</li>
+        <li>In most cases, changing a property updates the attribute and vice versa, but there are exceptions.</li>
+      </ul>
+    </section>
+
+    <!-- Section 2: Attributes vs. Properties -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔗</span> Attributes vs. Properties
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Attributes</strong> are always strings and reflect what’s written in the HTML.
+        </li>
+        <li>
+          <strong>Properties</strong> are JavaScript values; their types and values can be any valid JS type (string,
+          number, boolean, object, etc.).
+        </li>
+        <li>
+          For most standard attributes, there is a corresponding property, e.g.:
+          <ul class="list-disc pl-6">
+            <li><code>input.value</code> (property) ↔ <code>value</code> attribute</li>
+            <li><code>div.id</code> (property) ↔ <code>id</code> attribute</li>
+          </ul>
+        </li>
+        <li>
+          However, there are differences:
+          <ul class="list-disc pl-6">
+            <li>
+              Properties can have types other than string (boolean, object, etc.), e.g., <code>checked</code> is a
+              boolean property, but its attribute is a string.
+            </li>
+            <li>
+              Not all attributes have a corresponding property and vice versa.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mt-4 p-4 bg-gray-50 rounded text-sm">
+        <strong>Example:</strong><br />
+        <code>
+          &lt;input id="input" type="text" value="Hello"&gt;<br/>
+          let input = document.getElementById('input');<br/>
+          alert(input.value); // "Hello" (property)<br/>
+          alert(input.getAttribute('value')); // "Hello" (attribute)
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 3: Property-Attribute Synchronization -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔄</span> Property-Attribute Synchronization
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          For most standard attributes, the property value reflects the current state of the element, which may differ
+          from the initial attribute value.
+        </li>
+        <li>
+          Changing the property will usually not affect the attribute after the element is created. For example, after
+          modifying <code>input.value</code> in JS, <code>input.getAttribute('value')</code> still returns the initial
+          value from HTML.
+        </li>
+        <li>
+          <strong>Attribute change</strong> (using <code>setAttribute</code>): updates the attribute but may not update
+          the property, except for some attributes.
+        </li>
+        <li>
+          <strong>Property change</strong>: always updates the DOM object property, but often does *not* update the
+          attribute.
+        </li>
+      </ul>
+      <div class="mt-4 p-4 bg-gray-50 rounded text-sm">
+        <strong>Example:</strong><br />
+        <code>
+          input.setAttribute('value', 'World');<br/>
+          alert(input.value); // "Hello" (property not affected)<br/><br/>
+          input.value = 'New Value';<br/>
+          alert(input.getAttribute('value')); // "World" (attribute not affected)
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 4: Non-Standard Attributes (data-*) -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🗃️</span> Non-Standard Attributes & <code>data-*</code>
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Non-standard attributes are not reflected as properties. If you set a random attribute in HTML, it won’t show
+          up as a property on the DOM element.
+        </li>
+        <li>
+          <code>data-*</code> attributes are a special HTML5 mechanism for embedding custom data. They are accessible in
+          JavaScript via the <code>dataset</code> property.
+        </li>
+        <li>
+          Example:
+          <ul class="list-disc pl-6">
+            <li>
+              <code>&lt;div data-user-id="123" data-role="admin"&gt;&lt;/div&gt;</code>
+            </li>
+            <li>
+              <code>div.dataset.userId</code> returns <code>"123"</code>
+            </li>
+            <li>
+              <code>div.dataset.role</code> returns <code>"admin"</code>
+            </li>
+          </ul>
+        </li>
+        <li>
+          JavaScript automatically converts hyphenated names to camelCase in <code>dataset</code>, e.g.,
+          <code>data-order-state</code> → <code>dataset.orderState</code>.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 5: Methods for Working with Attributes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛠️</span> Methods for Working with Attributes
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <code>elem.hasAttribute(name)</code> – checks for existence of an attribute.
+        </li>
+        <li>
+          <code>elem.getAttribute(name)</code> – gets the attribute value as a string.
+        </li>
+        <li>
+          <code>elem.setAttribute(name, value)</code> – sets the attribute value.
+        </li>
+        <li>
+          <code>elem.removeAttribute(name)</code> – removes the attribute.
+        </li>
+        <li>
+          <code>elem.attributes</code> – a collection (NamedNodeMap) of all attributes.
+        </li>
+      </ul>
+      <div class="mt-4 p-4 bg-gray-50 rounded text-sm">
+        <strong>Example:</strong><br />
+        <code>
+          let div = document.querySelector('div');<br/>
+          for (let attr of div.attributes) {<br/>
+          &nbsp;&nbsp;alert(`${attr.name} = ${attr.value}`);<br/>
+          }
+        </code>
+      </div>
+    </section>
+
+    <!-- Section 6: Custom Properties on DOM Elements -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">✨</span> Custom Properties on DOM Elements
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          You can add custom properties directly to DOM objects (elements) in JavaScript. These do not show up as HTML
+          attributes and are only accessible via JavaScript.
+        </li>
+        <li>
+          Example:
+          <ul class="list-disc pl-6">
+            <li><code>div.hello = 'world';</code></li>
+            <li><code>alert(div.hello); // world</code></li>
+          </ul>
+        </li>
+        <li>
+          These custom properties are not visible in HTML or via <code>getAttribute</code>.
+        </li>
+        <li>
+          <strong>Warning:</strong> Custom properties can create memory leaks if not handled carefully, especially if
+          DOM nodes are dynamically created and deleted.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 7: Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🚨</span> Senior/Lead: Key Considerations
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          <strong>Attribute/Property Desync:</strong> Be aware that after DOM manipulation, the property and attribute
+          values may diverge. Always verify which (property vs. attribute) your logic needs.
+        </li>
+        <li>
+          <strong>Performance:</strong> Frequent DOM access and attribute manipulation can impact performance. Batch
+          updates and minimize direct DOM reads/writes.
+        </li>
+        <li>
+          <strong>Security:</strong> Never trust <code>data-*</code> attributes for sensitive logic. Treat them as
+          read-only hints; user-modifiable via browser devtools.
+        </li>
+        <li>
+          <strong>Cross-browser Compatibility:</strong> Not all custom or newer attributes are supported equally across
+          browsers. Always test for attribute support before using.
+        </li>
+        <li>
+          <strong>Memory Leaks:</strong> Avoid attaching large objects or event handlers as custom properties to DOM
+          nodes. When removing elements, clean up custom references to prevent memory leaks.
+        </li>
+        <li>
+          <strong>Framework Integration:</strong> Modern frameworks (React, Vue, Angular) may have their own
+          attribute/property sync logic. Understand how the framework interacts with DOM attributes vs. properties to
+          avoid subtle bugs.
+        </li>
+        <li>
+          <strong>Accessibility (a11y):</strong> Don’t manipulate attributes like <code>aria-*</code> or
+          <code>role</code> carelessly. Always keep them in sync with the UI state for screen readers.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Section 8: Summary & Best Practices -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">✅</span> Summary & Best Practices
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>HTML attributes initialize DOM properties, but after initialization, they can diverge.</li>
+        <li>Use properties in JavaScript for current state, use attributes for initial values or serialization.</li>
+        <li>Use <code>data-*</code> attributes for custom data (but not for logic or large objects).</li>
+        <li>Always clean up custom properties on DOM nodes to avoid memory leaks.</li>
+        <li>Test and document any attribute/property sync assumptions in shared codebases.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
