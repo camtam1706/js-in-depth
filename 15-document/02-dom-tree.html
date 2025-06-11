@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript DOM Nodes</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen font-sans leading-relaxed text-gray-800">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg py-6 text-center">
+    <h1 class="text-3xl font-bold animate-pulse mb-2">🌳 JavaScript DOM Nodes</h1>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-10 px-6 max-w-6xl mx-auto space-y-10">
+
+    <!-- Section 1: What are DOM Nodes? -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🔹</span>1. What are DOM Nodes?
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>The DOM (Document Object Model) is a tree-like structure representing an HTML/XML document.</li>
+        <li>Each node in the DOM tree is an object, and every element, attribute, and piece of text is a node.</li>
+        <li>The topmost node is <code>document</code>. All page content is within <code>document</code>.</li>
+        <li>
+          <strong>Node types:</strong>
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>document</code> – The entry point of the DOM.</li>
+            <li><code>element</code> – An HTML tag (like <code>&lt;body&gt;</code>, <code>&lt;div&gt;</code>).</li>
+            <li><code>text</code> – Plain text inside elements.</li>
+            <li><code>comment</code> – A comment node (like <code>&lt;!-- comment --&gt;</code>).</li>
+            <li><code>attribute</code> – Attributes (like <code>class</code>, <code>id</code>), but these are not
+              children of elements.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>&lt;body&gt;
+  &lt;div&gt;Hello&lt;/div&gt;
+  &lt;!-- Comment --&gt;
+&lt;/body&gt;
+</code></pre>
+      </div>
+      <div class="mt-3 text-sm text-gray-600">
+        This HTML creates the following DOM tree: <br />
+        <strong>body</strong> <br />
+        ├─ <strong>div</strong> <br />
+        │&nbsp;&nbsp;&nbsp;└─ Text: <em>Hello</em> <br />
+        └─ Comment: <em>Comment</em>
+      </div>
+    </section>
+
+    <!-- Section 2: Types of DOM Nodes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🗂️</span>2. Types of DOM Nodes
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>All DOM nodes are descendants of the <code>Node</code> class.</li>
+        <li>
+          The <strong>main types</strong> (Node.nodeType):
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>1</code>: Element</li>
+            <li><code>3</code>: Text</li>
+            <li><code>8</code>: Comment</li>
+            <li><code>9</code>: Document</li>
+            <li><code>10</code>: DocumentType</li>
+          </ul>
+        </li>
+        <li>Use <code>nodeType</code>, <code>nodeName</code>, and <code>nodeValue</code> to identify and inspect nodes.
+        </li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>console.log(document.body.nodeType); // 1
+console.log(document.body.nodeName); // "BODY"
+console.log(document.body.firstChild.nodeType); // 3 (text)
+console.log(document.body.firstChild.nodeValue); // text content
+</code></pre>
+      </div>
+      <div class="mt-3 text-sm text-gray-600">
+        <strong>Note:</strong> <code>nodeName</code> for elements is always uppercase in HTML.
+      </div>
+    </section>
+
+    <!-- Section 3: tree navigation -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🌲</span>3. Navigating the DOM Tree
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>DOM nodes form a hierarchical tree, allowing navigation using properties:</li>
+        <li>
+          <strong>Main navigation properties:</strong>
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>parentNode</code> – The parent node.</li>
+            <li><code>childNodes</code> – All child nodes (including text and comments).</li>
+            <li><code>firstChild</code> / <code>lastChild</code> – The first/last child node.</li>
+            <li><code>previousSibling</code> / <code>nextSibling</code> – The previous/next node at the same level.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Element-only navigation:</strong>
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>children</code> – Only element children (no text/comments).</li>
+            <li><code>firstElementChild</code> / <code>lastElementChild</code></li>
+            <li><code>previousElementSibling</code> / <code>nextElementSibling</code></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>let body = document.body;
+for (let node of body.childNodes) {
+  console.log(node); // Can be text, element, or comment
+}
+</code></pre>
+      </div>
+      <div class="mt-3 text-sm text-gray-600">
+        <strong>Pro Tip:</strong> Use <code>children</code> to filter only element nodes.
+      </div>
+    </section>
+
+    <!-- Section 4: DOM Collections -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📚</span>4. DOM Collections
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Some navigation properties return <strong>live collections</strong>:
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>childNodes</code>, <code>children</code> return <strong>NodeList</strong> and
+              <strong>HTMLCollection</strong> respectively.</li>
+            <li>These collections auto-update if the DOM changes.</li>
+            <li>Not true arrays, but can be converted using <code>Array.from()</code>.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>let arr = Array.from(document.body.children);
+arr.forEach(el => console.log(el.tagName));
+</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 5: Node Manipulation -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">🛠️</span>5. Node Manipulation
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>
+          Common methods:
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>appendChild(node)</code> – Add as last child.</li>
+            <li><code>insertBefore(node, referenceNode)</code> – Insert before another node.</li>
+            <li><code>removeChild(node)</code> – Remove child node.</li>
+            <li><code>replaceChild(newNode, oldNode)</code> – Replace a child.</li>
+          </ul>
+        </li>
+        <li>
+          Modern methods (preferred):
+          <ul class="list-disc pl-6 mt-1">
+            <li><code>append()</code>, <code>prepend()</code>, <code>before()</code>, <code>after()</code>,
+              <code>replaceWith()</code>, <code>remove()</code></li>
+            <li>Work with both nodes and strings.</li>
+          </ul>
+        </li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>let p = document.createElement('p');
+p.textContent = "New paragraph";
+document.body.append(p);
+</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 6: nodeValue & data -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">✏️</span>6. nodeValue & data
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>For text and comment nodes, the content is stored in <code>nodeValue</code> and <code>data</code>
+          properties.</li>
+        <li>For element nodes, <code>nodeValue</code> is always <code>null</code>.</li>
+        <li>Use these properties to get or set the text of text/comment nodes directly.</li>
+      </ul>
+      <div class="bg-gray-50 border-l-4 border-blue-400 p-4 mt-4">
+        <pre><code>let textNode = document.body.firstChild;
+console.log(textNode.data); // text content
+textNode.data = "Changed!";
+</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 7: Quick Reference Table -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">📋</span>7. Quick Reference: Node Types
+      </h2>
+      <table class="min-w-full bg-white border text-sm">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b text-left">Constant</th>
+            <th class="py-2 px-4 border-b text-left">Value</th>
+            <th class="py-2 px-4 border-b text-left">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2 px-4 border-b">ELEMENT_NODE</td>
+            <td class="py-2 px-4 border-b">1</td>
+            <td class="py-2 px-4 border-b">An element node (HTML tag)</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b">TEXT_NODE</td>
+            <td class="py-2 px-4 border-b">3</td>
+            <td class="py-2 px-4 border-b">Text inside an element</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b">COMMENT_NODE</td>
+            <td class="py-2 px-4 border-b">8</td>
+            <td class="py-2 px-4 border-b">A comment node</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b">DOCUMENT_NODE</td>
+            <td class="py-2 px-4 border-b">9</td>
+            <td class="py-2 px-4 border-b">The document itself</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 8: Senior/Lead Notes -->
+    <section class="bg-white p-6 rounded-lg shadow">
+      <h2 class="text-2xl font-semibold flex items-center mb-4">
+        <span class="mr-2">⚡</span>8. Senior/Lead: Key Considerations
+      </h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li><strong>Performance:</strong> Excessive DOM manipulation can impact rendering. Batch changes where possible
+          and use DocumentFragments for large updates.</li>
+        <li><strong>Live Collections Pitfall:</strong> Live <code>NodeList</code> or <code>HTMLCollection</code> can
+          cause unexpected bugs if nodes are added/removed during iteration. Use <code>Array.from()</code> to snapshot.
+        </li>
+        <li><strong>Modern APIs:</strong> Favor modern methods (<code>append</code>, <code>prepend</code>, etc.) for
+          simpler, more robust code.</li>
+        <li><strong>Node Type Checks:</strong> Always check <code>nodeType</code> before acting on nodes, especially
+          when traversing or manipulating children.</li>
+        <li><strong>Memory Leaks:</strong> Orphaned nodes with event listeners can prevent garbage collection. Always
+          clean up references.</li>
+        <li><strong>Security:</strong> Never use unsanitized user data in DOM methods that parse HTML
+          (<code>innerHTML</code>), to avoid XSS attacks.</li>
+        <li><strong>Framework Integration:</strong> When working with React, Vue, or Angular, direct DOM manipulation
+          should be avoided or carefully managed.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="text-center text-sm text-gray-600 py-4 border-t border-gray-300 mt-10">
+    &copy; 2025 Made by <strong>CAMNV</strong>. All rights reserved.
+  </footer>
+</body>
+
+</html>
